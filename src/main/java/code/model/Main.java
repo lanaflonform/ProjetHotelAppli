@@ -1,4 +1,7 @@
-package model;
+package code.model;
+
+import code.Admin;
+import code.model.DAOJDBC.DAOAdminJDBC;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -11,6 +14,12 @@ import java.sql.Statement;
 public class Main {
 
     public static void main(String[] args) throws SQLException {
+
+        test2();
+
+    }
+
+    public static void test1() {
 
         String req = "SELECT nom_cl, prenom_cl FROM Client";
 
@@ -35,5 +44,22 @@ public class Main {
             e.printStackTrace();// Arggg!!!
             System.out.println(e.getMessage() + "\n");
         }
+    }
+
+    public static void test2() {
+
+        try (Connection conn = ConnexionUnique.getInstance().getConnection()){
+
+            DAOAdminJDBC daoAdminJDBC = new DAOAdminJDBC();
+            Admin admin = daoAdminJDBC.findByUsernameAndPassword("adminsupreme", "testmdp");
+            System.out.println(admin);
+
+        }
+
+        catch (SQLException e) {
+            e.printStackTrace();// Arggg!!!
+            System.out.println(e.getMessage() + "\n");
+        }
+
     }
 }
