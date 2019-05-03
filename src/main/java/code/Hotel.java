@@ -1,16 +1,21 @@
 package code;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Created by Vincent on 03/05/2019.
  */
 public class Hotel {
 
-    int numHotel;
-    String nom;
-    String ville;
-    String adresse;
-    float latitude;
-    float longitude;
+    public static Set<Hotel> hotels = new HashSet<>();
+
+    private int numHotel;
+    private String nom;
+    private String ville;
+    private  String adresse;
+    private float latitude;
+    private float longitude;
 
     public Hotel() {}
 
