@@ -36,7 +36,7 @@ public class DAOHotelJDBC implements DAOHotel {
     }
 
     @Override
-    public List<Hotel> FindAll() {
+    public List<Hotel> findAll() {
         String query = "SELECT * FROM Hotel";
         try {
             ResultSet resultSet = con.createStatement().executeQuery(query);

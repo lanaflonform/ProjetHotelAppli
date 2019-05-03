@@ -13,7 +13,7 @@ public class Reservation {
     private Facture facture;
     private Chambre chambre;
 
-    public Reservation(int numReservation, LocalDate dateArrivee, LocalDate dateDepart, int nbPersonnes, String etat, float reduction, Client client, Facture facture, Chambre chambre) {
+    public Reservation(int numReservation, LocalDate dateArrivee, LocalDate dateDepart, int nbPersonnes, String etat, float reduction, Client client, Chambre chambre, Facture facture) {
         this.numReservation = numReservation;
         this.dateArrivee = dateArrivee;
         this.dateDepart = dateDepart;

@@ -39,7 +39,7 @@ public class ReservationTest {
     }
 
     public static void testFindAll() {
-        List<Reservation> reservations = new DAOReservationJDBC().FindAll();
+        List<Reservation> reservations = new DAOReservationJDBC().findAll();
 
         for(Reservation r: reservations) {
             System.out.println(r.toString());

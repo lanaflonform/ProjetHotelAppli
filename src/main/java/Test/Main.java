@@ -30,7 +30,7 @@ public class Main {
     }
 
     public static void testFindAll() {
-        List<Client> clients = new DAOClientJDBC().FindAll();
+        List<Client> clients = new DAOClientJDBC().findAll();
 
         for(Client c: clients) {
             System.out.println(c.toString());

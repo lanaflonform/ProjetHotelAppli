@@ -40,7 +40,7 @@ public class HotelTest {
 
     @Test
     public void testFindAllHotel() {
-        List<Hotel> hotels = daoHotelJDBC.FindAll();
+        List<Hotel> hotels = daoHotelJDBC.findAll();
         assertTrue(hotels.size() == daoHotelJDBC.getNbHotels());
     }
 

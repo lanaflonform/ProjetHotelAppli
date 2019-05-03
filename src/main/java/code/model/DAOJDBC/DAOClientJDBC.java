@@ -29,7 +29,7 @@ public class DAOClientJDBC implements DAOClient {
     }
 
     @Override
-    public List<Client> FindAll() {
+    public List<Client> findAll() {
         String query = "SELECT * FROM Client";
         try {
             ResultSet resultSet = ConnexionUnique.getInstance().getConnection().createStatement().executeQuery(query);

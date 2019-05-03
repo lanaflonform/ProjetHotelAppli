@@ -21,7 +21,7 @@ public class DAOAdminJDBC implements DAOAdmin {
     }
 
     @Override
-    public List<Admin> FindAll() {
+    public List<Admin> findAll() {
         return null;
     }
 

@@ -31,7 +31,7 @@ public class DAOReservationJDBC implements DAOReservation {
     }
 
     @Override
-    public List<Reservation> FindAll() {
+    public List<Reservation> findAll() {
 
         String query = "SELECT * FROM Reservation";
         try {
@@ -89,7 +89,6 @@ public class DAOReservationJDBC implements DAOReservation {
                 sqle.printStackTrace();
             }
         }
-
         return null;
     }
 
