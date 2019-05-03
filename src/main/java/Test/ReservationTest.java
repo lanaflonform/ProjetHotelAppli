@@ -2,13 +2,9 @@ package Test;
 
 import code.Client;
 import code.Reservation;
-import code.Reservation;
-import code.model.DAOJDBC.DAOReservationJDBC;
 import code.model.DAOJDBC.DAOReservationJDBC;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 public class ReservationTest {
@@ -52,7 +48,7 @@ public class ReservationTest {
 
     public static void testDelete() {
         Reservation reservation = new Reservation();
-        reservation.setNum(2);
+        reservation.setNumReservation(2);
 
         boolean isDel = new DAOReservationJDBC().delete(reservation);
         System.out.println(isDel ? "true": "false");

@@ -20,7 +20,7 @@ public class DAOReservationJDBC implements DAOReservation {
             String query = "DELETE FROM Reservation where num_r = ?";
             try {
                 PreparedStatement statement = connection.prepareStatement(query);
-                statement.setInt(1, obj.getNum());
+                statement.setInt(1, obj.getNumReservation());
 
                 return (statement.executeUpdate() == 1);
             } catch (SQLException sqle) {
@@ -100,7 +100,7 @@ public class DAOReservationJDBC implements DAOReservation {
                 String query = "INSERT INTO Reservation (num_r, dateAr_r, dateDep_r, nbPersonnes_r, etat_r, reduction_r, num_cl)"
                     + "VALUES (?, ?, ?, ?, ?, ?, ?)";
                 PreparedStatement statement = connection.prepareStatement(query);
-                statement.setInt(1, obj.getNum());
+                statement.setInt(1, obj.getNumReservation());
                 statement.setString(2, obj.getDateArrivee().toString());
                 statement.setString(3, obj.getDateDepart().toString());
                 statement.setInt(4, obj.getNbPersonnes());
@@ -130,7 +130,7 @@ public class DAOReservationJDBC implements DAOReservation {
                 statement.setInt(3, obj.getNbPersonnes());
                 statement.setString(4, obj.getEtat());
                 statement.setFloat(5, obj.getReduction());
-                statement.setInt(6, obj.getNum());
+                statement.setInt(6, obj.getNumReservation());
                 statement.setInt(7, obj.getClient().getNum());
 
                 return (statement.executeUpdate() == 1);
