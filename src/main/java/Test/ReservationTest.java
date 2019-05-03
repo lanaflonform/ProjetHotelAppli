@@ -1,5 +1,6 @@
 package Test;
 
+import code.Client;
 import code.Reservation;
 import code.Reservation;
 import code.model.DAOJDBC.DAOReservationJDBC;
@@ -20,20 +21,24 @@ public class ReservationTest {
     }
 
     public static void testInsert() {
-        Reservation r = new Reservation(2, LocalDate.now(), LocalDate.now(), 15, "ATTENTR_CONFIRMATION2", 0, null, null, null);
+        Client c = new Client();
+        c.setNum(1);
+        Reservation r = new Reservation(2, LocalDate.now(), LocalDate.now(), 15, "ATTENTR_CONFIRMATION2", 15, c, null, null);
         Reservation n = new DAOReservationJDBC().insert(r);
         System.out.println(n == null ? "null": n.toString());
     }
 
 
     public static void testUpdate() {
-      Reservation r = new Reservation(1, LocalDate.now(), LocalDate.now(), 18, "ATTENdssdTR_CONFIRMATION", 0, null, null, null);
+        Client c = new Client();
+        c.setNum(1);
+      Reservation r = new Reservation(1, LocalDate.now(), LocalDate.now(), 18, "ATTN", 0, c, null, null);
         boolean n = new DAOReservationJDBC().update(r);
         System.out.println(n ? "true": false);
     }
 
     public static void getById() {
-        Reservation r = new DAOReservationJDBC().getById(1);
+        Reservation r = new DAOReservationJDBC().getById(2);
         System.out.println(r);
     }
 

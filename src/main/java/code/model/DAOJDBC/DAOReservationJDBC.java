@@ -5,26 +5,24 @@ import code.model.ConnexionUnique;
 import code.model.DAOInterfaces.DAOReservation;
 import code.Reservation;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DAOReservationJDBC implements DAOReservation {
+
+    private static Connection connection = ConnexionUnique.getInstance().getConnection();
+
     @Override
     public boolean delete(Reservation obj) {
         if(!(obj == null)) {
-            String query = "DELETE FROM Reservation where num_r = " + obj.getNum();
+            String query = "DELETE FROM Reservation where num_r = ?";
             try {
-                Connection connection  = ConnexionUnique.getInstance().getConnection();
-                Statement statement = connection.createStatement();
-                int nb = statement.executeUpdate(query);
+                PreparedStatement statement = connection.prepareStatement(query);
+                statement.setInt(1, obj.getNum());
 
-                return (nb == 1);
-
+                return (statement.executeUpdate() == 1);
             } catch (SQLException sqle) {
                 sqle.printStackTrace();
             }
@@ -63,11 +61,15 @@ public class DAOReservationJDBC implements DAOReservation {
     @Override
     public Reservation getById(Integer integer) {
         if(!integer.equals("") && !integer.equals(null)) {
-            String query = "SELECT * FROM Reservation where num_r = " + integer;
+            String query = "SELECT * FROM Reservation where num_r = ?";
 
             try {
-                ResultSet resultSet = ConnexionUnique.getInstance().getConnection().createStatement().executeQuery(query);
+                PreparedStatement statement = connection.prepareStatement(query);
+                statement.setInt(1, integer);
+                ResultSet resultSet = statement.executeQuery();
+
                 Reservation reservation = null;
+
                 while(resultSet.next()) {
                     reservation = new Reservation (
                         resultSet.getInt("num_r"),
@@ -96,19 +98,17 @@ public class DAOReservationJDBC implements DAOReservation {
         if(!(obj== null)){
             try{
                 String query = "INSERT INTO Reservation (num_r, dateAr_r, dateDep_r, nbPersonnes_r, etat_r, reduction_r, num_cl)"
-                        + "VALUES (" + "\"" + obj.getNum() + "\""
-                        + " , \"" + obj.getDateArrivee() + "\""
-                        + ", \"" + obj.getDateDepart() + "\""
-                        + ", " + obj.getNbPersonnes()
-                        + ", \"" + obj.getEtat() + "\""
-                        + ", \"" + obj.getReduction() + "\""
-                        + ", " + /*obj.getClient().getNum()*/ 6
-                        + ")";
-                Connection connection = ConnexionUnique.getInstance().getConnection();
-                Statement statement = connection.createStatement();
-                int nb = statement.executeUpdate(query);
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+                PreparedStatement statement = connection.prepareStatement(query);
+                statement.setInt(1, obj.getNum());
+                statement.setString(2, obj.getDateArrivee().toString());
+                statement.setString(3, obj.getDateDepart().toString());
+                statement.setInt(4, obj.getNbPersonnes());
+                statement.setString(5, obj.getEtat());
+                statement.setFloat(6, obj.getReduction());
+                statement.setInt(7, obj.getClient().getNum());
 
-                return (nb == 1) ? obj: null;
+                return (statement.executeUpdate() == 1) ? obj: null;
 
             } catch (SQLException sqle) {
                 System.out.println("DAOClientJDBC.insert()");
@@ -122,20 +122,18 @@ public class DAOReservationJDBC implements DAOReservation {
     @Override
     public boolean update(Reservation obj) {
         if(!(obj== null)){
+            String query = "UPDATE Reservation SET dateAr_r = ?, dateDep_r = ?, nbPersonnes_r = ?, etat_r = ?, reduction_r = ?, num_cl = ? WHERE num_r = ?";
             try{
-                String query = "UPDATE Reservation"
-                        + " SET dateAr_r =  \"" + obj.getDateArrivee() + "\""
-                        + ", dateDep_r = \"" + obj.getDateDepart() + "\""
-                        + ", nbPersonnes_r = " + obj.getNbPersonnes()
-                        + ", etat_r = \"" + obj.getEtat() + "\""
-                        + ", reduction_r = \"" + obj.getReduction() + "\""
-                        + ", num_cl = " + 6//obj.getClient().getNum()
-                        + " WHERE num_r = " + obj.getNum();
-                Connection connection = ConnexionUnique.getInstance().getConnection();
-                Statement statement = connection.createStatement();
-                int nb = statement.executeUpdate(query);
+                PreparedStatement statement = connection.prepareStatement(query);
+                statement.setString(1, obj.getDateArrivee().toString());
+                statement.setString(2, obj.getDateDepart().toString());
+                statement.setInt(3, obj.getNbPersonnes());
+                statement.setString(4, obj.getEtat());
+                statement.setFloat(5, obj.getReduction());
+                statement.setInt(6, obj.getNum());
+                statement.setInt(7, obj.getClient().getNum());
 
-                return (nb == 1);
+                return (statement.executeUpdate() == 1);
 
             } catch (SQLException sqle) {
                 System.out.println("DAORESERVATIONJDBC.insert()");

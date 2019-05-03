@@ -23,7 +23,7 @@ public class Main {
 
     public static void testGetById() {
         Client client1 = new DAOClientJDBC().getById(1);
-        Client client3 = new DAOClientJDBC().getById(3);
+        Client client3 = new DAOClientJDBC().getById(6);
 
         System.out.println(client1.toString());
         System.out.println(client3.toString());
@@ -39,21 +39,21 @@ public class Main {
 
     public static void testDelete() {
         Client client = new Client();
-        client.setNum(3);
+        client.setNum(6);
 
         boolean isDel = new DAOClientJDBC().delete(client);
         System.out.println(isDel ? "true": "false");
     }
 
     public static void testInsert() {
-        Client client = new Client(2, "seye", "fallou", "chomage", "0638611135", "fourchette@cuillere.couteau", "fourchette_cuillere", "abcd");
+        Client client = new Client(7, "seye", "fallou", "chomage", "0638611135", "fourchette@cuillere.couteau", "fourchette_cuillere", "abcd");
 
         Client inserted = new DAOClientJDBC().insert(client);
         System.out.println(inserted.toString());
     }
 
     public static void testUpdate() {
-        Client client = new Client(6, "seyeu", "fallouu", "chomageu", "0638611135", "fourchette@cuillere.couteauu", "fourchette_cuillereu", "abcdu");
+        Client client = new Client(7, "seyleu", "fallouu", "chomageu", "0638611135", "fourchette@cuillere.couteauu", "fourchette_cuillereu", "abcdu");
         boolean updated = new DAOClientJDBC().update(client);
         System.out.println(updated ? "true": "false");
 
