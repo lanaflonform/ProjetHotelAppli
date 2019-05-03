@@ -16,16 +16,13 @@ import java.util.List;
 public class DAOHotelJDBC implements DAOHotel {
 
     private static Connection con = ConnexionUnique.getInstance().getConnection();
-    private static final String deleteQuery = "DELETE FROM Hotel WHERE num_h=?";
-    private static final String getByIdQuery = "SELECT * FROM Hotel where num_h = ?";
-    private static final String insertQuery = "INSERT INTO Hotel(nom_h, ville_h, adresse_h, latitude_h, longitude_h) VALUES(?,?,?,?,?)";
-    private static final String updateQuery = "UPDATE Hotel SET nom_h=?, ville_h=?, adresse_h=?, latitude_h=?, longitude_h=? WHERE num_h=?";
 
     @Override
     public boolean delete(Hotel obj) {
         if(!(obj == null)) {
+            String deleteQuery = "DELETE FROM Hotel WHERE num_h=?";
             try {
-                PreparedStatement ps = ConnexionUnique.getInstance().getConnection().prepareStatement(deleteQuery);
+                PreparedStatement ps = con.prepareStatement(deleteQuery);
                 ps.setInt(1, obj.getNumHotel());
                 int nb = ps.executeUpdate();
 
@@ -65,7 +62,7 @@ public class DAOHotelJDBC implements DAOHotel {
     @Override
     public Hotel getById(Integer id) {
         if (id != null) {
-
+            String getByIdQuery = "SELECT * FROM Hotel where num_h = ?";
             try {
                 PreparedStatement ps = con.prepareStatement(getByIdQuery);
                 ps.setInt(1, id);
@@ -92,10 +89,8 @@ public class DAOHotelJDBC implements DAOHotel {
     @Override
     public Hotel insert(Hotel obj) {
         if(!(obj== null)){
-
+            String insertQuery = "INSERT INTO Hotel(nom_h, ville_h, adresse_h, latitude_h, longitude_h) VALUES(?,?,?,?,?)";
             try{
-
-                //"INSERT INTO Hotel(nom_h, ville_h, adresse_h, latitude_h, longitude_h) VALUES(?,?,?,?,?)"
                 PreparedStatement ps = con.prepareStatement(insertQuery);
                 ps.setString(1, obj.getNom());
                 ps.setString(2, obj.getVille());
@@ -118,8 +113,8 @@ public class DAOHotelJDBC implements DAOHotel {
     @Override
     public boolean update(Hotel obj) {
         if(!(obj== null)){
+            String updateQuery = "UPDATE Hotel SET nom_h=?, ville_h=?, adresse_h=?, latitude_h=?, longitude_h=? WHERE num_h=?";
             try {
-                //"UPDATE Hotel SET nom_h=?, ville_h=?, adresse_h=?, latitude_h=?, longitude_h=? WHERE num_h=?"
                 PreparedStatement ps = con.prepareStatement(updateQuery);
                 ps.setString(1, obj.getNom());
                 ps.setString(2, obj.getVille());

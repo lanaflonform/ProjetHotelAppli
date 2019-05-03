@@ -33,8 +33,7 @@ public class HotelTest {
     @Test
     public void testUpdateHotel() {
 
-        Hotel hotel = daoHotelJDBC.getById(6);
-        System.out.println(hotel);
+        Hotel hotel = daoHotelJDBC.getById(7);
         hotel.setAdresse("28 avenue des calanques");
         assertTrue(daoHotelJDBC.update(hotel));
     }
@@ -47,7 +46,7 @@ public class HotelTest {
 
     @Test
     public void testDeleteHotel() {
-        Hotel hotel = daoHotelJDBC.getById(6);
+        Hotel hotel = daoHotelJDBC.getById(7);
         assertTrue(daoHotelJDBC.delete(hotel));
     }
 

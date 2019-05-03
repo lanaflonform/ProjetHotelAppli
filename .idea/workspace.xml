@@ -2,26 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e95a3378-9850-4a49-bb21-f8c83004b9b4" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_4_12.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_3.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/Test/HotelTest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/code/Hotel.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/code/model/DAOInterfaces/DAOHotel.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/code/model/DAOJDBC/DAOHotelJDBC.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Test/ReservationTest.class" afterPath="$PROJECT_DIR$/target/classes/Test/ReservationTest.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/code/Reservation.class" afterPath="$PROJECT_DIR$/target/classes/code/Reservation.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/code/model/DAOJDBC/DAOClientJDBC.class" afterPath="$PROJECT_DIR$/target/classes/code/model/DAOJDBC/DAOClientJDBC.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/code/model/DAOJDBC/DAOReservationJDBC.class" afterPath="$PROJECT_DIR$/target/classes/code/model/DAOJDBC/DAOReservationJDBC.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/projet.iml" afterPath="$PROJECT_DIR$/projet.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Test/ReservationTest.java" afterPath="$PROJECT_DIR$/src/main/java/Test/ReservationTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/code/Chambre.java" afterPath="$PROJECT_DIR$/src/main/java/code/Chambre.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/code/Reservation.java" afterPath="$PROJECT_DIR$/src/main/java/code/Reservation.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/code/model/DAOJDBC/DAOClientJDBC.java" afterPath="$PROJECT_DIR$/src/main/java/code/model/DAOJDBC/DAOClientJDBC.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/code/model/DAOJDBC/DAOReservationJDBC.java" afterPath="$PROJECT_DIR$/src/main/java/code/model/DAOJDBC/DAOReservationJDBC.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Test/HotelTest.java" afterPath="$PROJECT_DIR$/src/main/java/Test/HotelTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/code/model/DAOJDBC/DAOHotelJDBC.java" afterPath="$PROJECT_DIR$/src/main/java/code/model/DAOJDBC/DAOHotelJDBC.java" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -117,8 +100,8 @@
       <file leaf-file-name="HotelTest.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/Test/HotelTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="595">
-              <caret line="50" column="47" lean-forward="true" selection-start-line="50" selection-start-column="47" selection-end-line="50" selection-end-column="47" />
+            <state relative-caret-position="571">
+              <caret line="48" column="44" lean-forward="false" selection-start-line="48" selection-start-column="44" selection-end-line="48" selection-end-column="44" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -161,8 +144,8 @@
       <file leaf-file-name="DAOHotelJDBC.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/code/model/DAOJDBC/DAOHotelJDBC.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="129">
-              <caret line="30" column="0" lean-forward="true" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+            <state relative-caret-position="333">
+              <caret line="26" column="44" lean-forward="true" selection-start-line="26" selection-start-column="44" selection-end-line="26" selection-end-column="44" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -809,10 +792,10 @@
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="JUnit.HotelTest.testDeleteHotel" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.HotelTest.testUpdateHotel" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.HotelTest" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.HotelTest.testFindAllHotel" />
-        <item index="4" class="java.lang.String" itemvalue="JUnit.HotelTest.testInsertHotel" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.HotelTest.testFindAllHotel" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.HotelTest.testUpdateHotel" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.HotelTest.testInsertHotel" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.HotelTest" />
       </list>
     </recent_temporary>
   </component>
@@ -830,6 +813,14 @@
       <option name="presentableId" value="Default" />
       <updated>1556794905046</updated>
     </task>
+    <task id="LOCAL-00001" summary="DAOHotel fait et petites modifs sur Client et Reservation">
+      <created>1556879285068</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1556879285068</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -845,22 +836,22 @@
     <history-entry file="HotelTest_testDeleteHotel - 2019.05.03 at 11h 26m 30s.xml">
       <configuration name="HotelTest.testDeleteHotel" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="HotelTest_testFindAllHotel - 2019.05.03 at 11h 13m 44s.xml">
+    <history-entry file="HotelTest_testDeleteHotel - 2019.05.03 at 11h 50m 12s.xml">
+      <configuration name="HotelTest.testDeleteHotel" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="HotelTest_testFindAllHotel - 2019.05.03 at 11h 49m 51s.xml">
       <configuration name="HotelTest.testFindAllHotel" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="HotelTest_testFindAllHotel - 2019.05.03 at 11h 16m 22s.xml">
-      <configuration name="HotelTest.testFindAllHotel" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="HotelTest_testFindAllHotel - 2019.05.03 at 11h 17m 07s.xml">
-      <configuration name="HotelTest.testFindAllHotel" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="HotelTest_testFindAllHotel - 2019.05.03 at 11h 17m 18s.xml">
-      <configuration name="HotelTest.testFindAllHotel" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="HotelTest_testUpdateHotel - 2019.05.03 at 11h 06m 42s.xml">
-      <configuration name="HotelTest.testUpdateHotel" configurationId="JUnit" />
+    <history-entry file="HotelTest_testInsertHotel - 2019.05.03 at 11h 49m 19s.xml">
+      <configuration name="HotelTest.testInsertHotel" configurationId="JUnit" />
     </history-entry>
     <history-entry file="HotelTest_testUpdateHotel - 2019.05.03 at 11h 26m 17s.xml">
+      <configuration name="HotelTest.testUpdateHotel" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="HotelTest_testUpdateHotel - 2019.05.03 at 11h 49m 24s.xml">
+      <configuration name="HotelTest.testUpdateHotel" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="HotelTest_testUpdateHotel - 2019.05.03 at 11h 49m 41s.xml">
       <configuration name="HotelTest.testUpdateHotel" configurationId="JUnit" />
     </history-entry>
   </component>
@@ -928,6 +919,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="DAOHotel fait et petites modifs sur Client et Reservation" />
+    <option name="LAST_COMMIT_MESSAGE" value="DAOHotel fait et petites modifs sur Client et Reservation" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1151,8 +1146,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/code/model/DAOJDBC/DAOHotelJDBC.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="129">
-          <caret line="30" column="0" lean-forward="true" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+        <state relative-caret-position="333">
+          <caret line="26" column="44" lean-forward="true" selection-start-line="26" selection-start-column="44" selection-end-line="26" selection-end-column="44" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1161,8 +1156,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Test/HotelTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="50" column="47" lean-forward="true" selection-start-line="50" selection-start-column="47" selection-end-line="50" selection-end-column="47" />
+        <state relative-caret-position="571">
+          <caret line="48" column="44" lean-forward="false" selection-start-line="48" selection-start-column="44" selection-end-line="48" selection-end-column="44" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
