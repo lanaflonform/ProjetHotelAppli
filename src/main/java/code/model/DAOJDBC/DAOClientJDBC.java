@@ -58,9 +58,9 @@ public class DAOClientJDBC implements DAOClient {
 
     @Override
     public Client getById(Integer integer) {
-        if(!integer.equals("") && !integer.equals(null)) {
+        if(integer != null) {
 
-        String query = "SELECT * FROM Client where num_cl = " + integer;
+            String query = "SELECT * FROM Client where num_cl = " + integer;
 
             try {
                 ResultSet resultSet = ConnexionUnique.getInstance().getConnection().createStatement().executeQuery(query);

@@ -1,6 +1,5 @@
 package code.model.DAOJDBC;
 
-import code.Client;
 import code.model.ConnexionUnique;
 import code.model.DAOInterfaces.DAOReservation;
 import code.Reservation;
@@ -9,7 +8,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +15,7 @@ public class DAOReservationJDBC implements DAOReservation {
     @Override
     public boolean delete(Reservation obj) {
         if(!(obj == null)) {
-            String query = "DELETE FROM Reservation where num_r = " + obj.getNum();
+            String query = "DELETE FROM Reservation where num_r = " + obj.getNumReservation();
             try {
                 Connection connection  = ConnexionUnique.getInstance().getConnection();
                 Statement statement = connection.createStatement();
@@ -62,7 +60,7 @@ public class DAOReservationJDBC implements DAOReservation {
 
     @Override
     public Reservation getById(Integer integer) {
-        if(!integer.equals("") && !integer.equals(null)) {
+        if(integer != null) {
             String query = "SELECT * FROM Reservation where num_r = " + integer;
 
             try {
@@ -96,13 +94,13 @@ public class DAOReservationJDBC implements DAOReservation {
         if(!(obj== null)){
             try{
                 String query = "INSERT INTO Reservation (num_r, dateAr_r, dateDep_r, nbPersonnes_r, etat_r, reduction_r, num_cl)"
-                        + "VALUES (" + "\"" + obj.getNum() + "\""
+                        + "VALUES (" + "\"" + obj.getNumReservation() + "\""
                         + " , \"" + obj.getDateArrivee() + "\""
                         + ", \"" + obj.getDateDepart() + "\""
                         + ", " + obj.getNbPersonnes()
                         + ", \"" + obj.getEtat() + "\""
                         + ", \"" + obj.getReduction() + "\""
-                        + ", " + /*obj.getClient().getNum()*/ 6
+                        + ", " + /*obj.getClient().getNumReservation()*/ 6
                         + ")";
                 Connection connection = ConnexionUnique.getInstance().getConnection();
                 Statement statement = connection.createStatement();
@@ -129,8 +127,8 @@ public class DAOReservationJDBC implements DAOReservation {
                         + ", nbPersonnes_r = " + obj.getNbPersonnes()
                         + ", etat_r = \"" + obj.getEtat() + "\""
                         + ", reduction_r = \"" + obj.getReduction() + "\""
-                        + ", num_cl = " + 6//obj.getClient().getNum()
-                        + " WHERE num_r = " + obj.getNum();
+                        + ", num_cl = " + 6//obj.getClient().getNumReservation()
+                        + " WHERE num_r = " + obj.getNumReservation();
                 Connection connection = ConnexionUnique.getInstance().getConnection();
                 Statement statement = connection.createStatement();
                 int nb = statement.executeUpdate(query);

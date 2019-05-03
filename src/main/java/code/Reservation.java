@@ -2,7 +2,7 @@ package code;
 
 import java.time.LocalDate;
 public class Reservation {
-    private int num;
+    private int numReservation;
     private LocalDate dateArrivee;
     private LocalDate dateDepart;
     private int nbPersonnes;
@@ -13,8 +13,8 @@ public class Reservation {
     private Facture facture;
     private Chambre chambre;
 
-    public Reservation(int num, LocalDate dateArrivee, LocalDate dateDepart, int nbPersonnes, String etat, float reduction, Client client, Facture facture, Chambre chambre) {
-        this.num = num;
+    public Reservation(int numReservation, LocalDate dateArrivee, LocalDate dateDepart, int nbPersonnes, String etat, float reduction, Client client, Facture facture, Chambre chambre) {
+        this.numReservation = numReservation;
         this.dateArrivee = dateArrivee;
         this.dateDepart = dateDepart;
         this.nbPersonnes = nbPersonnes;
@@ -29,12 +29,12 @@ public class Reservation {
 
     }
 
-    public void setNum(int num) {
-        this.num = num;
+    public void setNumReservation(int numReservation) {
+        this.numReservation = numReservation;
     }
 
-    public int getNum() {
-        return num;
+    public int getNumReservation() {
+        return numReservation;
     }
 
     public LocalDate getDateArrivee() {
@@ -72,7 +72,7 @@ public class Reservation {
     @Override
     public String toString() {
         return "Reservation{" +
-                "num=" + num +
+                "numReservation=" + numReservation +
                 ", dateArrivee=" + dateArrivee +
                 ", dateDepart=" + dateDepart +
                 ", nbPersonnes=" + nbPersonnes +
