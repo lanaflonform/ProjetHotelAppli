@@ -42,7 +42,7 @@ public class DAOChambreJDBC implements DAOChambre {
     }
 
     @Override
-    public List<Chambre> FindAll() {
+    public List<Chambre> findAll() {
 
         String query1 = "SELECT * FROM Chambre";
         try {

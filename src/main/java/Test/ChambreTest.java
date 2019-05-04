@@ -42,7 +42,7 @@ public class ChambreTest {
 
     @Test
     public void testFindAllChambres() {
-        List<Chambre> chambres = daoChambreJDBC.FindAll();
+        List<Chambre> chambres = daoChambreJDBC.findAll();
         assertTrue(chambres.size() == daoChambreJDBC.getNbChambres());
         System.out.println(chambres);
     }

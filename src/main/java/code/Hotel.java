@@ -8,24 +8,24 @@ import java.util.Set;
  */
 public class Hotel {
 
-    public static Set<Hotel> hotels = new HashSet<>();
-
     private int numHotel;
     private String nom;
     private String ville;
     private  String adresse;
     private float latitude;
     private float longitude;
+    private Set<TypeService> services = new HashSet<>();
 
     public Hotel() {}
 
-    public Hotel(int numHotel, String nom, String ville, String adresse, float latitude, float longitude) {
+    public Hotel(int numHotel, String nom, String ville, String adresse, float latitude, float longitude, Set<TypeService> services) {
         this.numHotel = numHotel;
         this.nom = nom;
         this.ville = ville;
         this.adresse = adresse;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.services = services;
     }
 
     public int getNumHotel() {
@@ -76,6 +76,14 @@ public class Hotel {
         this.longitude = longitude;
     }
 
+    public Set<TypeService> getServices() {
+        return services;
+    }
+
+    public void setServices(Set<TypeService> services) {
+        this.services = services;
+    }
+
     @Override
     public String toString() {
         return "Hotel{" +
@@ -85,6 +93,7 @@ public class Hotel {
                 ", adresse='" + adresse + '\'' +
                 ", latitude=" + latitude +
                 ", longitude=" + longitude +
+                ", services=" + services +
                 '}';
     }
 
