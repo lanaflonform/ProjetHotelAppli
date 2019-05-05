@@ -31,6 +31,7 @@ public class DAOHotelJDBC implements DAOHotel {
                 return (nb == 1);
 
             } catch (SQLException sqle) {
+                System.err.println("DAOHotelJDBC.delete");
                 sqle.printStackTrace();
             }
         }
@@ -83,6 +84,7 @@ public class DAOHotelJDBC implements DAOHotel {
             }
             return hotels;
         } catch(SQLException sqle) {
+            System.err.println("DAOHotelJDBC.findAll");
             sqle.printStackTrace();
         }
         return null;
@@ -112,6 +114,7 @@ public class DAOHotelJDBC implements DAOHotel {
                     );
                 }
             } catch (SQLException sqle) {
+                System.err.println("DAOHotelJDBC.getById");
                 sqle.printStackTrace();
             }
 
@@ -176,8 +179,9 @@ public class DAOHotelJDBC implements DAOHotel {
                 ps.close();
 
                 return true;
-            } catch (SQLException e) {
-                e.printStackTrace();
+            } catch (SQLException sqle) {
+                System.err.println("DAOHotelJDBC.update");
+                sqle.printStackTrace();
             }
         }
         return false;
@@ -236,8 +240,9 @@ public class DAOHotelJDBC implements DAOHotel {
             if (rs.next()) {
                 return rs.getInt(1);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException sqle) {
+            System.err.println("DAOHotelJDBC.getNbHotels");
+            sqle.printStackTrace();
         }
         return -1;
     }

@@ -2,6 +2,8 @@ package code.model.DAOInterfaces;
 
 import code.Admin;
 
+import java.util.Map;
+
 /**
  * Created by Vincent on 01/05/2019.
  */
@@ -16,5 +18,7 @@ public interface DAOAdmin extends DAO <Admin, Integer> {
      * @return l'objet Admin ou null s'il n'existe pas
      */
     public Admin findByUsernameAndPassword(String username, String password);
+
+    public void insertDroits(int numAdmin, Map<String, Boolean> droits);
 
 }

@@ -1,5 +1,10 @@
 package code;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by Vincent on 01/05/2019.
  */
@@ -8,6 +13,16 @@ public class Admin {
     private int numAdmin;
     private String identifiant;
     private String mdp;
+    private Map<String, Boolean> droits = new HashMap<>();
+
+    public Admin() {}
+
+    public Admin(int numAdmin, String identifiant, String mdp, Map<String, Boolean> droits) {
+        this.numAdmin = numAdmin;
+        this.identifiant = identifiant;
+        this.mdp = mdp;
+        this.droits = droits;
+    }
 
     public int getNumAdmin() {
         return numAdmin;
@@ -31,6 +46,14 @@ public class Admin {
 
     public void setMdp(String mdp) {
         this.mdp = mdp;
+    }
+
+    public Map<String, Boolean> getDroits() {
+        return droits;
+    }
+
+    public void setDroits(Map<String, Boolean> droits) {
+        this.droits = droits;
     }
 
     @Override
