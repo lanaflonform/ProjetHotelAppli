@@ -1,9 +1,12 @@
 package code.model.DAOJDBC;
 
+import code.Chambre;
 import code.Hotel;
 import code.TypeService;
 import code.model.ConnexionUnique;
+import code.model.DAOInterfaces.DAOChambre;
 import code.model.DAOInterfaces.DAOHotel;
+import javafx.util.Pair;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -19,25 +22,76 @@ public class DAOHotelJDBC implements DAOHotel {
     private static Connection connection = ConnexionUnique.getInstance().getConnection();
 
     @Override
-    public boolean delete(Hotel obj) {
-        if(obj != null) {
-            String deleteQuery = "DELETE FROM Hotel WHERE num_h=?";
-            try {
-                PreparedStatement ps = connection.prepareStatement(deleteQuery);
-                ps.setInt(1, obj.getNumHotel());
-                int nb = ps.executeUpdate();
+    public boolean deleteServices(Hotel obj) {
+        if (obj != null) {
+            if (obj.getServices().size() != 0) {
+                try {
+                    String deleteServicesQuery = "DELETE FROM Proposer WHERE num_h = ?";
 
-                return (nb == 1);
+                    PreparedStatement ps = connection.prepareStatement(deleteServicesQuery);
+                    ps.setInt(1, obj.getNumHotel());
 
-            } catch (SQLException sqle) {
-                System.err.println("DAOHotelJDBC.delete");
-                sqle.printStackTrace();
+                    int deleteProposerResult = ps.executeUpdate();
+
+                    if (deleteProposerResult == 0) {
+                        throw new SQLException("Delete Proposer echouee");
+                    }
+                    return true;
+                } catch(SQLException sqle) {
+                    System.err.println("DAOHotelJDBC.deleteServices");
+                    sqle.printStackTrace();
+                }
             }
         }
         return false;
     }
 
-    public Set<TypeService> getServices(int numHotel) {
+    @Override
+    public boolean delete(Hotel obj) {
+        if(obj != null) {
+            if (deleteServices(obj)) {
+                String deleteQuery = "DELETE FROM Hotel WHERE num_h=?";
+                try {
+                    PreparedStatement ps = connection.prepareStatement(deleteQuery);
+                    ps.setInt(1, obj.getNumHotel());
+                    int nb = ps.executeUpdate();
+
+                    return (nb == 1);
+
+                } catch (SQLException sqle) {
+                    System.err.println("DAOHotelJDBC.delete");
+                    sqle.printStackTrace();
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public Set<Chambre> getChambresById(int numHotel) {
+        String getChambresQuery = "SELECT * FROM Chambre WHERE num_h = ?";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(getChambresQuery);
+            ps.setInt(1, numHotel);
+            ResultSet resultGetChambres = ps.executeQuery();
+
+            Set<Chambre> chambres = new HashSet<>();
+            DAOChambreJDBC daoChambreJDBC = new DAOChambreJDBC();
+            while(resultGetChambres.next()) {
+                chambres.add(daoChambreJDBC.getById(new Pair<>(numHotel, resultGetChambres.getInt("num_c"))));
+            }
+
+            return chambres;
+        } catch (SQLException sqle) {
+            System.err.println("DAOHotelJDBC.getChambresById");
+            sqle.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public Set<TypeService> getServicesById(int numHotel) {
 
         String queryGetServices = "SELECT T.* FROM TypeService AS T JOIN Proposer AS P ON T.nom_s = P.nom_s";
         queryGetServices += " WHERE num_h = ?";
@@ -54,7 +108,7 @@ public class DAOHotelJDBC implements DAOHotel {
 
             return services;
         } catch (SQLException sqle) {
-            System.err.println("DAOHotelJDBC.getServices");
+            System.err.println("DAOHotelJDBC.getServicesById");
             sqle.printStackTrace();
         }
         return null;
@@ -69,7 +123,8 @@ public class DAOHotelJDBC implements DAOHotel {
             List<Hotel> hotels = new ArrayList<>();
             while (resultSet.next()) {
 
-                Set<TypeService> services = getServices(resultSet.getInt("num_h"));
+                Set<Chambre> chambres = getChambresById(resultSet.getInt("num_h"));
+                Set<TypeService> services = getServicesById(resultSet.getInt("num_h"));
 
                 hotels.add(new Hotel (
                         resultSet.getInt("num_h"),
@@ -78,7 +133,8 @@ public class DAOHotelJDBC implements DAOHotel {
                         resultSet.getString("adresse_h"),
                         resultSet.getFloat("latitude_h"),
                         resultSet.getFloat("longitude_h"),
-                        services
+                        services,
+                        chambres
                 ));
             }
             return hotels;
@@ -100,7 +156,8 @@ public class DAOHotelJDBC implements DAOHotel {
 
                 if(resultSet.next()) {
 
-                    Set<TypeService> services = getServices(id);
+                    Set<Chambre> chambres = getChambresById(resultSet.getInt("num_h"));
+                    Set<TypeService> services = getServicesById(id);
 
                     return new Hotel (
                             resultSet.getInt("num_h"),
@@ -109,7 +166,8 @@ public class DAOHotelJDBC implements DAOHotel {
                             resultSet.getString("adresse_h"),
                             resultSet.getFloat("latitude_h"),
                             resultSet.getFloat("longitude_h"),
-                            services
+                            services,
+                            chambres
                     );
                 }
             } catch (SQLException sqle) {
@@ -133,6 +191,11 @@ public class DAOHotelJDBC implements DAOHotel {
                 ps.setFloat(4, obj.getLatitude());
                 ps.setFloat(5, obj.getLongitude());
                 int insertHotelResult = ps.executeUpdate();
+
+                DAOChambreJDBC daoChambreJDBC = new DAOChambreJDBC();
+                for(Chambre chambre : obj.getChambres()) {
+                    daoChambreJDBC.insert(chambre);
+                }
 
                 if (insertHotelResult == 0) {
                     throw new SQLException("Insertion hotel echouee");

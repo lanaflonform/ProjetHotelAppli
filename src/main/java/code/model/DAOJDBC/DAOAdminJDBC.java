@@ -3,7 +3,6 @@ package code.model.DAOJDBC;
 import code.Admin;
 import code.Hotel;
 import code.TypeAcces;
-import code.TypeService;
 import code.model.ConnexionUnique;
 import code.model.DAOInterfaces.DAOAdmin;
 
@@ -19,23 +18,75 @@ public class DAOAdminJDBC implements DAOAdmin {
     private static List<TypeAcces> typesAcces = new DAOTypeAccesJDBC().findAll();
 
     @Override
+    public boolean deleteHotelsGeres(Admin obj) {
+        if (obj != null) {
+            if (obj.getHotelsGeres().size() != 0) {
+                try {
+                    String deleteHotelsGeresQuery = "DELETE FROM Gerer WHERE num_a = ?";
+
+                    PreparedStatement ps = connection.prepareStatement(deleteHotelsGeresQuery);
+                    ps.setInt(1, obj.getNumAdmin());
+
+                    int deleteGererResult = ps.executeUpdate();
+
+                    if (deleteGererResult == 0) {
+                        throw new SQLException("Delete Gerer echouee");
+                    }
+                    return true;
+                } catch(SQLException sqle) {
+                    System.err.println("DAOAdminJDBC.deleteHotelsGeres");
+                    sqle.printStackTrace();
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean deleteDroits(Admin obj) {
+        if (obj != null) {
+            if (obj.getDroits().size() != 0) {
+                try {
+                    String deleteDroitssQuery = "DELETE FROM Posseder WHERE num_a = ?";
+
+                    PreparedStatement ps = connection.prepareStatement(deleteDroitssQuery);
+                    ps.setInt(1, obj.getNumAdmin());
+
+                    int deletePossederResult = ps.executeUpdate();
+
+                    if (deletePossederResult == 0) {
+                        throw new SQLException("Delete Posseder echouee");
+                    }
+                } catch (SQLException sqle) {
+                    System.err.println("DAOAdminJDBC.deleteDroits");
+                    sqle.printStackTrace();
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
     public boolean delete(Admin obj) {
         if(obj != null) {
-            String deleteQuery = "DELETE FROM Admin WHERE num_a=?";
-            try {
-                PreparedStatement ps = connection.prepareStatement(deleteQuery);
-                ps.setInt(1, obj.getNumAdmin());
-                int deleteAdminResult = ps.executeUpdate();
+            if (deleteDroits(obj) && deleteHotelsGeres(obj)) {
+                String deleteQuery = "DELETE FROM Admin WHERE num_a=?";
+                try {
+                    PreparedStatement ps = connection.prepareStatement(deleteQuery);
+                    ps.setInt(1, obj.getNumAdmin());
+                    int deleteAdminResult = ps.executeUpdate();
 
-                if (deleteAdminResult == 0) {
-                    throw new SQLException("Insertion admin echouee");
+                    if (deleteAdminResult == 0) {
+                        throw new SQLException("Insertion admin echouee");
+                    }
+
+                    return (deleteAdminResult == 1);
+
+                } catch (SQLException sqle) {
+                    System.err.println("DAOAdminJDBC.delete");
+                    sqle.printStackTrace();
                 }
-
-                return (deleteAdminResult == 1);
-
-            } catch (SQLException sqle) {
-                System.err.println("DAOAdminJDBC.delete");
-                sqle.printStackTrace();
             }
         }
         return false;
@@ -82,6 +133,7 @@ public class DAOAdminJDBC implements DAOAdmin {
             ResultSet resultSet = ps.executeQuery();
 
             List<Hotel> result = new ArrayList<>();
+            DAOHotelJDBC daoHotelJDBC = new DAOHotelJDBC();
 
             while(resultSet.next()) {
                 Hotel hotel = new Hotel(
@@ -91,7 +143,8 @@ public class DAOAdminJDBC implements DAOAdmin {
                         resultSet.getString("adresse_h"),
                         resultSet.getFloat("latitude_h"),
                         resultSet.getFloat("longitude_h"),
-                        new DAOHotelJDBC().getServices(resultSet.getInt("num_h")));
+                        daoHotelJDBC.getServicesById(resultSet.getInt("num_h")),
+                        daoHotelJDBC.getChambresById(resultSet.getInt("num_h")) );
                 result.add(hotel);
             }
             return result;
@@ -270,26 +323,9 @@ public class DAOAdminJDBC implements DAOAdmin {
     @Override
     public boolean updateDroits(Admin obj) {
         if (obj != null) {
-            try {
-                if (obj.getDroits().size() != 0) {
-                    String deleteDroitssQuery = "DELETE FROM Posseder WHERE num_a = ?";
-
-                    PreparedStatement ps = connection.prepareStatement(deleteDroitssQuery);
-                    ps.setInt(1, obj.getNumAdmin());
-
-                    int deletePossederResult = ps.executeUpdate();
-
-                    if (deletePossederResult == 0) {
-                        throw new SQLException("Delete Posseder echouee");
-                    }
-                }
+                deleteDroits(obj);
                 insertDroits(obj.getNumAdmin(), obj.getDroits());
                 return true;
-            } catch (SQLException sqle) {
-                System.err.println("DAOAdminJDBC.updateDroits");
-                sqle.printStackTrace();
-            }
-
         }
         return false;
     }
@@ -297,27 +333,9 @@ public class DAOAdminJDBC implements DAOAdmin {
     @Override
     public boolean updateHotelsGeres(Admin obj) {
         if (obj != null) {
-            try {
-                if (obj.getHotelsGeres().size() != 0) {
-                    String deleteHotelsGeresQuery = "DELETE FROM Gerer WHERE num_a = ?";
-
-                    PreparedStatement ps = connection.prepareStatement(deleteHotelsGeresQuery);
-                    ps.setInt(1, obj.getNumAdmin());
-
-                    int deleteGererResult = ps.executeUpdate();
-
-                    if (deleteGererResult == 0) {
-                        throw new SQLException("Delete Gerer echouee");
-                    }
-                }
-
-                insertHotelsGeres(obj.getNumAdmin(), obj.getHotelsGeres());
-                return true;
-            } catch (SQLException sqle) {
-                System.err.println("DAOAdminJDBC.updateDroits");
-                sqle.printStackTrace();
-            }
-
+            deleteHotelsGeres(obj);
+            insertHotelsGeres(obj.getNumAdmin(), obj.getHotelsGeres());
+            return true;
         }
         return false;
     }

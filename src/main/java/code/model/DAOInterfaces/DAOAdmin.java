@@ -21,6 +21,8 @@ public interface DAOAdmin extends DAO <Admin, Integer> {
      */
     public Admin findByUsernameAndPassword(String username, String password);
 
+    public boolean deleteHotelsGeres(Admin admin);
+    public boolean deleteDroits(Admin admin);
     public void insertDroits(int numAdmin, Map<String, Boolean> droits);
     public void insertHotelsGeres(int numAdmin, List<Hotel> hotelsGeres);
     public boolean updateDroits(Admin admin);

@@ -15,10 +15,11 @@ public class Hotel {
     private float latitude;
     private float longitude;
     private Set<TypeService> services = new HashSet<>();
+    private Set<Chambre> chambres = new HashSet<>();
 
     public Hotel() {}
 
-    public Hotel(int numHotel, String nom, String ville, String adresse, float latitude, float longitude, Set<TypeService> services) {
+    public Hotel(int numHotel, String nom, String ville, String adresse, float latitude, float longitude, Set<TypeService> services, Set<Chambre> chambres) {
         this.numHotel = numHotel;
         this.nom = nom;
         this.ville = ville;
@@ -26,6 +27,7 @@ public class Hotel {
         this.latitude = latitude;
         this.longitude = longitude;
         this.services = services;
+        this.chambres = chambres;
     }
 
     public int getNumHotel() {
@@ -82,6 +84,14 @@ public class Hotel {
 
     public void setServices(Set<TypeService> services) {
         this.services = services;
+    }
+
+    public Set<Chambre> getChambres() {
+        return chambres;
+    }
+
+    public void setChambres(Set<Chambre> chambres) {
+        this.chambres = chambres;
     }
 
     @Override
