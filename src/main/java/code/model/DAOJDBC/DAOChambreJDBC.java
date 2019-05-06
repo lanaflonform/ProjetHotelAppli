@@ -50,6 +50,7 @@ public class DAOChambreJDBC implements DAOChambre {
             List<Chambre> chambres = new ArrayList<>();
 
             while (rsChambre.next()) {
+                //TODO : FACTORISER avec getById
                 String query2 = "SELECT * FROM TypeChambre WHERE nom_t = ?";
                 String typeChambre = rsChambre.getString("nom_t");
                 PreparedStatement ps = con.prepareStatement(query2);
@@ -91,6 +92,7 @@ public class DAOChambreJDBC implements DAOChambre {
                 ResultSet rsChambre = ps.executeQuery();
 
                 if(rsChambre.next()) {
+                    //TODO : FACTORISER avec findAll
                     String query2 = "SELECT * FROM TypeChambre WHERE nom_t = ?";
                     String typeChambre = rsChambre.getString("nom_t");
                     PreparedStatement ps2 = con.prepareStatement(query2);
@@ -134,6 +136,7 @@ public class DAOChambreJDBC implements DAOChambre {
                 ps.setString(4, obj.getType());
                 int nb = ps.executeUpdate();
                 ps.close();
+
                 return (nb == 1) ? obj: null;
 
             } catch (SQLException sqle) {

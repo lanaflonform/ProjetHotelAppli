@@ -1,5 +1,12 @@
 package code;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Created by Vincent on 01/05/2019.
  */
@@ -8,6 +15,18 @@ public class Admin {
     private int numAdmin;
     private String identifiant;
     private String mdp;
+    private List<Hotel> hotelsGeres = new ArrayList<>();
+    private Map<String, Boolean> droits = new HashMap<>();
+
+    public Admin() {}
+
+    public Admin(int numAdmin, String identifiant, String mdp, List<Hotel> hotelsGeres, Map<String, Boolean> droits) {
+        this.numAdmin = numAdmin;
+        this.identifiant = identifiant;
+        this.mdp = mdp;
+        this.hotelsGeres = hotelsGeres;
+        this.droits = droits;
+    }
 
     public int getNumAdmin() {
         return numAdmin;
@@ -33,12 +52,30 @@ public class Admin {
         this.mdp = mdp;
     }
 
+    public Map<String, Boolean> getDroits() {
+        return droits;
+    }
+
+    public List<Hotel> getHotelsGeres() {
+        return hotelsGeres;
+    }
+
+    public void setHotelsGeres(List<Hotel> hotelsGeres) {
+        this.hotelsGeres = hotelsGeres;
+    }
+
+    public void setDroits(Map<String, Boolean> droits) {
+        this.droits = droits;
+    }
+
     @Override
     public String toString() {
-        return "code.Admin{" +
+        return "Admin{" +
                 "numAdmin=" + numAdmin +
                 ", identifiant='" + identifiant + '\'' +
                 ", mdp='" + mdp + '\'' +
+                ", droits=" + droits +
+                ", hotelsGeres=" + hotelsGeres +
                 '}';
     }
 
