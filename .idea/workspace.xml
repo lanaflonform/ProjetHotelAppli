@@ -1,23 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6c6ed0aa-23c5-4de3-9370-0c060feea84b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/code/model/DAOInterfaces/DAOFacture.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Test/ChambreTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Test/ChambreTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Test/ReservationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Test/ReservationTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/code/Facture.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/code/Facture.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/code/Reservation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/code/Reservation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/code/model/DAOInterfaces/DAOReservation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/code/model/DAOInterfaces/DAOReservation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/code/model/DAOJDBC/DAOChambreJDBC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/code/model/DAOJDBC/DAOChambreJDBC.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/code/model/DAOJDBC/DAOReservationJDBC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/code/model/DAOJDBC/DAOReservationJDBC.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Test/ReservationTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Test/ReservationTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/code/Facture.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/code/Facture.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/code/Hotel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/code/Hotel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/code/Reservation.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/code/Reservation.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/code/model/DAOInterfaces/DAOReservation.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/code/model/DAOInterfaces/DAOReservation.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/code/model/DAOJDBC/DAOReservationJDBC.class" beforeDir="false" />
-    </list>
+    <list default="true" id="6c6ed0aa-23c5-4de3-9370-0c060feea84b" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -52,13 +36,13 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="7609" />
+          <entry key="java" value="7611" />
           <entry key="xml" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="7609" />
+          <entry key="JAVA" value="7611" />
           <entry key="XML" value="5" />
         </counts>
       </usages-collector>
@@ -69,7 +53,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/code/model/DAOJDBC/DAOReservationJDBC.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="121">
+            <state relative-caret-position="2175">
               <caret line="252" column="89" selection-start-line="252" selection-start-column="89" selection-end-line="252" selection-end-column="89" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -82,8 +66,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/Test/ReservationTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="24" column="22" selection-start-line="24" selection-start-column="22" selection-end-line="24" selection-end-column="22" />
+            <state relative-caret-position="-1162">
+              <caret line="16" column="10" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -228,34 +212,6 @@
             </path>
             <path>
               <item name="ProjetHotel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ProjetHotelAppli" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="code" type="462c0819:PsiDirectoryNode" />
-              <item name="model" type="462c0819:PsiDirectoryNode" />
-              <item name="DAOInterfaces" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ProjetHotel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ProjetHotelAppli" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="code" type="462c0819:PsiDirectoryNode" />
-              <item name="model" type="462c0819:PsiDirectoryNode" />
-              <item name="DAOJDBC" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ProjetHotel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ProjetHotelAppli" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="Test" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ProjetHotel" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
           </expand>
@@ -266,7 +222,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="SearchEverywhereHistoryKey" value="DAORe&#9;FILE&#9;file://C:/Users/Administrateur/Desktop/ProjetHotelAppli/src/main/java/code/model/DAOInterfaces/DAOReservation.java&#10;Cha&#9;FILE&#9;file://C:/Users/Administrateur/Desktop/ProjetHotelAppli/src/main/java/code/Chambre.java&#10;Chambre&#9;FILE&#9;file://C:/Users/Administrateur/Desktop/ProjetHotelAppli/src/main/java/code/Chambre.java&#10;DAOCha&#9;FILE&#9;file://C:/Users/Administrateur/Desktop/ProjetHotelAppli/src/main/java/code/model/DAOJDBC/DAOChambreJDBC.java&#10;Fact&#9;FILE&#9;file://C:/Users/Administrateur/Desktop/ProjetHotelAppli/src/main/java/code/Facture.java&#10;Reser&#9;FILE&#9;file://C:/Users/Administrateur/Desktop/ProjetHotelAppli/src/main/java/code/Reservation.java&#10;TypeS&#9;FILE&#9;file://C:/Users/Administrateur/Desktop/ProjetHotelAppli/src/main/java/code/TypeService.java&#10;DaoR&#9;FILE&#9;file://C:/Users/Administrateur/Desktop/ProjetHotelAppli/src/main/java/code/model/DAOJDBC/DAOReservationJDBC.java&#10;Reserv&#9;FILE&#9;file://C:/Users/Administrateur/Desktop/ProjetHotelAppli/src/main/java/code/Reservation.java&#10;Main&#9;FILE&#9;file://C:/Users/Administrateur/Desktop/ProjetHotelAppli/src/main/java/Test/Main.java&#10;Client&#9;FILE&#9;file://C:/Users/Administrateur/Desktop/ProjetHotelAppli/src/main/java/code/Client.java&#10;Connexio&#9;FILE&#9;file://C:/Users/Administrateur/Desktop/ProjetHotelAppli/src/main/java/code/model/ConnexionUnique.java" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557157817417" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557158084878" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/mysql/mysql-connector.jar!/" />
     <property name="project.structure.last.edited" value="Problems" />
     <property name="project.structure.proportion" value="0.15527344" />
@@ -368,9 +324,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49756098" visible="true" weight="0.26172465" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49756098" visible="true" weight="0.26172465" />
       <window_info id="Structure" order="1" sideWeight="0.502439" side_tool="true" weight="0.24962178" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -379,7 +334,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3289689" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49924356" weight="0.4304419" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49924356" visible="true" weight="0.4304419" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -607,7 +562,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/code/model/DAOJDBC/DAOReservationJDBC.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
+        <state relative-caret-position="2175">
           <caret line="252" column="89" selection-start-line="252" selection-start-column="89" selection-end-line="252" selection-end-column="89" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -618,8 +573,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Test/ReservationTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="24" column="22" selection-start-line="24" selection-start-column="22" selection-end-line="24" selection-end-column="22" />
+        <state relative-caret-position="-1162">
+          <caret line="16" column="10" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
         </state>
       </provider>
     </entry>
