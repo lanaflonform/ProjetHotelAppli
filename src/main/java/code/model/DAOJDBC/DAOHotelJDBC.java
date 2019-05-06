@@ -1,6 +1,5 @@
 package code.model.DAOJDBC;
 
-import code.Client;
 import code.Hotel;
 import code.TypeService;
 import code.model.ConnexionUnique;
@@ -17,14 +16,14 @@ import java.util.Set;
  */
 public class DAOHotelJDBC implements DAOHotel {
 
-    private static Connection con = ConnexionUnique.getInstance().getConnection();
+    private static Connection connection = ConnexionUnique.getInstance().getConnection();
 
     @Override
     public boolean delete(Hotel obj) {
-        if(!(obj == null)) {
+        if(obj != null) {
             String deleteQuery = "DELETE FROM Hotel WHERE num_h=?";
             try {
-                PreparedStatement ps = con.prepareStatement(deleteQuery);
+                PreparedStatement ps = connection.prepareStatement(deleteQuery);
                 ps.setInt(1, obj.getNumHotel());
                 int nb = ps.executeUpdate();
 
@@ -44,7 +43,7 @@ public class DAOHotelJDBC implements DAOHotel {
         queryGetServices += " WHERE num_h = ?";
 
         try {
-            PreparedStatement ps = con.prepareStatement(queryGetServices);
+            PreparedStatement ps = connection.prepareStatement(queryGetServices);
             ps.setInt(1, numHotel);
             ResultSet resultGetServices = ps.executeQuery();
 
@@ -65,7 +64,7 @@ public class DAOHotelJDBC implements DAOHotel {
     public List<Hotel> findAll() {
         String query = "SELECT * FROM Hotel";
         try {
-            ResultSet resultSet = con.createStatement().executeQuery(query);
+            ResultSet resultSet = connection.createStatement().executeQuery(query);
 
             List<Hotel> hotels = new ArrayList<>();
             while (resultSet.next()) {
@@ -95,7 +94,7 @@ public class DAOHotelJDBC implements DAOHotel {
         if (id != null) {
             String getByIdQuery = "SELECT * FROM Hotel where num_h = ?";
             try {
-                PreparedStatement ps = con.prepareStatement(getByIdQuery);
+                PreparedStatement ps = connection.prepareStatement(getByIdQuery);
                 ps.setInt(1, id);
                 ResultSet resultSet = ps.executeQuery();
 
@@ -127,7 +126,7 @@ public class DAOHotelJDBC implements DAOHotel {
         if(obj != null){
             String insertHotelQuery = "INSERT INTO Hotel(nom_h, ville_h, adresse_h, latitude_h, longitude_h) VALUES(?,?,?,?,?)";
             try{
-                PreparedStatement ps = con.prepareStatement(insertHotelQuery, Statement.RETURN_GENERATED_KEYS);
+                PreparedStatement ps = connection.prepareStatement(insertHotelQuery, Statement.RETURN_GENERATED_KEYS);
                 ps.setString(1, obj.getNom());
                 ps.setString(2, obj.getVille());
                 ps.setString(3, obj.getAdresse());
@@ -163,7 +162,7 @@ public class DAOHotelJDBC implements DAOHotel {
         if(obj != null){
             String updateQuery = "UPDATE Hotel SET nom_h=?, ville_h=?, adresse_h=?, latitude_h=?, longitude_h=? WHERE num_h=?";
             try {
-                PreparedStatement ps = con.prepareStatement(updateQuery);
+                PreparedStatement ps = connection.prepareStatement(updateQuery);
                 ps.setString(1, obj.getNom());
                 ps.setString(2, obj.getVille());
                 ps.setString(3, obj.getAdresse());
@@ -189,21 +188,23 @@ public class DAOHotelJDBC implements DAOHotel {
 
     public void insertServices(int numHotel, Set<TypeService> services) {
 
-        String insertServicesQuery = "INSERT INTO Proposer(nom_s, num_h) VALUES (?,?)";
-        try {
-            PreparedStatement ps2 = con.prepareStatement(insertServicesQuery);
-            for (TypeService service : services) {
-                ps2.setString(1, service.getNom());
-                ps2.setInt(2, numHotel);
-                int insertProposerResult = ps2.executeUpdate();
+        if (services.size() != 0) {
+            String insertServicesQuery = "INSERT INTO Proposer(nom_s, num_h) VALUES (?,?)";
+            try {
+                PreparedStatement ps2 = connection.prepareStatement(insertServicesQuery);
+                for (TypeService service : services) {
+                    ps2.setString(1, service.getNom());
+                    ps2.setInt(2, numHotel);
+                    int insertProposerResult = ps2.executeUpdate();
 
-                if (insertProposerResult == 0) {
-                    throw new SQLException("Insertion Proposer echouee");
+                    if (insertProposerResult == 0) {
+                        throw new SQLException("Insertion Proposer echouee");
+                    }
                 }
+            } catch (SQLException sqle) {
+                System.err.println("DAOHotelJDBC.insertServices");
+                sqle.printStackTrace();
             }
-        } catch (SQLException sqle) {
-            System.err.println("DAOHotelJDBC.insertServices");
-            sqle.printStackTrace();
         }
     }
 
@@ -213,7 +214,7 @@ public class DAOHotelJDBC implements DAOHotel {
                 if (obj.getServices().size() != 0) {
                     String deleteServicesQuery = "DELETE FROM Proposer WHERE num_h = ?";
 
-                    PreparedStatement ps = con.prepareStatement(deleteServicesQuery);
+                    PreparedStatement ps = connection.prepareStatement(deleteServicesQuery);
                     ps.setInt(1, obj.getNumHotel());
 
                     int deleteProposerResult = ps.executeUpdate();
@@ -236,7 +237,7 @@ public class DAOHotelJDBC implements DAOHotel {
     @Override
     public int getNbHotels() {
         try {
-            ResultSet rs = con.createStatement().executeQuery("SELECT COUNT(*) FROM Hotel");
+            ResultSet rs = connection.createStatement().executeQuery("SELECT COUNT(*) FROM Hotel");
             if (rs.next()) {
                 return rs.getInt(1);
             }

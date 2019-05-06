@@ -58,10 +58,11 @@ public class Admin {
 
     @Override
     public String toString() {
-        return "code.Admin{" +
+        return "Admin{" +
                 "numAdmin=" + numAdmin +
                 ", identifiant='" + identifiant + '\'' +
                 ", mdp='" + mdp + '\'' +
+                ", droits=" + droits +
                 '}';
     }
 
