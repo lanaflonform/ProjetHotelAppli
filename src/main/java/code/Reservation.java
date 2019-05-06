@@ -1,34 +1,47 @@
 package code;
 
 import java.time.LocalDate;
+import java.util.List;
+
 public class Reservation {
     private int numReservation;
     private LocalDate dateArrivee;
     private LocalDate dateDepart;
     private int nbPersonnes;
     private String etat;
+    private float prixTotal;
     private float reduction;
 
     private Client client;
-    private Facture facture;
-    private Chambre chambre;
+    private List<Chambre> chambres;
 
-    public Reservation(int numReservation, LocalDate dateArrivee, LocalDate dateDepart, int nbPersonnes, String etat, float reduction, Client client, Chambre chambre, Facture facture) {
+    public Reservation(int numReservation, LocalDate dateArrivee, LocalDate dateDepart, int nbPersonnes, String etat, float prixTotal, float reduction, Client client, List<Chambre> chambres) {
         this.numReservation = numReservation;
         this.dateArrivee = dateArrivee;
         this.dateDepart = dateDepart;
         this.nbPersonnes = nbPersonnes;
         this.etat = etat;
+        this.prixTotal = prixTotal;
         this.reduction = reduction;
         this.client = client;
-        this.facture = facture;
-        this.chambre = chambre;
+        this.chambres = chambres;
     }
 
     public Reservation () {
 
     }
 
+    public float getPrixTotal() {
+        return prixTotal;
+    }
+
+    public void setChambres(List<Chambre> chambres) {
+        this.chambres = chambres;
+    }
+
+    public List<Chambre> getChambres() {
+        return chambres;
+    }
 
     public void setNumReservation(int numReservation) {
         this.numReservation = numReservation;
@@ -62,14 +75,6 @@ public class Reservation {
         return client;
     }
 
-    public Facture getFacture() {
-        return facture;
-    }
-
-    public Chambre getChambre() {
-        return chambre;
-    }
-
     @Override
     public String toString() {
         return "Reservation{" +
@@ -77,11 +82,11 @@ public class Reservation {
                 ", dateArrivee=" + dateArrivee +
                 ", dateDepart=" + dateDepart +
                 ", nbPersonnes=" + nbPersonnes +
-                ", etat=" + etat +
+                ", etat='" + etat  +
+                ", prixTotal=" + prixTotal +
                 ", reduction=" + reduction + "\n" +
-                ", client=" + client.toString() + "\n" +
-                //", facture=" + facture.toString()+ "\n" +
-                //", chambre=" + chambre.toString() +
+                //", client=" + client.toString() + "\n" +
+                //", chambres=" + chambres.toString() +
                 '}';
     }
 }
