@@ -74,6 +74,35 @@ public class DAOAdminJDBC implements DAOAdmin {
     }
 
     @Override
+    public List<Hotel> getHotelsById(Integer id) {
+        String getHotelsQuery = "SELECT * FROM Hotel H JOIN Gerer G ON G.num_h = H.num_h WHERE num_a = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(getHotelsQuery);
+            ps.setInt(1, id);
+            ResultSet resultSet = ps.executeQuery();
+
+            List<Hotel> result = new ArrayList<>();
+
+            while(resultSet.next()) {
+                Hotel hotel = new Hotel(
+                        resultSet.getInt("num_h"),
+                        resultSet.getString("nom_h"),
+                        resultSet.getString("ville_h"),
+                        resultSet.getString("adresse_h"),
+                        resultSet.getFloat("latitude_h"),
+                        resultSet.getFloat("longitude_h"),
+                        new DAOHotelJDBC().getServices(resultSet.getInt("num_h")));
+                result.add(hotel);
+            }
+            return result;
+
+        } catch(SQLException sqle) {
+            System.err.println(getClass().getName() + "." + getClass().getEnclosingMethod().getName());
+        }
+        return null;
+    }
+
+    @Override
     public List<Admin> findAll() {
         String query = "SELECT * FROM Admin";
         try {
@@ -88,8 +117,8 @@ public class DAOAdminJDBC implements DAOAdmin {
                         resultSet.getInt("num_a"),
                         resultSet.getString("identifiant"),
                         resultSet.getString("motdepasse"),
-                        droits
-                ));
+                        getHotelsById(resultSet.getInt("num_a")),
+                        droits));
             }
             return admins;
         } catch(SQLException sqle) {
@@ -116,6 +145,7 @@ public class DAOAdminJDBC implements DAOAdmin {
                             resultSet.getInt("num_a"),
                             resultSet.getString("identifiant"),
                             resultSet.getString("motdepasse"),
+                            getHotelsById(id),
                             droits);
                 }
             } catch (SQLException sqle) {
@@ -147,6 +177,7 @@ public class DAOAdminJDBC implements DAOAdmin {
                 if (generatedKeys.next()) {
                     int lastInsertedId = generatedKeys.getInt(1);
                     insertDroits(lastInsertedId, obj.getDroits());
+                    insertHotelsGeres(lastInsertedId, obj.getHotelsGeres());
                     return obj;
                 }
 
@@ -187,6 +218,29 @@ public class DAOAdminJDBC implements DAOAdmin {
     }
 
     @Override
+    public void insertHotelsGeres(int numAdmin, List<Hotel> hotelsGeres) {
+        if (hotelsGeres.size() != 0) {
+            String insertHotelsGeresQuery = "INSERT INTO Gerer(num_a, num_h) VALUES (?,?)";
+            try {
+                PreparedStatement statement = connection.prepareStatement(insertHotelsGeresQuery);
+                for (Hotel hotel : hotelsGeres) {
+                    statement.setInt(1, numAdmin);
+                    statement.setInt(2, hotel.getNumHotel());
+
+                    int insertGererResult = statement.executeUpdate();
+
+                    if (insertGererResult == 0) {
+                        throw new SQLException("Insertion Gerer echouee");
+                    }
+                }
+            } catch (SQLException sqle) {
+                System.err.println("DAOAdminJDBC.insertHotelsGeres");
+                sqle.printStackTrace();
+            }
+        }
+    }
+
+    @Override
     public boolean update(Admin obj) {
         if(obj != null){
             String updateAdminQuery = "UPDATE Admin SET identifiant=?, motdepasse=? WHERE num_a=?";
@@ -204,6 +258,7 @@ public class DAOAdminJDBC implements DAOAdmin {
                 ps.close();
 
                 return true;
+                //return updateDroits && updateHotels ???
             } catch (SQLException sqle) {
                 System.err.println("DAOAdminJDBC.update");
                 sqle.printStackTrace();
@@ -223,8 +278,40 @@ public class DAOAdminJDBC implements DAOAdmin {
                     ps.setInt(1, obj.getNumAdmin());
 
                     int deletePossederResult = ps.executeUpdate();
+
+                    if (deletePossederResult == 0) {
+                        throw new SQLException("Delete Posseder echouee");
+                    }
                 }
                 insertDroits(obj.getNumAdmin(), obj.getDroits());
+                return true;
+            } catch (SQLException sqle) {
+                System.err.println("DAOAdminJDBC.updateDroits");
+                sqle.printStackTrace();
+            }
+
+        }
+        return false;
+    }
+
+    @Override
+    public boolean updateHotelsGeres(Admin obj) {
+        if (obj != null) {
+            try {
+                if (obj.getHotelsGeres().size() != 0) {
+                    String deleteHotelsGeresQuery = "DELETE FROM Gerer WHERE num_a = ?";
+
+                    PreparedStatement ps = connection.prepareStatement(deleteHotelsGeresQuery);
+                    ps.setInt(1, obj.getNumAdmin());
+
+                    int deleteGererResult = ps.executeUpdate();
+
+                    if (deleteGererResult == 0) {
+                        throw new SQLException("Delete Gerer echouee");
+                    }
+                }
+
+                insertHotelsGeres(obj.getNumAdmin(), obj.getHotelsGeres());
                 return true;
             } catch (SQLException sqle) {
                 System.err.println("DAOAdminJDBC.updateDroits");
@@ -248,6 +335,7 @@ public class DAOAdminJDBC implements DAOAdmin {
                 admin.setNumAdmin(rs.getInt("num_a"));
                 admin.setIdentifiant(rs.getString("identifiant"));
                 admin.setMdp(rs.getString("motdepasse"));
+                admin.setHotelsGeres(getHotelsById(rs.getInt("num_a")));
                 admin.setDroits(droits);
                 stmt.close();
                 return admin;

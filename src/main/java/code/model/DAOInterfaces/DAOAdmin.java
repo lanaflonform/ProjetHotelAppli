@@ -1,7 +1,9 @@
 package code.model.DAOInterfaces;
 
 import code.Admin;
+import code.Hotel;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,7 +22,10 @@ public interface DAOAdmin extends DAO <Admin, Integer> {
     public Admin findByUsernameAndPassword(String username, String password);
 
     public void insertDroits(int numAdmin, Map<String, Boolean> droits);
+    public void insertHotelsGeres(int numAdmin, List<Hotel> hotelsGeres);
     public boolean updateDroits(Admin admin);
+    public boolean updateHotelsGeres(Admin admin);
+    public List<Hotel> getHotelsById(Integer id);
     public Map<String, Boolean> initDroits();
     public Map<String, Boolean> getDroits(int numAdmin);
     public int getNbAdmins();
