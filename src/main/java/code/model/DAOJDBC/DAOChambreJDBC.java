@@ -231,7 +231,6 @@ public class DAOChambreJDBC implements DAOChambre {
                     if (obj.getEtat().getDateDebut() != null) {
                         insertEntreeHistorique(obj);
                     }
-
                 } catch (SQLException sqle) {
                     System.err.println("DAOChambreJDBC.update");
                     sqle.printStackTrace();
@@ -272,5 +271,26 @@ public class DAOChambreJDBC implements DAOChambre {
             sqle.printStackTrace();
         }
        return null;
+    }
+
+    public boolean deleteHistorique(Chambre chambre) {
+        try {
+            if(chambre != null) {
+                String query = "DELETE FROM HistoriqueChambre WHERE num_c = ? AND num_h = ?";
+                PreparedStatement statement = connection.prepareStatement(query);
+                statement.setInt(1, chambre.getNumChambre());
+                statement.setInt(2, chambre.getNumHotel());
+                int nb = statement.executeUpdate();
+                System.out.println(nb);
+                if(nb < 0) throw new SQLException("delete historique didnt work deleteHistorique()");
+
+                return nb > 0;
+
+            } else throw new NullPointerException("Delete historique from null chambre ?");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        return false;
     }
 }

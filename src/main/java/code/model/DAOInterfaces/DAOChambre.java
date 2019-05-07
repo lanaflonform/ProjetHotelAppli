@@ -20,5 +20,6 @@ public interface DAOChambre extends DAO<Chambre, Pair<Integer, Integer>> {
     public Chambre createChambre(ResultSet resultSet);
     public EtatChambre getEtatChambre(Pair<Integer, Integer> idChambre);
     public void insertEntreeHistorique(Chambre obj);
+    public boolean deleteHistorique(Chambre chambre);
 
 }

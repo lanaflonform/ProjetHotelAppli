@@ -35,9 +35,9 @@ public class HotelTest {
         services.add(new DAOTypeServiceJDBC().getById("Restaurant"));
         services.add(new DAOTypeServiceJDBC().getById("Piscine"));
         hotel.setServices(services);
-        Set<Chambre> chambres = new HashSet<Chambre>();
+        Set<Chambre> chambres = new HashSet<Chambre>();/*
         chambres.add(new Chambre(101, "OPEN", "Standard"));
-        chambres.add(new Chambre(102, "OPEN", "Confort"));
+        chambres.add(new Chambre(102, "OPEN", "Confort"));*/
         hotel.setChambres(chambres);
 
         Hotel hotelInsert = daoHotelJDBC.insert(hotel);
@@ -49,7 +49,7 @@ public class HotelTest {
 
         Hotel hotel = daoHotelJDBC.getById(12);
         hotel.setAdresse("quelque part");
-        hotel.getChambres().add(new Chambre(103, hotel, "OPEN", "Luxe"));
+        //hotel.getChambres().add(new Chambre(103, hotel, "OPEN", "Luxe"));
         assertTrue(daoHotelJDBC.update(hotel));
     }
 

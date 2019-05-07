@@ -22,9 +22,9 @@ public class ChambreTest {
     public void testInsertChambre() {
 
         Chambre chambre = new Chambre();
-        chambre.setHotel(new DAOHotelJDBC().getById(1));
+        //chambre.setHotel(new DAOHotelJDBC().getById(1));
         chambre.setNumChambre(213);
-        chambre.setEtat("OPEN");
+        //chambre.setEtat("OPEN");
         chambre.setType("Standard");
 
         Chambre chambreInsert = daoChambreJDBC.insert(chambre);
@@ -36,7 +36,7 @@ public class ChambreTest {
 
         Chambre chambre = daoChambreJDBC.getById(new Pair<>(1,213));
         System.out.println(chambre);
-        chambre.setEtat("USED");
+        //chambre.setEtat("USED");
         assertTrue(daoChambreJDBC.update(chambre));
     }
 
@@ -51,6 +51,12 @@ public class ChambreTest {
     public void testDeleteChambre() {
         Chambre chambre = daoChambreJDBC.getById(new Pair<>(1,213));
         assertTrue(daoChambreJDBC.delete(chambre));
+    }
+
+
+    public static void main(String args[]) {
+        Chambre chambre = new DAOChambreJDBC().getById(new Pair<>(12, 104));
+        System.out.println(new DAOChambreJDBC().deleteHistorique(chambre) ?  "true": "false");
     }
 
 }
