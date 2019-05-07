@@ -215,9 +215,7 @@ public class DAOHotelJDBC implements DAOHotel {
                     insertServices(lastInsertedId, obj.getServices());
                     for(Chambre chambre : obj.getChambres()) {
                         //TODO : remplacer par numHotel dans Chambre
-                        Hotel hotel = new Hotel();
-                        hotel.setNumHotel(lastInsertedId);
-                        chambre.setHotel(hotel);
+                        chambre.setNumHotel(lastInsertedId);
                         daoChambreJDBC.insert(chambre);
                     }
                     return obj;

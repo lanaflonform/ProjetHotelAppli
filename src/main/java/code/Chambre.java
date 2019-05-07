@@ -6,9 +6,9 @@ import java.util.Set;
 public class Chambre {
 
     private int numChambre;
-    private Hotel hotel;
-    private String etat;
-    String type;
+    private int numHotel;
+    private EtatChambre etat;
+    private String type;
     private Set<Option> options = new HashSet<>();
 
     private int nombreLits;
@@ -17,24 +17,24 @@ public class Chambre {
     public Chambre() {}
 
     //Constructeur pour INSERT vers BD
-    public Chambre(int numChambre, String etat, String type) {
+    public Chambre(int numChambre, EtatChambre etat, String type) {
         this.numChambre = numChambre;
         this.etat = etat;
         this.type = type;
     }
 
     //Constructeur pour UPDATE vers BD
-    public Chambre(int numChambre, Hotel hotel, String etat, String type) {
+    public Chambre(int numChambre, int numHotel, EtatChambre etat, String type) {
         this.numChambre = numChambre;
-        this.hotel = hotel;
+        this.numHotel = numHotel;
         this.etat = etat;
         this.type = type;
     }
 
     //Constructeur pour récupération depuis BD
-    public Chambre(int numChambre, Hotel hotel, String etat, String type, int nombreLits, float prix) {
+    public Chambre(int numChambre, int numHotel, EtatChambre etat, String type, int nombreLits, float prix) {
         this.numChambre = numChambre;
-        this.hotel = hotel;
+        this.numHotel = numHotel;
         this.etat = etat;
         this.type = type;
         this.nombreLits = nombreLits;
@@ -49,19 +49,19 @@ public class Chambre {
         this.numChambre = numChambre;
     }
 
-    public Hotel getHotel() {
-        return hotel;
+    public int getNumHotel() {
+        return numHotel;
     }
 
-    public void setHotel(Hotel hotel) {
-        this.hotel = hotel;
+    public void setNumHotel(int numHotel) {
+        this.numHotel = numHotel;
     }
 
-    public String getEtat() {
+    public EtatChambre getEtat() {
         return etat;
     }
 
-    public void setEtat(String etat) {
+    public void setEtat(EtatChambre etat) {
         this.etat = etat;
     }
 
@@ -98,7 +98,7 @@ public class Chambre {
     public String toString() {
         return "Chambre{" +
                 "numChambre=" + numChambre +
-                ", hotel=" + hotel +
+                ", hotel=" + numHotel +
                 ", etat='" + etat + '\'' +
                 ", type='" + type + '\'' +
                 ", nombreLits=" + nombreLits +
@@ -114,11 +114,12 @@ public class Chambre {
         Chambre chambre = (Chambre) o;
 
         if (numChambre != chambre.numChambre) return false;
+        if (numHotel != chambre.numHotel) return false;
         if (nombreLits != chambre.nombreLits) return false;
         if (Float.compare(chambre.prix, prix) != 0) return false;
-        if (hotel != null ? !hotel.equals(chambre.hotel) : chambre.hotel != null) return false;
         if (etat != null ? !etat.equals(chambre.etat) : chambre.etat != null) return false;
         if (type != null ? !type.equals(chambre.type) : chambre.type != null) return false;
         return options != null ? options.equals(chambre.options) : chambre.options == null;
     }
+
 }
