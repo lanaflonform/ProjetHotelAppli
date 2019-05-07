@@ -195,13 +195,11 @@ public class DAOReservationJDBC implements DAOReservation {
             try {
                 PreparedStatement statement;
                 if(chambre != null) {
-                    if(chambre.getHotel() != null) {
-                        String query = "DELETE FROM ReservationChambre where num_c = ? AND num_h = ? AND num_r = ?";
-                        statement = connection.prepareStatement(query);
-                        statement.setInt(1, chambre.getNumChambre());
-                        statement.setInt(2, chambre.getHotel().getNumHotel());
-                        statement.setInt(3, reservation.getNumReservation());
-                    } else throw new NullPointerException("Try to delete chambre without num hotel");
+                    String query = "DELETE FROM ReservationChambre where num_c = ? AND num_h = ? AND num_r = ?";
+                    statement = connection.prepareStatement(query);
+                    statement.setInt(1, chambre.getNumChambre());
+                    statement.setInt(2, chambre.getNumHotel());
+                    statement.setInt(3, reservation.getNumReservation());
                 } else {
                     String query = "DELETE FROM ReservationChambre where num_r = ?";
                     statement = connection.prepareStatement(query);
@@ -226,15 +224,13 @@ public class DAOReservationJDBC implements DAOReservation {
         if(chambre != null && reservation != null){
             String query = "INSERT INTO ReservationChambre (num_c, num_h, num_r) VALUES (?, ?, ?)";
             try{
-                if(chambre.getHotel() != null) {
-                    PreparedStatement statement = connection.prepareStatement(query);
-                    statement.setInt(1, chambre.getNumChambre());
-                    statement.setInt(2, chambre.getHotel().getNumHotel());
-                    statement.setInt(3, reservation.getNumReservation());
 
-                    return (statement.executeUpdate() == 1);
+                PreparedStatement statement = connection.prepareStatement(query);
+                statement.setInt(1, chambre.getNumChambre());
+                statement.setInt(2, chambre.getNumHotel());
+                statement.setInt(3, reservation.getNumReservation());
 
-                } else throw new NullPointerException("Trying insert reservation_chambre with not hotel");
+                return (statement.executeUpdate() == 1);
 
 
             } catch (SQLException sqle) {
