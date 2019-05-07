@@ -21,8 +21,10 @@ import java.util.Set;
 public class DAOChambreJDBC implements DAOChambre {
 
     private static Connection con = ConnexionUnique.getInstance().getConnection();
+    private Set<String> typesChambres = getTypeChambres();
 
     @Override
+    //TODO : D'ABORD DELETE LES OCCURENCES DE CHAMBRE DANS LES ASSOCIATIONS (HISTORIQUE, RESERVATIONCHAMBRE)
     public boolean delete(Chambre obj) {
         if(!(obj == null)) {
             String deleteQuery = "DELETE FROM Chambre WHERE num_c=?";
@@ -35,10 +37,45 @@ public class DAOChambreJDBC implements DAOChambre {
                 return (nb == 1);
 
             } catch (SQLException sqle) {
+                System.err.println("DAOChambreJDBC.delete");
                 sqle.printStackTrace();
             }
         }
         return false;
+    }
+
+    @Override
+    public Chambre createChambre(ResultSet resultSet) {
+        try {
+            String query2 = "SELECT * FROM TypeChambre WHERE nom_t = ?";
+            String typeChambre = resultSet.getString("nom_t");
+            PreparedStatement ps = con.prepareStatement(query2);
+            ps.setString(1, typeChambre);
+            ResultSet rsTypeChambre = ps.executeQuery();
+
+            if (rsTypeChambre.next()) {
+                int numChambre = resultSet.getInt("num_c");
+                //Hotel hotel = (new DAOHotelJDBC().getById(resultSet.getInt("num_h")));
+                //TODO : VOIR SI LE NUMERO D HOTEL EST SUFFISANT DANS CHAMBRE POUR EVITER PB DE BOUCLE INFINIE
+                Hotel hotel = new Hotel();
+                hotel.setNumHotel(resultSet.getInt("num_h"));
+                String etat = resultSet.getString("etat_c");
+                Chambre chambre = new Chambre(numChambre, hotel, etat, typeChambre, rsTypeChambre.getInt("nbLits_t"), rsTypeChambre.getFloat("prix_t"));
+
+                if (rsTypeChambre.getBoolean("telephone_t")) {
+                    chambre.addOption(new OptionTelephone());
+                }
+                if (rsTypeChambre.getBoolean("tv_t")) {
+                    chambre.addOption(new OptionTV());
+                }
+                ps.close();
+                return chambre;
+            }
+        } catch (SQLException sqle) {
+            System.err.println("DAOChambreJDBC.createChambre");
+            sqle.printStackTrace();
+        }
+        return null;
     }
 
     @Override
@@ -50,35 +87,14 @@ public class DAOChambreJDBC implements DAOChambre {
             List<Chambre> chambres = new ArrayList<>();
 
             while (rsChambre.next()) {
-                //TODO : FACTORISER avec getById
-                String query2 = "SELECT * FROM TypeChambre WHERE nom_t = ?";
-                String typeChambre = rsChambre.getString("nom_t");
-                PreparedStatement ps = con.prepareStatement(query2);
-                ps.setString(1, typeChambre);
-                ResultSet rsTypeChambre = ps.executeQuery();
-
-                if (rsTypeChambre.next()) {
-                    int numChambre = rsChambre.getInt("num_c");
-                    Hotel hotel = (new DAOHotelJDBC().getById(rsChambre.getInt("num_h")));
-                    String etat = rsChambre.getString("etat_c");
-                    Chambre chambre = new Chambre(numChambre, hotel, etat, typeChambre, rsTypeChambre.getInt("nbLits_t"), rsTypeChambre.getFloat("prix_t"));
-
-                    if (rsTypeChambre.getBoolean("telephone_t")) {
-                        chambre.addOption(new OptionTelephone());
-                    }
-                    if (rsTypeChambre.getBoolean("tv_t")) {
-                        chambre.addOption(new OptionTV());
-                    }
-                    ps.close();
-                    chambres.add(chambre);
-                }
+                chambres.add(createChambre(rsChambre));
             }
             return chambres;
         } catch(SQLException sqle) {
+            System.err.println("DAOChambreJDBC.findAll");
             sqle.printStackTrace();
         }
         return null;
-
     }
 
     @Override
@@ -92,31 +108,10 @@ public class DAOChambreJDBC implements DAOChambre {
                 ResultSet rsChambre = ps.executeQuery();
 
                 if(rsChambre.next()) {
-                    //TODO : FACTORISER avec findAll
-                    String query2 = "SELECT * FROM TypeChambre WHERE nom_t = ?";
-                    String typeChambre = rsChambre.getString("nom_t");
-                    PreparedStatement ps2 = con.prepareStatement(query2);
-                    ps2.setString(1, typeChambre);
-                    ResultSet rsTypeChambre = ps2.executeQuery();
-
-                    if (rsTypeChambre.next()) {
-                        int numChambre = rsChambre.getInt("num_c");
-                        Hotel hotel = (new DAOHotelJDBC().getById(rsChambre.getInt("num_h")));
-                        String etat = rsChambre.getString("etat_c");
-                        Chambre chambre = new Chambre(numChambre, hotel, etat, typeChambre, rsTypeChambre.getInt("nbLits_t"), rsTypeChambre.getFloat("prix_t"));
-
-                        if (rsTypeChambre.getBoolean("telephone_t")) {
-                            chambre.addOption(new OptionTelephone());
-                        }
-                        if (rsTypeChambre.getBoolean("tv_t")) {
-                            chambre.addOption(new OptionTV());
-                        }
-                        ps.close();
-                        ps2.close();
-                        return chambre;
-                    }
+                    return createChambre(rsChambre);
                 }
             } catch (SQLException sqle) {
+                System.err.println("DAOChambreJDBC.getById");
                 sqle.printStackTrace();
             }
 
@@ -140,8 +135,7 @@ public class DAOChambreJDBC implements DAOChambre {
                 return (nb == 1) ? obj: null;
 
             } catch (SQLException sqle) {
-                System.out.println("DAOHotelJDBC.insert()");
-                sqle.getMessage();
+                System.out.println("DAOChambreJDBC.insert()");
                 sqle.printStackTrace();
             }
         }
@@ -150,7 +144,7 @@ public class DAOChambreJDBC implements DAOChambre {
 
     @Override
     public boolean update(Chambre obj) {
-        if(obj != null && getTypeChambres().contains(obj.getType())){
+        if(obj != null && typesChambres.contains(obj.getType())){
             String updateQuery = "UPDATE Chambre SET num_h=?, num_c=?, etat_c=?, nom_t=? WHERE num_h=? AND num_c=?";
             try {
                 PreparedStatement ps = con.prepareStatement(updateQuery);
@@ -162,9 +156,15 @@ public class DAOChambreJDBC implements DAOChambre {
                 ps.setInt(6, obj.getNumChambre());
                 int nb = ps.executeUpdate();
                 ps.close();
-                return (nb == 1);
-            } catch (SQLException e) {
-                e.printStackTrace();
+
+                boolean chambreExisted = getById(new Pair<>(obj.getHotel().getNumHotel(), obj.getNumChambre())) != null;
+                if (!chambreExisted) {
+                    insert(obj);
+                }
+                return true;
+            } catch (SQLException sqle) {
+                System.err.println("DAOChambreJDBC.update");
+                sqle.printStackTrace();
             }
         }
         return false;
@@ -177,8 +177,9 @@ public class DAOChambreJDBC implements DAOChambre {
             if (rs.next()) {
                 return rs.getInt(1);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException sqle) {
+            System.err.println("DAOChambreJDBC.getNbChambres");
+            sqle.printStackTrace();
         }
         return -1;
     }
@@ -192,8 +193,9 @@ public class DAOChambreJDBC implements DAOChambre {
                 types.add(rs.getString("nom_t"));
             }
             return types;
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException sqle) {
+            System.err.println("DAOChambreJDBC.getTypeChambres");
+            sqle.printStackTrace();
         }
        return null;
     }

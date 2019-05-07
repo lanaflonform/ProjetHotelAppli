@@ -104,6 +104,7 @@ public class Hotel {
                 ", latitude=" + latitude +
                 ", longitude=" + longitude +
                 ", services=" + services +
+                ", chambres=" + chambres +
                 '}';
     }
 
@@ -122,14 +123,4 @@ public class Hotel {
         return adresse.equals(hotel.adresse);
     }
 
-    @Override
-    public int hashCode() {
-        int result = numHotel;
-        result = 31 * result + nom.hashCode();
-        result = 31 * result + ville.hashCode();
-        result = 31 * result + adresse.hashCode();
-        result = 31 * result + (latitude != +0.0f ? Float.floatToIntBits(latitude) : 0);
-        result = 31 * result + (longitude != +0.0f ? Float.floatToIntBits(longitude) : 0);
-        return result;
-    }
 }
