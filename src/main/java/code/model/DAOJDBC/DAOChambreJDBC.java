@@ -145,27 +145,27 @@ public class DAOChambreJDBC implements DAOChambre {
     @Override
     public boolean update(Chambre obj) {
         if(obj != null && typesChambres.contains(obj.getType())){
-            String updateQuery = "UPDATE Chambre SET num_h=?, num_c=?, etat_c=?, nom_t=? WHERE num_h=? AND num_c=?";
-            try {
-                PreparedStatement ps = con.prepareStatement(updateQuery);
-                ps.setInt(1, obj.getHotel().getNumHotel());
-                ps.setInt(2, obj.getNumChambre());
-                ps.setString(3, obj.getEtat());
-                ps.setString(4, obj.getType());
-                ps.setInt(5,obj.getHotel().getNumHotel());
-                ps.setInt(6, obj.getNumChambre());
-                int nb = ps.executeUpdate();
-                ps.close();
-
-                boolean chambreExisted = getById(new Pair<>(obj.getHotel().getNumHotel(), obj.getNumChambre())) != null;
-                if (!chambreExisted) {
-                    insert(obj);
+            //si la chambre existe déjà
+            if (getById(new Pair<>(obj.getHotel().getNumHotel(), obj.getNumChambre())) != null) {
+                String updateQuery = "UPDATE Chambre SET num_h=?, num_c=?, etat_c=?, nom_t=? WHERE num_h=? AND num_c=?";
+                try {
+                    PreparedStatement ps = con.prepareStatement(updateQuery);
+                    ps.setInt(1, obj.getHotel().getNumHotel());
+                    ps.setInt(2, obj.getNumChambre());
+                    ps.setString(3, obj.getEtat());
+                    ps.setString(4, obj.getType());
+                    ps.setInt(5,obj.getHotel().getNumHotel());
+                    ps.setInt(6, obj.getNumChambre());
+                    int nb = ps.executeUpdate();
+                    ps.close();
+                } catch (SQLException sqle) {
+                    System.err.println("DAOChambreJDBC.update");
+                    sqle.printStackTrace();
                 }
-                return true;
-            } catch (SQLException sqle) {
-                System.err.println("DAOChambreJDBC.update");
-                sqle.printStackTrace();
+            } else {
+                insert(obj);
             }
+            return true;
         }
         return false;
     }

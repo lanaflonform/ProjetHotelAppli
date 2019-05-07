@@ -1,5 +1,6 @@
 package Test;
 
+import code.Chambre;
 import code.Hotel;
 import code.TypeService;
 import code.model.DAOJDBC.DAOHotelJDBC;
@@ -24,16 +25,20 @@ public class HotelTest {
     public void testInsertHotel() {
 
         Hotel hotel = new Hotel();
-        hotel.setNom("Hotel des calanques");
-        hotel.setAdresse("18 avenue des calanques");
-        hotel.setVille("Marseille");
-        hotel.setLatitude(45.5465f);
-        hotel.setLongitude(12.54654f);
+        hotel.setNom("Hotel random");
+        hotel.setAdresse("Quelque part sur la planete terre");
+        hotel.setVille("UneVille");
+        hotel.setLatitude(23.5465f);
+        hotel.setLongitude(33.54654f);
 
         Set<TypeService> services = new HashSet<>();
         services.add(new DAOTypeServiceJDBC().getById("Restaurant"));
         services.add(new DAOTypeServiceJDBC().getById("Piscine"));
         hotel.setServices(services);
+        Set<Chambre> chambres = new HashSet<Chambre>();
+        chambres.add(new Chambre(101, "OPEN", "Standard"));
+        chambres.add(new Chambre(102, "OPEN", "Confort"));
+        hotel.setChambres(chambres);
 
         Hotel hotelInsert = daoHotelJDBC.insert(hotel);
         assertTrue(hotel == hotelInsert);
@@ -42,14 +47,15 @@ public class HotelTest {
     @Test
     public void testUpdateHotel() {
 
-        Hotel hotel = daoHotelJDBC.getById(7);
-        hotel.setAdresse("28 avenue des calanques");
+        Hotel hotel = daoHotelJDBC.getById(12);
+        hotel.setAdresse("quelque part");
+        hotel.getChambres().add(new Chambre(103, hotel, "OPEN", "Luxe"));
         assertTrue(daoHotelJDBC.update(hotel));
     }
 
     @Test
     public void testUpdateServicesHotel() {
-        Hotel hotel = daoHotelJDBC.getById(11);
+        Hotel hotel = daoHotelJDBC.getById(12);
         System.out.println(hotel);
         Set<TypeService> services = new HashSet<>();
         services.add(new DAOTypeServiceJDBC().getById("Petit-dejeuner"));
@@ -65,9 +71,10 @@ public class HotelTest {
         assertTrue(hotels.size() == daoHotelJDBC.getNbHotels());
     }
 
+    //TODO : ne marche pas pour le moment à cause de ReservationChambre, voir plus tard
     @Test
     public void testDeleteHotel() {
-        Hotel hotel = daoHotelJDBC.getById(9);
+        Hotel hotel = daoHotelJDBC.getById(12);
         assertTrue(daoHotelJDBC.delete(hotel));
     }
 
