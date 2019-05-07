@@ -1,9 +1,11 @@
 package code.model.DAOInterfaces;
 
 import code.Chambre;
+import code.EtatChambre;
 import code.Hotel;
 import javafx.util.Pair;
 
+import java.sql.ResultSet;
 import java.util.Set;
 
 
@@ -15,5 +17,8 @@ public interface DAOChambre extends DAO<Chambre, Pair<Integer, Integer>> {
 
     public int getNbChambres();
     public Set<String> getTypeChambres();
+    public Chambre createChambre(ResultSet resultSet);
+    public EtatChambre getEtatChambre(Pair<Integer, Integer> idChambre);
+    public void insertEntreeHistorique(Chambre obj);
 
 }

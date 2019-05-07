@@ -17,5 +17,7 @@ public interface DAOHotel extends DAO<Hotel, Integer> {
     public boolean deleteServices(Hotel obj);
     public boolean updateServices(Hotel obj);
     public void insertServices(int numHotel, Set<TypeService> services);
+    public boolean updateChambres(Hotel obj);
+    public boolean deleteChambres(Hotel obj);
 
 }
