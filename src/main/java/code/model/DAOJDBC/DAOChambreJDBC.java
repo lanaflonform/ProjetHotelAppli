@@ -19,6 +19,48 @@ public class DAOChambreJDBC implements DAOChambre {
     private Set<String> typesChambres = getTypeChambres();
 
     @Override
+    public boolean deleteHistoriqueChambre(Chambre chambre) {
+        try {
+            if(chambre != null) {
+                String query = "DELETE FROM HistoriqueChambre WHERE num_c = ? AND num_h = ?";
+                PreparedStatement statement = connection.prepareStatement(query);
+                statement.setInt(1, chambre.getNumChambre());
+                statement.setInt(2, chambre.getNumHotel());
+                int nb = statement.executeUpdate();
+                if(nb < 0) throw new SQLException("delete HistoriqueChambre didnt work");
+
+                return nb > 0;
+
+            } else throw new NullPointerException("Delete historique from null chambre ?");
+        } catch (Exception e) {
+            System.err.println("DAOChambreJDBC.deleteHistoriqueChambre");;
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean deleteReservationChambre(Chambre chambre) {
+        try {
+            if(chambre != null) {
+                String query = "DELETE FROM ReservationChambre WHERE num_c = ? AND num_h = ?";
+                PreparedStatement statement = connection.prepareStatement(query);
+                statement.setInt(1, chambre.getNumChambre());
+                statement.setInt(2, chambre.getNumHotel());
+                int nb = statement.executeUpdate();
+                if(nb < 0) throw new SQLException("delete ReservationChambre didnt work");
+
+                return nb > 0;
+
+            } else throw new NullPointerException("Delete ReservationChambre from null chambre ?");
+        } catch (Exception e) {
+            System.err.println("DAOChambreJDBC.deleteReservationChambre");;
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
     //TODO : D'ABORD DELETE LES OCCURENCES DE CHAMBRE DANS LES ASSOCIATIONS (HISTORIQUE, RESERVATIONCHAMBRE)
     public boolean delete(Chambre obj) {
         if(!(obj == null)) {
@@ -271,26 +313,5 @@ public class DAOChambreJDBC implements DAOChambre {
             sqle.printStackTrace();
         }
        return null;
-    }
-
-    public boolean deleteHistorique(Chambre chambre) {
-        try {
-            if(chambre != null) {
-                String query = "DELETE FROM HistoriqueChambre WHERE num_c = ? AND num_h = ?";
-                PreparedStatement statement = connection.prepareStatement(query);
-                statement.setInt(1, chambre.getNumChambre());
-                statement.setInt(2, chambre.getNumHotel());
-                int nb = statement.executeUpdate();
-                System.out.println(nb);
-                if(nb < 0) throw new SQLException("delete historique didnt work deleteHistorique()");
-
-                return nb > 0;
-
-            } else throw new NullPointerException("Delete historique from null chambre ?");
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
-        return false;
     }
 }
