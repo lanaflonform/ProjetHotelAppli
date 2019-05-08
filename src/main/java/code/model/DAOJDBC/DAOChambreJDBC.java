@@ -22,12 +22,12 @@ public class DAOChambreJDBC implements DAOChambre {
     public boolean deleteHistoriqueChambre(Chambre chambre) {
         try {
             if(chambre != null) {
-                String query = "DELETE FROM HistoriqueChambre WHERE num_c = ? AND num_h = ?";
+                String query = "DELETE FROM Historique WHERE num_c = ? AND num_h = ?";
                 PreparedStatement statement = connection.prepareStatement(query);
                 statement.setInt(1, chambre.getNumChambre());
                 statement.setInt(2, chambre.getNumHotel());
                 int nb = statement.executeUpdate();
-                if(nb < 0) throw new SQLException("delete HistoriqueChambre didnt work");
+                if(nb < 0) throw new SQLException("delete Historique didnt work");
 
                 return nb > 0;
 
@@ -64,6 +64,8 @@ public class DAOChambreJDBC implements DAOChambre {
     //TODO : D'ABORD DELETE LES OCCURENCES DE CHAMBRE DANS LES ASSOCIATIONS (HISTORIQUE, RESERVATIONCHAMBRE)
     public boolean delete(Chambre obj) {
         if(!(obj == null)) {
+            System.out.println(deleteHistoriqueChambre(obj));
+            System.out.println(deleteReservationChambre(obj));
             String deleteQuery = "DELETE FROM Chambre WHERE num_c=?";
             try {
                 PreparedStatement ps = connection.prepareStatement(deleteQuery);
@@ -83,7 +85,7 @@ public class DAOChambreJDBC implements DAOChambre {
 
     @Override
     public EtatChambre getEtatChambre(Pair<Integer, Integer> idChambre) {
-        String getEtatChambreQuery = "SELECT * FROM Historique H JOIN HistoriqueChambre HC ON H.num_hist = HC.num_hist WHERE num_h = ? AND num_c = ? ";
+        String getEtatChambreQuery = "SELECT * FROM Historique WHERE num_h = ? AND num_c = ? ";
         try {
             PreparedStatement ps = connection.prepareStatement(getEtatChambreQuery);
             ps.setInt(1, idChambre.getKey());
@@ -191,40 +193,27 @@ public class DAOChambreJDBC implements DAOChambre {
 
     @Override
     public void insertEntreeHistorique(Chambre obj) {
-        String insertHistoriqueQuery = "INSERT INTO Historique(type_hist, date_deb, date_fin) VALUES(?,?,?)";
-        try {
-            PreparedStatement ps = connection.prepareStatement(insertHistoriqueQuery, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, obj.getEtat().getNomEtat());
-            ps.setDate(2, java.sql.Date.valueOf(obj.getEtat().getDateDebut()));
-            ps.setDate(3, java.sql.Date.valueOf(obj.getEtat().getDateFin()));
 
-            int resultInsertHistorique = ps.executeUpdate();
+        if (obj != null) {
+            String insertHistoriqueQuery = "INSERT INTO Historique(num_h, num_c, type_hist, date_deb, date_fin) VALUES(?,?,?,?,?)";
+            try {
+                PreparedStatement ps = connection.prepareStatement(insertHistoriqueQuery);
+                ps.setInt(1, obj.getNumHotel());
+                ps.setInt(2, obj.getNumChambre());
+                ps.setString(3, obj.getEtat().getNomEtat());
+                ps.setDate(4, java.sql.Date.valueOf(obj.getEtat().getDateDebut()));
+                ps.setDate(5, java.sql.Date.valueOf(obj.getEtat().getDateFin()));
 
-            if (resultInsertHistorique == 0) {
-                throw new SQLException("Insert Historique echouee");
-            }
+                int resultInsertHistorique = ps.executeUpdate();
 
-            ResultSet generatedKeys = ps.getGeneratedKeys();
-            ps.close();
-            if (generatedKeys.next()) {
-                int lastInsertedId = generatedKeys.getInt(1);
-                String insertHistoriqueChambreQuery = "INSERT INTO HistoriqueChambre(num_h, num_c, num_hist) VALUES(?,?,?)";
-                PreparedStatement ps2 = connection.prepareStatement(insertHistoriqueChambreQuery);
-                ps2.setInt(1, obj.getNumHotel());
-                ps2.setInt(2, obj.getNumChambre());
-                ps2.setInt(3, lastInsertedId);
-
-                int resultInsertChambreHistorique = ps2.executeUpdate();
-
-                if (resultInsertChambreHistorique == 0) {
+                if (resultInsertHistorique == 0) {
                     throw new SQLException("Insert Historique echouee");
                 }
 
+            } catch (SQLException sqle) {
+                System.err.println("DAOChambreJDBC.insertEntreeHistorique");
+                sqle.printStackTrace();
             }
-
-        } catch (SQLException sqle) {
-            System.err.println("DAOChambreJDBC.insertEntreeHistorique");
-            sqle.printStackTrace();
         }
     }
 
