@@ -1,15 +1,12 @@
 package code.model.DAOJDBC;
 
 import code.Chambre;
-import code.Client;
 import code.model.ConnexionUnique;
 import code.model.DAOInterfaces.DAOReservation;
 import code.Reservation;
-import com.mysql.jdbc.SQLError;
 import javafx.util.Pair;
 
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,7 +45,7 @@ public class DAOReservationJDBC implements DAOReservation {
 
         String query = "SELECT * FROM Reservation";
         try {
-            ResultSet resultSet = ConnexionUnique.getInstance().getConnection().createStatement().executeQuery(query);
+            ResultSet resultSet = connection.createStatement().executeQuery(query);
 
             List<Reservation> reservations = new ArrayList<>();
             while (resultSet.next()) {
@@ -73,7 +70,7 @@ public class DAOReservationJDBC implements DAOReservation {
 
     @Override
     public Reservation getById(Integer integer) {
-        if(!integer.equals("") && !integer.equals(null)) {
+        if(integer != null) {
             String query = "SELECT * FROM Reservation where num_r = ?";
 
             try {
@@ -110,7 +107,7 @@ public class DAOReservationJDBC implements DAOReservation {
         if(!(obj== null)){
             try{
                 String query = "INSERT INTO Reservation (num_r, dateAr_r, dateDep_r, nbPersonnes_r, etat_r, reduction_r, num_cl)"
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
                 PreparedStatement statement = connection.prepareStatement(query);
                 statement.setInt(1, obj.getNumReservation());
                 statement.setString(2, obj.getDateArrivee().toString());
@@ -232,7 +229,6 @@ public class DAOReservationJDBC implements DAOReservation {
 
                 return (statement.executeUpdate() == 1);
 
-
             } catch (SQLException sqle) {
                 sqle.getMessage();
                 sqle.printStackTrace();
@@ -263,5 +259,59 @@ public class DAOReservationJDBC implements DAOReservation {
             }
         }
         return false;
+    }
+
+    @Override
+    public List<Reservation> findHistoriqueClient(Integer numClient) {
+        if(numClient != null) {
+            String query = "SELECT * FROM Reservation where num_cl = ?";
+
+            try {
+                PreparedStatement statement = connection.prepareStatement(query);
+                statement.setInt(1, numClient);
+                ResultSet resultSet = statement.executeQuery();
+                List<Reservation> historique = new ArrayList<>();
+                while(resultSet.next()) {
+                    historique.add(new  Reservation (
+                            resultSet.getInt("num_r"),
+                            resultSet.getDate("dateAr_r").toLocalDate(),
+                            resultSet.getDate("dateDep_r").toLocalDate(),
+                            resultSet.getInt("nbPersonnes_r"),
+                            resultSet.getString("etat_r"),
+                            resultSet.getFloat("prixTotal_r"),
+                            resultSet.getFloat("reduction_r"),
+                            new DAOClientJDBC().getById(resultSet.getInt("num_cl")),
+                            this.getChambres(resultSet.getInt("num_r"))
+                    ));
+                }
+                return historique;
+            } catch (SQLException sqle) {
+                sqle.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public List<Reservation> getByHotel(Integer numHotel) {
+        try {
+            if(numHotel != null) {
+                String query = "SELECT num_r FROM ReservationChambre WHERE num_h = ?";
+
+                PreparedStatement statement = connection.prepareStatement(query);
+                statement.setInt(1, numHotel);
+                ResultSet resultSet = statement.executeQuery();
+
+                List<Reservation> reservationsByHotel = new ArrayList<>();
+                while (resultSet.next()) {
+                    reservationsByHotel.add(this.getById(resultSet.getInt("num_r")));
+                }
+                return reservationsByHotel;
+            }
+            return null;
+        } catch (SQLException sqle) {
+            System.out.println("DAOReservationJDBC.getByHotel()");
+        }
+        return null;
     }
 }

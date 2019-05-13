@@ -8,6 +8,8 @@ import code.model.DAOJDBC.DAOHotelJDBC;
 import code.model.DAOJDBC.DAOTypeAccesJDBC;
 import org.junit.Test;
 
+import java.math.BigInteger;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,8 +40,8 @@ public class AdminTest {
 
     @Test
     public void testInsertAdmin() {
-        String identifiant = "AdminCalanquesSupreme";
-        String mdp = ("calanques");
+        String identifiant = "AdminMD5";
+        String mdp = ("administrator");
         Map<String, Boolean> droits = new HashMap<>();
         int i = 0;
         for (TypeAcces typeAcces : typesAcces) {
@@ -107,8 +109,24 @@ public class AdminTest {
 
     @Test
     public void testDeleteAdmin() {
-        Admin admin = daoAdminJDBC.findByUsernameAndPassword("AdminCalanquesSupreme", "calanques");
+        Admin admin = daoAdminJDBC.findByUsernameAndPassword("AdminMD5", "administrator");
         assertTrue(daoAdminJDBC.delete(admin));
     }
 
+    @Test
+    public void testMD5() {
+        MessageDigest md = null;
+        try {
+            md = MessageDigest.getInstance("MD5");
+            byte[] messageDigest = md.digest("administrator".getBytes());
+            BigInteger no = new BigInteger(1, messageDigest);
+            String hashtext = no.toString(16);
+            while (hashtext.length() < 32) {
+                hashtext = "0" + hashtext;
+            }
+            System.out.println(hashtext);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+    }
 }

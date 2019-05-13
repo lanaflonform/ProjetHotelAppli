@@ -1,6 +1,8 @@
 package code;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -16,10 +18,11 @@ public class Hotel {
     private float longitude;
     private Set<TypeService> services = new HashSet<>();
     private Set<Chambre> chambres = new HashSet<>();
+    private List<Reservation> reservations = new ArrayList<>();
 
     public Hotel() {}
 
-    public Hotel(int numHotel, String nom, String ville, String adresse, float latitude, float longitude, Set<TypeService> services, Set<Chambre> chambres) {
+    public Hotel(int numHotel, String nom, String ville, String adresse, float latitude, float longitude, Set<TypeService> services, Set<Chambre> chambres, List<Reservation> reservations) {
         this.numHotel = numHotel;
         this.nom = nom;
         this.ville = ville;
@@ -28,6 +31,11 @@ public class Hotel {
         this.longitude = longitude;
         this.services = services;
         this.chambres = chambres;
+        this.reservations = reservations;
+    }
+
+    public List<Reservation> getReservations() {
+        return reservations;
     }
 
     public int getNumHotel() {

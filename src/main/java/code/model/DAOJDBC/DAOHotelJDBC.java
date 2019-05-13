@@ -144,7 +144,8 @@ public class DAOHotelJDBC implements DAOHotel {
                         resultSet.getFloat("latitude_h"),
                         resultSet.getFloat("longitude_h"),
                         services,
-                        chambres
+                        chambres,
+                        new DAOReservationJDBC().getByHotel(resultSet.getInt("num_h"))
                 ));
             }
             return hotels;
@@ -177,7 +178,8 @@ public class DAOHotelJDBC implements DAOHotel {
                             resultSet.getFloat("latitude_h"),
                             resultSet.getFloat("longitude_h"),
                             services,
-                            chambres
+                            chambres,
+                            new DAOReservationJDBC().getByHotel(resultSet.getInt("num_h"))
                     );
                 }
             } catch (SQLException sqle) {

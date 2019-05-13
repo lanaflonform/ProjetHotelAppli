@@ -14,6 +14,8 @@ public class Reservation {
 
     private Client client;
     private List<Chambre> chambres;
+    private Hotel hotel;
+
 
     public Reservation(int numReservation, LocalDate dateArrivee, LocalDate dateDepart, int nbPersonnes, String etat, float prixTotal, float reduction, Client client, List<Chambre> chambres) {
         this.numReservation = numReservation;
@@ -25,6 +27,7 @@ public class Reservation {
         this.reduction = reduction;
         this.client = client;
         this.chambres = chambres;
+        this.hotel = hotel;
     }
 
     public Reservation () {

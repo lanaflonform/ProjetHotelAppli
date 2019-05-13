@@ -1,12 +1,16 @@
 package code.model.DAOJDBC;
 
 import code.Client;
+import code.Reservation;
 import code.model.ConnexionUnique;
 import code.model.DAOInterfaces.DAOClient;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DAOClientJDBC implements DAOClient {
 
@@ -131,5 +135,75 @@ public class DAOClientJDBC implements DAOClient {
             }
         }
         return false;
+    }
+
+    @Override
+    public Map<Client, Reservation> findByHotel(Integer numHotel) {
+        if (numHotel != null) {
+            try {
+                String getInfosClientsQuery = "SELECT DISTINCT C.*, R.* FROM Client C JOIN Reservation R ON C.num_cl = R.num_cl";
+                getInfosClientsQuery += " JOIN ReservationChambre RC ON R.num_r = RC.num_r WHERE num_h = ?";
+                getInfosClientsQuery += " AND R.dateAr_r < CURDATE() AND R.dateDep_r > CURDATE()";
+                PreparedStatement ps = connection.prepareStatement(getInfosClientsQuery);
+                ps.setInt(1, numHotel);
+                ResultSet resultSet = ps.executeQuery();
+
+                Map<Client, Reservation> result = new HashMap<>();
+                while (resultSet.next()) {
+                    Client newClient = new Client (
+                            resultSet.getInt("num_cl"),
+                            resultSet.getString("nom_cl"),
+                            resultSet.getString("prenom_cl"),
+                            resultSet.getString("nomEntreprise"),
+                            resultSet.getString("telephone_cl"),
+                            resultSet.getString("mail_cl"),
+                            resultSet.getString("pseudo"),
+                            resultSet.getString("motdepasse")
+                    );
+
+                    Reservation reservation = new Reservation(
+                            resultSet.getInt("num_r"),
+                            resultSet.getDate("dateAr_r").toLocalDate(),
+                            resultSet.getDate("dateDep_r").toLocalDate(),
+                            resultSet.getInt("nbPersonnes_r"),
+                            resultSet.getString("etat_r"),
+                            resultSet.getFloat("prixTotal_r"),
+                            resultSet.getFloat("reduction_r"),
+                            newClient,
+                            null
+                    );
+                    result.put(newClient, reservation);
+                }
+                return result;
+
+            } catch (SQLException sqle) {
+                System.err.println("DAOClientJDBC.findByHotel");
+                sqle.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public float getTotlalDepenses(Integer numClient, LocalDate deb, LocalDate fin) {
+        if(numClient != null) {
+            try {
+                String query = "SELECT SUM(prixTotal_r) FROM Reservation WHERE num_cl = ?";
+                PreparedStatement statement = connection.prepareStatement(query);
+                statement.setInt(1, numClient);
+
+                ResultSet resultSet = statement.executeQuery();
+                while (resultSet.next()) {
+                    return resultSet.getInt(1);
+                }
+
+            } catch (SQLException sqle) {
+                System.out.println("DAOClientJDBC.getTotalDepenses");
+                System.out.println("DAOClientJDBC.getTotalDepenses");
+                System.out.println(sqle.getMessage());
+                sqle.printStackTrace();
+            }
+        }
+        return -1;
     }
 }

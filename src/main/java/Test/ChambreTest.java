@@ -1,12 +1,12 @@
 package Test;
 
 import code.Chambre;
-import code.Hotel;
+import code.EtatChambre;
 import code.model.DAOJDBC.DAOChambreJDBC;
-import code.model.DAOJDBC.DAOHotelJDBC;
 import javafx.util.Pair;
 import org.junit.Test;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.Assert.assertTrue;
@@ -22,11 +22,11 @@ public class ChambreTest {
     public void testInsertChambre() {
 
         Chambre chambre = new Chambre();
-        chambre.setHotel(new DAOHotelJDBC().getById(1));
+        chambre.setNumHotel(12);
         chambre.setNumChambre(213);
-        chambre.setEtat("OPEN");
+        EtatChambre etatChambre = new EtatChambre("TRAVAUX", LocalDate.of(2015,12,20), LocalDate.of(2020,2,2));
         chambre.setType("Standard");
-
+        chambre.setEtat(etatChambre);
         Chambre chambreInsert = daoChambreJDBC.insert(chambre);
         assertTrue(chambre == chambreInsert);
     }
@@ -34,9 +34,9 @@ public class ChambreTest {
     @Test
     public void testUpdateChambre() {
 
-        Chambre chambre = daoChambreJDBC.getById(new Pair<>(1,213));
+        Chambre chambre = daoChambreJDBC.getById(new Pair<>(12,213));
         System.out.println(chambre);
-        chambre.setEtat("USED");
+        chambre.setEtat(new EtatChambre("RESERVEE", LocalDate.of(2025,12,20), LocalDate.of(2026,2,2)));
         assertTrue(daoChambreJDBC.update(chambre));
     }
 
@@ -49,8 +49,14 @@ public class ChambreTest {
 
     @Test
     public void testDeleteChambre() {
-        Chambre chambre = daoChambreJDBC.getById(new Pair<>(1,213));
+        Chambre chambre = daoChambreJDBC.getById(new Pair<>(12,213));
         assertTrue(daoChambreJDBC.delete(chambre));
+    }
+
+
+    public static void main(String args[]) {
+        Chambre chambre = new DAOChambreJDBC().getById(new Pair<>(12, 104));
+        System.out.println(new DAOChambreJDBC().deleteHistoriqueChambre(chambre) ?  "true": "false");
     }
 
 }
