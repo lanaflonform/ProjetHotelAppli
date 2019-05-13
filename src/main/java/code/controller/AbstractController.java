@@ -1,7 +1,9 @@
-package model;
+package code.controller;
+
+import code.view.Vues.Vue;
 
 public abstract class AbstractController {
-	private Vue m_vue;
+	protected Vue m_vue;
 	// private Model m_model;
 	
 	public AbstractController (Vue vue)
@@ -9,5 +11,5 @@ public abstract class AbstractController {
 		m_vue = vue;
 	}
 	public abstract void initController();
-	public abstract initView();
+	public abstract void initView();
 }

@@ -1,4 +1,4 @@
-package Panels;
+package code.view.Panels;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -9,8 +9,6 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
-
-import Vues.Vue.PANEL;
 
 public abstract class HotelPanel extends JPanel {
 	
@@ -36,5 +34,15 @@ public abstract class HotelPanel extends JPanel {
 	public void setTermine(final boolean termine)
 	{
 		this.m_termine = termine;
+	}
+	
+	public ArrayList <JButton> getBoutons()
+	{
+		return m_boutons;
+	}
+	
+	public ArrayList <JTextField> getTextes()
+	{
+		return m_textes;
 	}
 }

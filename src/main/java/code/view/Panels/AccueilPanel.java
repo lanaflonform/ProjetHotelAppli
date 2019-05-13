@@ -1,4 +1,4 @@
-package Panels;
+package code.view.Panels;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -7,7 +7,7 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 
-import Vues.Vue.PANEL;
+import code.view.Vues.Vue.PANEL;
 
 public class AccueilPanel extends HotelPanel {
 

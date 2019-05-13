@@ -1,4 +1,4 @@
-package Panels;
+package code.view.Panels;
 
 
 import java.awt.Dimension;
@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 
 public class ConnectionPanel extends HotelPanel {
 	
-	private enum CHAMPS { NOM_UTILISATEUR, MOT_DE_PASSE } ;
+	public enum CHAMPS { NOM_UTILISATEUR, MOT_DE_PASSE } ;
 
 	public ConnectionPanel() {
 		super();
@@ -27,41 +27,6 @@ public class ConnectionPanel extends HotelPanel {
 	public void construireConnectionBouton ()
 	{
 		JButton validerButton = new JButton("Valider");
-		validerButton.addMouseListener(new MouseListener() {
-
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				String nomUtilisateur = m_textes.get(CHAMPS.NOM_UTILISATEUR.ordinal()).getText();
-				String motDePasse = m_textes.get(CHAMPS.MOT_DE_PASSE.ordinal()).getText();
-				if (verifierChamps(nomUtilisateur, motDePasse))
-					m_termine = true;
-				else
-					JOptionPane.showMessageDialog(arg0.getComponent(), "Nom d'utilisateur ou mot de passe incorrect.", "Error", JOptionPane.WARNING_MESSAGE);
-				
-			}
-			
-			@Override
-			public void mousePressed(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-		} );
 		validerButton.setPreferredSize(new Dimension(75, 20));
 		m_boutons.add(validerButton);
 		m_mainPanel.add(validerButton);

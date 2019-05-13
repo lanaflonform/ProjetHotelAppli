@@ -1,4 +1,4 @@
-package Panels;
+package code.view.Panels;
 
 public class ClientelePanel extends HotelPanel{
 

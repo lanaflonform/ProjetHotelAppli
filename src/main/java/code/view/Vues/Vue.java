@@ -1,4 +1,4 @@
-package Vues;
+package code.view.Vues;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,13 +9,13 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-import Panels.AccueilPanel;
-import Panels.ClientelePanel;
-import Panels.ConnectionPanel;
-import Panels.FacturationPanel;
-import Panels.HotelPanel;
-import Panels.ReservationPanel;
-import Panels.SupremePanel;
+import code.view.Panels.AccueilPanel;
+import code.view.Panels.ClientelePanel;
+import code.view.Panels.ConnectionPanel;
+import code.view.Panels.FacturationPanel;
+import code.view.Panels.HotelPanel;
+import code.view.Panels.ReservationPanel;
+import code.view.Panels.SupremePanel;
 
 
 public class Vue extends JFrame {
@@ -23,8 +23,8 @@ public class Vue extends JFrame {
 	public enum PANEL { CONNECTION, ACCUEIL, CLIENTELE, FACTURATION, RESERVATION, SUPREME, RETOUR };
 	public enum ETAT_CONNECTION { UNDEFINED, CONNECTED, DISCONNECTED };
 	
-	ArrayList <HotelPanel> m_panels = new ArrayList <HotelPanel> ();
-	JMenu m_menu;
+	private ArrayList <HotelPanel> m_panels = new ArrayList <HotelPanel> ();
+	private JMenu m_menu;
 	private HotelPanel panelCourant;
 	private ETAT_CONNECTION m_connecte = ETAT_CONNECTION.UNDEFINED;
 	private boolean m_retour = false;
@@ -40,10 +40,10 @@ public class Vue extends JFrame {
 	
 	public void deroulement()
 	{
-		panelCourant = m_panels.get(PANEL.CONNECTION.ordinal());
+		panelCourant = getPanel(PANEL.CONNECTION);
 		while (true)
 		{
-			if (panelCourant.equals(m_panels.get(PANEL.CONNECTION.ordinal())))
+			if (panelCourant.equals(getPanel(PANEL.CONNECTION)))
 				m_menu.setEnabled(false);
 			else
 				m_menu.setEnabled(true);
@@ -74,12 +74,12 @@ public class Vue extends JFrame {
 			redemarrer();
 			return -1;
 		}
-		else if (panelCourant.equals(m_panels.get(PANEL.CONNECTION.ordinal())))
+		else if (panelCourant.equals(getPanel(PANEL.CONNECTION)))
 		{
 			m_connecte = ETAT_CONNECTION.CONNECTED;			
 			return PANEL.ACCUEIL.ordinal();
 		}
-		else if (panelCourant.equals(m_panels.get(PANEL.ACCUEIL.ordinal())))
+		else if (panelCourant.equals(getPanel(PANEL.ACCUEIL)))
 		{
 			if (m_retour)
 			{
@@ -88,7 +88,7 @@ public class Vue extends JFrame {
 			}
 			return ((AccueilPanel) panelCourant).getProchainPanel().ordinal();
 		}
-		else if (panelCourant.equals(m_panels.get(PANEL.FACTURATION.ordinal())))
+		else if (panelCourant.equals(getPanel(PANEL.FACTURATION)))
 		{
 			if (m_retour)
 				return PANEL.ACCUEIL.ordinal();
@@ -148,6 +148,11 @@ public class Vue extends JFrame {
 	public HotelPanel getPanelCourant()
 	{
 		return panelCourant;
+	}
+	
+	public HotelPanel getPanel(PANEL typePanel)
+	{
+		return m_panels.get(typePanel.ordinal());
 	}
 	
 	public static void main(String[] args) {
