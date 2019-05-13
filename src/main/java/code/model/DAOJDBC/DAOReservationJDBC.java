@@ -58,8 +58,7 @@ public class DAOReservationJDBC implements DAOReservation {
                     resultSet.getFloat("prixTotal_r"),
                     resultSet.getFloat("reduction_r"),
                     new DAOClientJDBC().getById(resultSet.getInt("num_cl")),
-                    this.getChambres(resultSet.getInt("num_r")),
-                    new DAOHotelJDBC().getById(resultSet.getInt("num_h"))
+                    this.getChambres(resultSet.getInt("num_r"))
                 ));
             }
             return reservations;
@@ -92,8 +91,7 @@ public class DAOReservationJDBC implements DAOReservation {
                         resultSet.getFloat("prixTotal_r"),
                         resultSet.getFloat("reduction_r"),
                         new DAOClientJDBC().getById(resultSet.getInt("num_cl")),
-                        this.getChambres(resultSet.getInt("num_r")),
-                        new DAOHotelJDBC().getById(resultSet.getInt("num_h"))
+                        this.getChambres(resultSet.getInt("num_r"))
                     );
                 }
                 return reservation;
@@ -108,7 +106,7 @@ public class DAOReservationJDBC implements DAOReservation {
     public Reservation insert(Reservation obj) {
         if(!(obj== null)){
             try{
-                String query = "INSERT INTO Reservation (num_r, dateAr_r, dateDep_r, nbPersonnes_r, etat_r, reduction_r, num_cl, num_h)"
+                String query = "INSERT INTO Reservation (num_r, dateAr_r, dateDep_r, nbPersonnes_r, etat_r, reduction_r, num_cl)"
                     + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
                 PreparedStatement statement = connection.prepareStatement(query);
                 statement.setInt(1, obj.getNumReservation());
@@ -118,7 +116,6 @@ public class DAOReservationJDBC implements DAOReservation {
                 statement.setString(5, obj.getEtat());
                 statement.setFloat(6, obj.getReduction());
                 statement.setInt(7, obj.getClient().getNum());
-                statement.setInt(8, obj.getHotel().getNumHotel());
 
                 int nb = statement.executeUpdate();
 
@@ -144,7 +141,7 @@ public class DAOReservationJDBC implements DAOReservation {
     @Override
     public boolean update(Reservation obj) {
         if(!(obj== null)){
-            String query = "UPDATE Reservation SET dateAr_r = ?, dateDep_r = ?, nbPersonnes_r = ?, etat_r = ?, prixTotal_r, reduction_r = ?, num_cl = ?, num_h = ? WHERE num_r = ?";
+            String query = "UPDATE Reservation SET dateAr_r = ?, dateDep_r = ?, nbPersonnes_r = ?, etat_r = ?, prixTotal_r, reduction_r = ?, num_cl = ? WHERE num_r = ?";
             try{
                 PreparedStatement statement = connection.prepareStatement(query);
                 statement.setString(1, obj.getDateArrivee().toString());
@@ -154,8 +151,7 @@ public class DAOReservationJDBC implements DAOReservation {
                 statement.setFloat(5, obj.getPrixTotal());
                 statement.setFloat(6, obj.getReduction());
                 statement.setInt(7, obj.getNumReservation());
-                statement.setInt(8, obj.getHotel().getNumHotel());
-                statement.setInt(9, obj.getClient().getNum());
+                statement.setInt(8, obj.getClient().getNum());
 
                 return (statement.executeUpdate() == 1);
 

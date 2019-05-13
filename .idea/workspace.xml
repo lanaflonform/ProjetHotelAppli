@@ -3,7 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="6c6ed0aa-23c5-4de3-9370-0c060feea84b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Test/ClientTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Test/ClientTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/code/Reservation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/code/Reservation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/code/model/DAOInterfaces/DAOClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/code/model/DAOInterfaces/DAOClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/code/model/DAOJDBC/DAOClientJDBC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/code/model/DAOJDBC/DAOClientJDBC.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/code/model/DAOJDBC/DAOReservationJDBC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/code/model/DAOJDBC/DAOReservationJDBC.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
@@ -23,32 +26,33 @@
           <entry key="project.open.time.41" value="1" />
           <entry key="project.open.time.46" value="1" />
           <entry key="project.open.time.52" value="1" />
+          <entry key="project.open.time.64" value="1" />
           <entry key="project.open.time.69" value="1" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="7" />
+          <entry key="project.opened" value="8" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="class" value="1" />
-          <entry key="java" value="74" />
+          <entry key="java" value="81" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CLASS" value="1" />
-          <entry key="JAVA" value="74" />
+          <entry key="JAVA" value="81" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="8563" />
+          <entry key="java" value="9452" />
           <entry key="xml" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="8563" />
+          <entry key="JAVA" value="9452" />
           <entry key="XML" value="5" />
         </counts>
       </usages-collector>
@@ -56,49 +60,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/code/Reservation.java">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/code/model/DAOJDBC/DAOClientJDBC.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="36" column="29" selection-start-line="36" selection-start-column="29" selection-end-line="36" selection-end-column="29" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1057#1058#0" expanded="true" />
-                <element signature="e#966#967#0" expanded="true" />
-                <element signature="e#998#999#0" expanded="true" />
-                <element signature="e#1053#1054#0" expanded="true" />
-                <element signature="e#1093#1094#0" expanded="true" />
-                <element signature="e#1135#1136#0" expanded="true" />
-                <element signature="e#1166#1167#0" expanded="true" />
-                <element signature="e#1223#1224#0" expanded="true" />
-                <element signature="e#1275#1276#0" expanded="true" />
-                <element signature="e#1313#1314#0" expanded="true" />
-                <element signature="e#1350#1351#0" expanded="true" />
-                <element signature="e#1391#1392#0" expanded="true" />
-                <element signature="e#1425#1426#0" expanded="true" />
-                <element signature="e#1465#1466#0" expanded="true" />
-                <element signature="e#1498#1499#0" expanded="true" />
-                <element signature="e#1533#1534#0" expanded="true" />
-                <element signature="e#1567#1568#0" expanded="true" />
-                <element signature="e#1598#1599#0" expanded="true" />
-                <element signature="e#1625#1626#0" expanded="true" />
-                <element signature="e#1660#1661#0" expanded="true" />
-                <element signature="e#1692#1693#0" expanded="true" />
-                <element signature="e#1725#1726#0" expanded="true" />
-                <element signature="e#1754#1755#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="155">
+              <caret line="198" column="16" selection-start-line="198" selection-start-column="16" selection-end-line="198" selection-end-column="16" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/code/model/DAOJDBC/DAOReservationJDBC.java">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Test/ClientTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="325">
-              <caret line="90" column="54" lean-forward="true" selection-start-line="90" selection-start-column="54" selection-end-line="90" selection-end-column="54" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="99">
+              <caret line="26" column="27" selection-start-line="26" selection-start-column="27" selection-end-line="26" selection-end-column="27" />
             </state>
           </provider>
         </entry>
@@ -144,7 +119,6 @@
         <option value="$PROJECT_DIR$/src/main/java/code/model/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/code/model/Reservation.java" />
         <option value="$PROJECT_DIR$/src/main/java/code/model/Test/Main.java" />
-        <option value="$PROJECT_DIR$/src/main/java/code/model/DAOJDBC/DAOClientJDBC.java" />
         <option value="$PROJECT_DIR$/src/main/java/code/model/DAOTypeService.java" />
         <option value="$PROJECT_DIR$/src/main/java/code/model/DAOJDBC/DAOAdminJDBC.java" />
         <option value="$PROJECT_DIR$/src/main/java/code/TypeService.java" />
@@ -163,6 +137,9 @@
         <option value="$PROJECT_DIR$/src/main/java/Test/HotelTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/code/Reservation.java" />
         <option value="$PROJECT_DIR$/src/main/java/code/model/DAOJDBC/DAOReservationJDBC.java" />
+        <option value="$PROJECT_DIR$/src/main/java/code/model/DAOInterfaces/DAOClient.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Test/ClientTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/code/model/DAOJDBC/DAOClientJDBC.java" />
       </list>
     </option>
   </component>
@@ -186,7 +163,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -245,12 +222,12 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="SearchEverywhereHistoryKey" value="DAORe&#9;FILE&#9;file://C:/Users/Administrateur/Desktop/ProjetHotelAppli/src/main/java/code/model/DAOJDBC/DAOReservationJDBC.java&#10;Cha&#9;FILE&#9;file://C:/Users/Administrateur/Desktop/ProjetHotelAppli/src/main/java/code/Chambre.java&#10;Chambre&#9;FILE&#9;file://C:/Users/Administrateur/Desktop/ProjetHotelAppli/src/main/java/code/Chambre.java&#10;DAOCha&#9;FILE&#9;file://C:/Users/Administrateur/Desktop/ProjetHotelAppli/src/main/java/code/model/DAOJDBC/DAOChambreJDBC.java&#10;Fact&#9;FILE&#9;file://C:/Users/Administrateur/Desktop/ProjetHotelAppli/src/main/java/code/Facture.java&#10;Reser&#9;FILE&#9;file://C:/Users/Administrateur/Desktop/ProjetHotelAppli/src/main/java/code/Reservation.java&#10;TypeS&#9;FILE&#9;file://C:/Users/Administrateur/Desktop/ProjetHotelAppli/src/main/java/code/TypeService.java&#10;DaoR&#9;FILE&#9;file://C:/Users/Administrateur/Desktop/ProjetHotelAppli/src/main/java/code/model/DAOJDBC/DAOReservationJDBC.java&#10;Reserv&#9;FILE&#9;file://C:/Users/Administrateur/Desktop/ProjetHotelAppli/src/main/java/code/Reservation.java&#10;Main&#9;FILE&#9;file://C:/Users/Administrateur/Desktop/ProjetHotelAppli/src/main/java/Test/Main.java&#10;Client&#9;FILE&#9;file://C:/Users/Administrateur/Desktop/ProjetHotelAppli/src/main/java/code/Client.java&#10;Connexio&#9;FILE&#9;file://C:/Users/Administrateur/Desktop/ProjetHotelAppli/src/main/java/code/model/ConnexionUnique.java" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557324187616" />
+    <property name="SearchEverywhereHistoryKey" value="DAOC&#9;FILE&#9;file://C:/Users/Administrateur/Desktop/ProjetHotelAppli/src/main/java/code/model/DAOInterfaces/DAOClient.java&#10;DAOCli&#9;FILE&#9;file://C:/Users/Administrateur/Desktop/ProjetHotelAppli/src/main/java/code/model/DAOJDBC/DAOClientJDBC.java&#10;Client&#9;FILE&#9;file://C:/Users/Administrateur/Desktop/ProjetHotelAppli/src/main/java/code/Client.java&#10;Reserva&#9;FILE&#9;file://C:/Users/Administrateur/Desktop/ProjetHotelAppli/src/main/java/code/Reservation.java&#10;DAORe&#9;FILE&#9;file://C:/Users/Administrateur/Desktop/ProjetHotelAppli/src/main/java/code/model/DAOJDBC/DAOReservationJDBC.java&#10;Cha&#9;FILE&#9;file://C:/Users/Administrateur/Desktop/ProjetHotelAppli/src/main/java/code/Chambre.java&#10;Chambre&#9;FILE&#9;file://C:/Users/Administrateur/Desktop/ProjetHotelAppli/src/main/java/code/Chambre.java&#10;DAOCha&#9;FILE&#9;file://C:/Users/Administrateur/Desktop/ProjetHotelAppli/src/main/java/code/model/DAOJDBC/DAOChambreJDBC.java&#10;Fact&#9;FILE&#9;file://C:/Users/Administrateur/Desktop/ProjetHotelAppli/src/main/java/code/Facture.java&#10;Reser&#9;FILE&#9;file://C:/Users/Administrateur/Desktop/ProjetHotelAppli/src/main/java/code/Reservation.java&#10;TypeS&#9;FILE&#9;file://C:/Users/Administrateur/Desktop/ProjetHotelAppli/src/main/java/code/TypeService.java&#10;DaoR&#9;FILE&#9;file://C:/Users/Administrateur/Desktop/ProjetHotelAppli/src/main/java/code/model/DAOJDBC/DAOReservationJDBC.java&#10;Reserv&#9;FILE&#9;file://C:/Users/Administrateur/Desktop/ProjetHotelAppli/src/main/java/code/Reservation.java&#10;Main&#9;FILE&#9;file://C:/Users/Administrateur/Desktop/ProjetHotelAppli/src/main/java/Test/Main.java&#10;Connexio&#9;FILE&#9;file://C:/Users/Administrateur/Desktop/ProjetHotelAppli/src/main/java/code/model/ConnexionUnique.java" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557760374671" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/mysql/mysql-connector.jar!/" />
     <property name="project.structure.last.edited" value="Problems" />
     <property name="project.structure.proportion" value="0.15527344" />
@@ -269,9 +246,22 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.ChambreTest">
+  <component name="RunManager" selected="Application.ClientTest">
     <configuration name="ChambreTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Test.ChambreTest" />
+      <module name="projet" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ClientTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Test.ClientTest" />
       <module name="projet" />
       <extension name="coverage">
         <pattern>
@@ -309,19 +299,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TypeServiceTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Test.TypeServiceTest" />
-      <module name="projet" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="Test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="ChambreTest.testDeleteHistorique" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="projet" />
       <extension name="coverage">
@@ -340,18 +317,18 @@
     </configuration>
     <list>
       <item itemvalue="Application.ReservationTest" />
-      <item itemvalue="Application.TypeServiceTest" />
       <item itemvalue="Application.FactureTest" />
       <item itemvalue="JUnit.ChambreTest.testDeleteHistorique" />
       <item itemvalue="Application.ChambreTest" />
+      <item itemvalue="Application.ClientTest" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.ClientTest" />
         <item itemvalue="Application.ChambreTest" />
         <item itemvalue="JUnit.ChambreTest.testDeleteHistorique" />
         <item itemvalue="Application.ReservationTest" />
         <item itemvalue="Application.FactureTest" />
-        <item itemvalue="Application.TypeServiceTest" />
       </list>
     </recent_temporary>
   </component>
@@ -378,8 +355,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49756098" visible="true" weight="0.26928896" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49756098" visible="true" weight="0.2730711" />
       <window_info id="Structure" order="1" sideWeight="0.502439" side_tool="true" weight="0.24962178" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -388,7 +366,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3289689" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49924356" weight="0.4304419" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49924356" visible="true" weight="0.4304419" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -447,13 +425,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/code/model/DAOInterfaces/DAOClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/code/model/ConnexionUnique.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
@@ -461,21 +432,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/code/Client.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="19" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/code/model/Test.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/code/model/DAOJDBC/DAOClientJDBC.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="113" column="113" selection-start-line="113" selection-start-column="113" selection-end-line="113" selection-end-column="113" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/code/TypeAccess.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/code/model/DAOInterfaces/DAOTypeService.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -537,14 +494,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="10" column="39" lean-forward="true" selection-start-line="10" selection-start-column="39" selection-end-line="10" selection-end-column="39" />
-          <folding>
-            <element signature="e#311#312#0" expanded="true" />
-            <element signature="e#337#338#0" expanded="true" />
-            <element signature="e#368#369#0" expanded="true" />
-            <element signature="e#395#396#0" expanded="true" />
-            <element signature="e#438#439#0" expanded="true" />
-            <element signature="e#472#473#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -554,9 +503,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="12" column="1" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -571,9 +517,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-970">
           <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -632,46 +575,68 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/code/Reservation.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/code/Droits.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="36" column="29" selection-start-line="36" selection-start-column="29" selection-end-line="36" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1057#1058#0" expanded="true" />
-            <element signature="e#966#967#0" expanded="true" />
-            <element signature="e#998#999#0" expanded="true" />
-            <element signature="e#1053#1054#0" expanded="true" />
-            <element signature="e#1093#1094#0" expanded="true" />
-            <element signature="e#1135#1136#0" expanded="true" />
-            <element signature="e#1166#1167#0" expanded="true" />
-            <element signature="e#1223#1224#0" expanded="true" />
-            <element signature="e#1275#1276#0" expanded="true" />
-            <element signature="e#1313#1314#0" expanded="true" />
-            <element signature="e#1350#1351#0" expanded="true" />
-            <element signature="e#1391#1392#0" expanded="true" />
-            <element signature="e#1425#1426#0" expanded="true" />
-            <element signature="e#1465#1466#0" expanded="true" />
-            <element signature="e#1498#1499#0" expanded="true" />
-            <element signature="e#1533#1534#0" expanded="true" />
-            <element signature="e#1567#1568#0" expanded="true" />
-            <element signature="e#1598#1599#0" expanded="true" />
-            <element signature="e#1625#1626#0" expanded="true" />
-            <element signature="e#1660#1661#0" expanded="true" />
-            <element signature="e#1692#1693#0" expanded="true" />
-            <element signature="e#1725#1726#0" expanded="true" />
-            <element signature="e#1754#1755#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="85">
+          <caret line="5" column="12" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/code/Client.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="19" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/code/model/DAOJDBC/DAOHotelJDBC.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3840">
+          <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/code/model/DAOJDBC/DAOReservationJDBC.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="90" column="54" lean-forward="true" selection-start-line="90" selection-start-column="54" selection-end-line="90" selection-end-column="54" />
+        <state relative-caret-position="512">
+          <caret line="262" lean-forward="true" selection-start-line="262" selection-end-line="262" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/code/Reservation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="595">
+          <caret line="35" selection-start-line="35" selection-end-line="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/code/model/DAOInterfaces/DAOClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Test/ClientTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="99">
+          <caret line="26" column="27" selection-start-line="26" selection-start-column="27" selection-end-line="26" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/code/model/DAOJDBC/DAOClientJDBC.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="155">
+          <caret line="198" column="16" selection-start-line="198" selection-start-column="16" selection-end-line="198" selection-end-column="16" />
         </state>
       </provider>
     </entry>

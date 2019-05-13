@@ -6,6 +6,7 @@ import code.model.ConnexionUnique;
 import code.model.DAOInterfaces.DAOClient;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -181,5 +182,28 @@ public class DAOClientJDBC implements DAOClient {
             }
         }
         return null;
+    }
+
+    @Override
+    public float getTotlalDepenses(Integer numClient, LocalDate deb, LocalDate fin) {
+        if(numClient != null) {
+            try {
+                String query = "SELECT SUM(prixTotal_r) FROM Reservation WHERE num_cl = ?";
+                PreparedStatement statement = connection.prepareStatement(query);
+                statement.setInt(1, numClient);
+
+                ResultSet resultSet = statement.executeQuery();
+                while (resultSet.next()) {
+                    return resultSet.getInt(1);
+                }
+
+            } catch (SQLException sqle) {
+                System.out.println("DAOClientJDBC.getTotalDepenses");
+                System.out.println("DAOClientJDBC.getTotalDepenses");
+                System.out.println(sqle.getMessage());
+                sqle.printStackTrace();
+            }
+        }
+        return -1;
     }
 }

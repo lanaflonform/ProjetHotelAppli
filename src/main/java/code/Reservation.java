@@ -17,7 +17,7 @@ public class Reservation {
     private Hotel hotel;
 
 
-    public Reservation(int numReservation, LocalDate dateArrivee, LocalDate dateDepart, int nbPersonnes, String etat, float prixTotal, float reduction, Client client, List<Chambre> chambres, Hotel hotel) {
+    public Reservation(int numReservation, LocalDate dateArrivee, LocalDate dateDepart, int nbPersonnes, String etat, float prixTotal, float reduction, Client client, List<Chambre> chambres) {
         this.numReservation = numReservation;
         this.dateArrivee = dateArrivee;
         this.dateDepart = dateDepart;
@@ -32,10 +32,6 @@ public class Reservation {
 
     public Reservation () {
 
-    }
-
-    public Hotel getHotel() {
-        return hotel;
     }
 
     public float getPrixTotal() {
