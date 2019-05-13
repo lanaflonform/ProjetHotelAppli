@@ -73,7 +73,7 @@ public class DAOReservationJDBC implements DAOReservation {
 
     @Override
     public Reservation getById(Integer integer) {
-        if(!integer.equals("") && !integer.equals(null)) {
+        if(integer != null) {
             String query = "SELECT * FROM Reservation where num_r = ?";
 
             try {
@@ -263,5 +263,36 @@ public class DAOReservationJDBC implements DAOReservation {
             }
         }
         return false;
+    }
+
+    @Override
+    public List<Reservation> findHistoriqueClient(Integer numClient) {
+        if(numClient != null) {
+            String query = "SELECT * FROM Reservation where num_cl = ?";
+
+            try {
+                PreparedStatement statement = connection.prepareStatement(query);
+                statement.setInt(1, numClient);
+                ResultSet resultSet = statement.executeQuery();
+                List<Reservation> historique = new ArrayList<>();
+                while(resultSet.next()) {
+                    historique.add(new  Reservation (
+                            resultSet.getInt("num_r"),
+                            resultSet.getDate("dateAr_r").toLocalDate(),
+                            resultSet.getDate("dateDep_r").toLocalDate(),
+                            resultSet.getInt("nbPersonnes_r"),
+                            resultSet.getString("etat_r"),
+                            resultSet.getFloat("prixTotal_r"),
+                            resultSet.getFloat("reduction_r"),
+                            new DAOClientJDBC().getById(resultSet.getInt("num_cl")),
+                            this.getChambres(resultSet.getInt("num_r"))
+                    ));
+                }
+                return historique;
+            } catch (SQLException sqle) {
+                sqle.printStackTrace();
+            }
+        }
+        return null;
     }
 }
