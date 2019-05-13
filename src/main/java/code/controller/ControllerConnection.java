@@ -22,7 +22,7 @@ public class ControllerConnection extends AbstractController {
 		super(vue);
 		m_panel = (ConnectionPanel) m_vue.getPanel(PANEL.CONNECTION);
 		initController();
-		initView();
+		m_vue.deroulement();
 		
 	}
 
@@ -31,11 +31,6 @@ public class ControllerConnection extends AbstractController {
 		JButton validerBouton = m_panel.getBoutons().get(0);
 		validerBouton.addActionListener(e -> verifierIdentifiants());
 	}
-
-	@Override
-	public void initView() {
-		m_vue.deroulement();
-	}
 	
 	private void verifierIdentifiants()
 	{
@@ -43,11 +38,11 @@ public class ControllerConnection extends AbstractController {
 		m_motDePasse = m_panel.getTextes().get(CHAMPS.MOT_DE_PASSE.ordinal()).getText();
 		
 		// Verifier
-		
+		int IDAdmin = 0;
 		if (true) // si les identifiants sont corrects
 		{
 			m_panel.setTermine(true);
-			new ControllerAccueil(m_vue);
+			new ControllerAccueil(m_vue, IDAdmin);
 		}
 		else
 		{

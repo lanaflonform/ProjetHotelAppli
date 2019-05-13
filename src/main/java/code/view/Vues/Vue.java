@@ -155,9 +155,4 @@ public class Vue extends JFrame {
 		return m_panels.get(typePanel.ordinal());
 	}
 	
-	public static void main(String[] args) {
-		new Vue().deroulement();
-	}
-	
-	
 }

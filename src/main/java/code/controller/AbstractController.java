@@ -11,5 +11,4 @@ public abstract class AbstractController {
 		m_vue = vue;
 	}
 	public abstract void initController();
-	public abstract void initView();
 }

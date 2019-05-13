@@ -2,9 +2,9 @@ package code.controller;
 
 import code.view.Vues.Vue;
 
-public class ControllerFacturation extends AbstractController {
+public class ControllerClientele extends AbstractController {
 
-	public ControllerFacturation(Vue vue) {
+	public ControllerClientele(Vue vue) {
 		super(vue);
 		// TODO Auto-generated constructor stub
 	}
