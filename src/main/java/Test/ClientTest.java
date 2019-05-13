@@ -17,7 +17,7 @@ public class ClientTest {
 
     @Test
     public void testFindByHotel() {
-        Map<Client, Reservation> clients = daoClientJDBC.findByHotel(11);
+        Map<Client, Reservation> clients = daoClientJDBC.findByHotel(13);
         System.out.println(clients);
     }
 
