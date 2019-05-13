@@ -2,6 +2,7 @@ package Test;
 
 import code.Chambre;
 import code.Hotel;
+import code.Reservation;
 import code.TypeService;
 import code.model.DAOJDBC.DAOHotelJDBC;
 
@@ -19,7 +20,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class HotelTest {
 
-    private DAOHotelJDBC daoHotelJDBC = new DAOHotelJDBC();
+    private static DAOHotelJDBC daoHotelJDBC = new DAOHotelJDBC();
 
     @Test
     public void testInsertHotel() {
@@ -76,6 +77,16 @@ public class HotelTest {
     public void testDeleteHotel() {
         Hotel hotel = daoHotelJDBC.getById(12);
         assertTrue(daoHotelJDBC.delete(hotel));
+    }
+
+    public static void main(String args[]) {
+        Hotel h = daoHotelJDBC.getById(12);
+
+        List<Reservation> reservations = h.getReservations();
+
+        for(Reservation r: reservations) {
+            System.out.println(r.toString());
+        }
     }
 
 }

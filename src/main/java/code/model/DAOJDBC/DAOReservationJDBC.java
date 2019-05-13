@@ -291,4 +291,27 @@ public class DAOReservationJDBC implements DAOReservation {
         }
         return null;
     }
+
+    @Override
+    public List<Reservation> getByHotel(Integer numHotel) {
+        try {
+            if(numHotel != null) {
+                String query = "SELECT num_r FROM ReservationChambre WHERE num_h = ?";
+
+                PreparedStatement statement = connection.prepareStatement(query);
+                statement.setInt(1, numHotel);
+                ResultSet resultSet = statement.executeQuery();
+
+                List<Reservation> reservationsByHotel = new ArrayList<>();
+                while (resultSet.next()) {
+                    reservationsByHotel.add(this.getById(resultSet.getInt("num_r")));
+                }
+                return reservationsByHotel;
+            }
+            return null;
+        } catch (SQLException sqle) {
+            System.out.println("DAOReservationJDBC.getByHotel()");
+        }
+        return null;
+    }
 }

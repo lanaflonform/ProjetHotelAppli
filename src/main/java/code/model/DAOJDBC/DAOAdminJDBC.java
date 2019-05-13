@@ -164,7 +164,8 @@ public class DAOAdminJDBC implements DAOAdmin {
                         resultSet.getFloat("latitude_h"),
                         resultSet.getFloat("longitude_h"),
                         daoHotelJDBC.getServicesById(resultSet.getInt("num_h")),
-                        daoHotelJDBC.getChambresById(resultSet.getInt("num_h")) );
+                        daoHotelJDBC.getChambresById(resultSet.getInt("num_h")),
+                        new DAOReservationJDBC().getByHotel(resultSet.getInt("num_h")));
                 result.add(hotel);
             }
             return result;
