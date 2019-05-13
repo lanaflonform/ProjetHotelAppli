@@ -10,4 +10,5 @@ public interface DAOReservation extends DAO<Reservation, Integer> {
     public boolean deleteLiens(Reservation reservation, Chambre chambre);
     public boolean insertLiens(Reservation reservation, Chambre chambre);
     public boolean updateLiens(Reservation reservation);
+    public List<Reservation> findHistoriqueClient(Integer numClient);
 }

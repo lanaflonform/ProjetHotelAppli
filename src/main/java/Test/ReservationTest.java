@@ -22,7 +22,8 @@ public class ReservationTest {
         //getChambres();
         ////deleteLiens();
         //insertLiens();
-        updateLiens();
+        //updateLiens();
+        testFindHistorique();
     }
 
     public static void deleteLiens(){
@@ -90,6 +91,11 @@ public class ReservationTest {
         r.getChambres().add(new DAOChambreJDBC().getById(new Pair<>(1, 301)));
 
         System.out.println(new DAOReservationJDBC().updateLiens(r) ? "true": "false");
+    }
+
+    public static void testFindHistorique() {
+        List<Reservation> historique = new DAOReservationJDBC().findHistoriqueClient(34);
+        System.out.println(historique);
     }
 
 }
