@@ -14,10 +14,10 @@ import code.view.Vues.Vue.PANEL;
 
 public class ControllerConnection extends AbstractController {
 
-	ConnectionPanel m_panel; 
-	
+	private ConnectionPanel m_panel; 	
 	private String m_nomUtilisateur;
 	private String m_motDePasse;
+	
 	public ControllerConnection(Vue vue) {
 		super(vue);
 		m_panel = (ConnectionPanel) m_vue.getPanel(PANEL.CONNECTION);
@@ -50,7 +50,11 @@ public class ControllerConnection extends AbstractController {
 			new ControllerAccueil(m_vue);
 		}
 		else
+		{
 			JOptionPane.showMessageDialog(m_panel, "Nom d'utilisateur ou mot de passe incorrect.", "Error", JOptionPane.WARNING_MESSAGE);
+			m_nomUtilisateur = "";
+			m_motDePasse = "";		
+		}
 	}
 
 	public static void main(String[] args) {
