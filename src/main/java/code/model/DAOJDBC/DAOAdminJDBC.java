@@ -6,6 +6,9 @@ import code.TypeAcces;
 import code.model.ConnexionUnique;
 import code.model.DAOInterfaces.DAOAdmin;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.*;
 
@@ -16,6 +19,23 @@ public class DAOAdminJDBC implements DAOAdmin {
 
     private static Connection connection = ConnexionUnique.getInstance().getConnection();
     private static List<TypeAcces> typesAcces = new DAOTypeAccesJDBC().findAll();
+
+    public String md5(String input) {
+        MessageDigest md = null;
+        try {
+            md = MessageDigest.getInstance("MD5");
+        } catch (NoSuchAlgorithmException nsae) {
+            System.err.println("DAOAdminJDBC.md5");
+            nsae.printStackTrace();
+        }
+        byte[] messageDigest = md.digest(input.getBytes());
+        BigInteger no = new BigInteger(1, messageDigest);
+        String hashtext = no.toString(16);
+        while (hashtext.length() < 32) {
+            hashtext = "0" + hashtext;
+        }
+        return hashtext;
+    }
 
     @Override
     public boolean deleteHotelsGeres(Admin obj) {
@@ -214,10 +234,11 @@ public class DAOAdminJDBC implements DAOAdmin {
     public Admin insert(Admin obj) {
         if(obj != null){
             String insertAdminQuery = "INSERT INTO Admin (identifiant, motdepasse) VALUES (?, ?)";
+
             try{
                 PreparedStatement statement = connection.prepareStatement(insertAdminQuery, Statement.RETURN_GENERATED_KEYS);
                 statement.setString(1, obj.getIdentifiant());
-                statement.setString(2, obj.getMdp());
+                statement.setString(2, md5(obj.getMdp()));
 
                 int insertAdminResult = statement.executeUpdate();
 
@@ -300,7 +321,7 @@ public class DAOAdminJDBC implements DAOAdmin {
             try {
                 PreparedStatement ps = connection.prepareStatement(updateAdminQuery);
                 ps.setString(1, obj.getIdentifiant());
-                ps.setString(2, obj.getMdp());
+                ps.setString(2, md5(obj.getMdp()));
                 ps.setInt(3, obj.getNumAdmin());
 
                 int updateAdminResult = ps.executeUpdate();
@@ -344,7 +365,7 @@ public class DAOAdminJDBC implements DAOAdmin {
     public Admin findByUsernameAndPassword(String username, String password) {
         try {
             Statement stmt = connection.createStatement();
-            String req = "SELECT * FROM Admin WHERE identifiant='" +  username + "' AND motdepasse='" + password + "'";
+            String req = "SELECT * FROM Admin WHERE identifiant='" +  username + "' AND motdepasse='" + md5(password) + "'";
             System.out.println(req);
             ResultSet rs = stmt.executeQuery(req);
             Admin admin = new Admin();
