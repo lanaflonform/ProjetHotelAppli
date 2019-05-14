@@ -7,6 +7,9 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 
+import code.Admin;
+import code.model.DAOInterfaces.DAOAdmin;
+import code.model.DAOJDBC.DAOAdminJDBC;
 import code.view.Panels.AccueilPanel;
 import code.view.Panels.AccueilPanel.ADMINISTRATEURS;
 import code.view.Vues.Vue;
@@ -16,25 +19,29 @@ public class ControllerAccueil extends AbstractController {
 
 	private ArrayList <JButton> m_boutons = new ArrayList <JButton> ();
 	private AccueilPanel  m_panel;
-	private int m_IDAdmin;
+	private Admin m_Admin;
 	private boolean DROIT_SUPREME;
 	private boolean DROIT_FACTURATION;
 	private boolean DROIT_RESERVATION;
 	private boolean DROIT_CLIENTELE;
+	//peut-être inutile
+	private DAOAdmin daoAdmin;
 	
-	public ControllerAccueil(Vue vue, int IDAdmin) {
+	public ControllerAccueil(Vue vue, Admin admin) {
 		super(vue);
-		m_IDAdmin = IDAdmin;
+		System.out.println("jfk");
+		m_Admin = admin;
 		initController();
+		daoAdmin = new DAOAdminJDBC();
 		
 	}
 	
 	public void recupererDroits() // ToDo
 	{
-		DROIT_SUPREME = false;
-		DROIT_FACTURATION = true;
-		DROIT_RESERVATION = false;
-		DROIT_CLIENTELE = true;
+		DROIT_SUPREME = m_Admin.getDroits().get("Supreme");
+		DROIT_FACTURATION = m_Admin.getDroits().get("Facturation");
+		DROIT_RESERVATION = m_Admin.getDroits().get("Reservation");
+		DROIT_CLIENTELE = m_Admin.getDroits().get("Clientele");
 	}
 
 	@Override

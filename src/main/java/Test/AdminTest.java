@@ -40,8 +40,8 @@ public class AdminTest {
 
     @Test
     public void testInsertAdmin() {
-        String identifiant = "AdminMD5";
-        String mdp = ("administrator");
+        String identifiant = "unac";
+        String mdp = "unac";
         Map<String, Boolean> droits = new HashMap<>();
         int i = 0;
         for (TypeAcces typeAcces : typesAcces) {
@@ -49,7 +49,7 @@ public class AdminTest {
             ++i;
         };
         List<Hotel> hotelsGeres = new ArrayList<>();
-        hotelsGeres.addAll(new DAOHotelJDBC().findAll());
+        hotelsGeres.add(new DAOHotelJDBC().getById(13));
         Admin adminTest = new Admin();
         adminTest.setIdentifiant(identifiant);
         adminTest.setMdp(mdp);
@@ -102,14 +102,16 @@ public class AdminTest {
 
     @Test
     public void testGetById() {
-        Admin admin = daoAdminJDBC.findByUsernameAndPassword("GeorgesDeLaFacturation", "mdptest");
+        Admin admin = daoAdminJDBC.findByUsernameAndPassword("AdminTest", "administrator");
         Admin adminTest = daoAdminJDBC.getById(admin.getNumAdmin());
+        System.out.println(admin);
+        System.out.println(adminTest);
         assertTrue(admin.equals(adminTest));
     }
 
     @Test
     public void testDeleteAdmin() {
-        Admin admin = daoAdminJDBC.findByUsernameAndPassword("AdminMD5", "administrator");
+        Admin admin = daoAdminJDBC.findByUsernameAndPassword("unac", "unac");
         assertTrue(daoAdminJDBC.delete(admin));
     }
 

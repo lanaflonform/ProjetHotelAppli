@@ -15,12 +15,12 @@ public class Admin {
     private int numAdmin;
     private String identifiant;
     private String mdp;
-    private List<Hotel> hotelsGeres = new ArrayList<>();
+    private List<Integer> hotelsGeres = new ArrayList<>();
     private Map<String, Boolean> droits = new HashMap<>();
 
     public Admin() {}
 
-    public Admin(int numAdmin, String identifiant, String mdp, List<Hotel> hotelsGeres, Map<String, Boolean> droits) {
+    public Admin(int numAdmin, String identifiant, String mdp, List<Integer> hotelsGeres, Map<String, Boolean> droits) {
         this.numAdmin = numAdmin;
         this.identifiant = identifiant;
         this.mdp = mdp;
@@ -56,11 +56,11 @@ public class Admin {
         return droits;
     }
 
-    public List<Hotel> getHotelsGeres() {
+    public List<Integer> getHotelsGeres() {
         return hotelsGeres;
     }
 
-    public void setHotelsGeres(List<Hotel> hotelsGeres) {
+    public void setHotelsGeres(List<Integer> hotelsGeres) {
         this.hotelsGeres = hotelsGeres;
     }
 

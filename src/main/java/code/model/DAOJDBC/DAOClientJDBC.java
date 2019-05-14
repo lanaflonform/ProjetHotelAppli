@@ -198,9 +198,7 @@ public class DAOClientJDBC implements DAOClient {
                 }
 
             } catch (SQLException sqle) {
-                System.out.println("DAOClientJDBC.getTotalDepenses");
-                System.out.println("DAOClientJDBC.getTotalDepenses");
-                System.out.println(sqle.getMessage());
+                System.err.println("DAOClientJDBC.getTotalDepenses");
                 sqle.printStackTrace();
             }
         }

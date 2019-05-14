@@ -29,8 +29,7 @@ public class AccueilPanel extends HotelPanel {
 		boutonFacturation.setEnabled(false);
 		m_boutons.add(boutonFacturation);
 		m_mainPanel.add(boutonFacturation);
-		
-		
+
 		boutonSupreme = new JButton("Admin Supreme");
 		boutonSupreme.setEnabled(false);
 		m_boutons.add(boutonSupreme);
