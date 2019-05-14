@@ -52,6 +52,7 @@ public class ConnectionPanel extends HotelPanel {
 					if (!cliqued)
 					{
 						((JTextField) arg0.getSource()).setText("");
+						cliqued = true;
 					}
 				}
 
