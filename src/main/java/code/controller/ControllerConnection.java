@@ -40,23 +40,22 @@ public class ControllerConnection extends AbstractController {
 	{
 		m_nomUtilisateur = m_panel.getTextes().get(CHAMPS.NOM_UTILISATEUR.ordinal()).getText();
 		m_motDePasse = m_panel.getTextes().get(CHAMPS.MOT_DE_PASSE.ordinal()).getText();
-
-		System.out.println(m_nomUtilisateur);
-		System.out.println(m_motDePasse);
-		// Verifier
+		// Enlever
+		m_nomUtilisateur = "AdminTest";
+		m_motDePasse = "administrator";
 		Admin admin = daoAdmin.findByUsernameAndPassword(m_nomUtilisateur, m_motDePasse);
 		if (admin != null) // si les identifiants sont corrects
 		{
 			System.out.println(admin);
-			m_panel.setTermine(true);
 			new ControllerAccueil(m_vue, admin);
+			m_panel.setTermine(true);
 		}
 		else
 		{
 			JOptionPane.showMessageDialog(m_panel, "Nom d'utilisateur ou mot de passe incorrect.", "Error", JOptionPane.WARNING_MESSAGE);
 			m_nomUtilisateur = "";
 			m_motDePasse = "";
-	}
+		}
 	}
 
 	public static void main(String[] args) {

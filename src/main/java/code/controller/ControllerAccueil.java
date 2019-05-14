@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 
 import code.Admin;
+import code.TypeAcces;
 import code.model.DAOInterfaces.DAOAdmin;
 import code.model.DAOJDBC.DAOAdminJDBC;
 import code.view.Panels.AccueilPanel;
-import code.view.Panels.AccueilPanel.ADMINISTRATEURS;
 import code.view.Vues.Vue;
 import code.view.Vues.Vue.PANEL;
 
@@ -20,60 +20,56 @@ public class ControllerAccueil extends AbstractController {
 	private ArrayList <JButton> m_boutons = new ArrayList <JButton> ();
 	private AccueilPanel  m_panel;
 	private Admin m_Admin;
-	private boolean DROIT_SUPREME;
-	private boolean DROIT_FACTURATION;
-	private boolean DROIT_RESERVATION;
-	private boolean DROIT_CLIENTELE;
-	//peut-être inutile
 	private DAOAdmin daoAdmin;
+	
+	private final String CLIENTELE = "Clientele";
+	private final String RESERVATION = "Reservation";
+	private final String FACTURATION = "Facturation";
+	private final String SUPREME = "SUPREME";
 	
 	public ControllerAccueil(Vue vue, Admin admin) {
 		super(vue);
-		System.out.println("jfk");
 		m_Admin = admin;
 		initController();
 		daoAdmin = new DAOAdminJDBC();
-		
 	}
 	
-	public void recupererDroits() // ToDo
+	public void initPanel()
 	{
-		DROIT_SUPREME = m_Admin.getDroits().get("Supreme");
-		DROIT_FACTURATION = m_Admin.getDroits().get("Facturation");
-		DROIT_RESERVATION = m_Admin.getDroits().get("Reservation");
-		DROIT_CLIENTELE = m_Admin.getDroits().get("Clientele");
+		ArrayList <String> nomsBoutons = new ArrayList <String> ();
+		for (TypeAcces acces : DAOAdminJDBC.getTypesAcces())
+			nomsBoutons.add(acces.getTypeAcces());	
+		m_panel.construireBoutons(nomsBoutons);
+		m_boutons = m_panel.getBoutons();
+		for (int i = 0; i < m_boutons.size(); i++)
+			m_boutons.get(i).addActionListener(e -> creerProchainControleur((JButton) e.getSource()));
 	}
-
 	@Override
 	public void initController() 
 	{
 		m_panel = (AccueilPanel) m_vue.getPanel(PANEL.ACCUEIL);
-		m_boutons = m_panel.getBoutons();
-		
-		for (JButton bouton : m_boutons)
-			bouton.addActionListener(e -> creerProchainControleur(bouton));
-		recupererDroits();
+		initPanel();
 		verifierDroits();
 	}
 	
 	public void creerProchainControleur(JButton bouton)
 	{
-		String nomPanel = bouton.getText().substring("Admin ".length());
+		String nomPanel = bouton.getText();
 		switch (nomPanel)
 		{
-			case "Clientele" :
+			case CLIENTELE :
 				m_panel.setProchainPanel(PANEL.CLIENTELE);
 				new ControllerClientele(m_vue);
 				break;
-			case "Facturation" :
+			case FACTURATION :
 				m_panel.setProchainPanel(PANEL.FACTURATION);
 				new ControllerFacturation(m_vue);
 				break;
-			case "Supreme" :
+			case SUPREME :
 				m_panel.setProchainPanel(PANEL.SUPREME);
 				new ControllerSupreme(m_vue);
 				break;
-			case "Reservation" :
+			case RESERVATION :
 				m_panel.setProchainPanel(PANEL.RESERVATION);
 				new ControllerReservation(m_vue);
 				break;
@@ -85,19 +81,19 @@ public class ControllerAccueil extends AbstractController {
 	
 	private void verifierDroits () 
 	{
-		if (DROIT_SUPREME)
+		if (m_Admin.getDroits().get("Supreme"))
 		{
 			for (JButton bouton : m_boutons)
 				bouton.setEnabled(true);
 		}
 		else
 		{
-			if (DROIT_FACTURATION)
-				m_boutons.get(ADMINISTRATEURS.FACTURATION.ordinal()).setEnabled(true);
-			if (DROIT_RESERVATION)
-				m_boutons.get(ADMINISTRATEURS.RESERVATION.ordinal()).setEnabled(true);
-			if (DROIT_CLIENTELE)
-				m_boutons.get(ADMINISTRATEURS.CLIENTELE.ordinal()).setEnabled(true);
+			if (!m_Admin.getDroits().get(FACTURATION))
+				m_panel.getBouton(FACTURATION).setEnabled(true);
+			if (m_Admin.getDroits().get(RESERVATION))
+				m_panel.getBouton(RESERVATION).setEnabled(true);
+			if (m_Admin.getDroits().get(CLIENTELE))
+				m_panel.getBouton(CLIENTELE).setEnabled(true);
 		}
 	}
 

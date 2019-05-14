@@ -25,7 +25,7 @@ public class Vue extends JFrame {
 	
 	private ArrayList <HotelPanel> m_panels = new ArrayList <HotelPanel> ();
 	private JMenu m_menu;
-	private HotelPanel panelCourant;
+	private HotelPanel m_panelCourant;
 	private ETAT_CONNECTION m_connecte = ETAT_CONNECTION.UNDEFINED;
 	private boolean m_retour = false;
 	
@@ -40,62 +40,67 @@ public class Vue extends JFrame {
 	
 	public void deroulement()
 	{
-		panelCourant = getPanel(PANEL.CONNECTION);
+		m_panelCourant = getPanel(PANEL.CONNECTION);
+		this.add(m_panelCourant);
+		pack();
 		while (true)
 		{
-			if (panelCourant.equals(getPanel(PANEL.CONNECTION)))
-				m_menu.setEnabled(false);
-			else
-				m_menu.setEnabled(true);
-			this.add(panelCourant);
-			pack();
-			while (panelCourant.fonctionne())
+			while (m_panelCourant.fonctionne())
 			{
-				if (m_connecte == ETAT_CONNECTION.DISCONNECTED)
-				{
-					redemarrer();
-					return;
-				}
-				if (m_retour)
+				if ( m_connecte == ETAT_CONNECTION.DISCONNECTED || m_retour)
 					break;
 			}
-			this.remove(panelCourant);
+			this.remove(m_panelCourant);
 			int retourTransition = transition();
-			if (retourTransition == - 1)
-				return;
-			panelCourant = m_panels.get(retourTransition);
+			m_panelCourant = m_panels.get(retourTransition);
+			this.add(m_panelCourant);
+			pack();
 		}
 	}
 	
 	public int transition()
 	{
+		int returnValue = -1;
+		m_panelCourant.setTermine(false);
 		if (m_connecte == ETAT_CONNECTION.DISCONNECTED)
 		{
-			redemarrer();
-			return -1;
+			m_menu.setEnabled(false);
+			returnValue = PANEL.ACCUEIL.ordinal();
 		}
-		else if (panelCourant.equals(getPanel(PANEL.CONNECTION)))
+		else if (m_panelCourant.equals(getPanel(PANEL.CONNECTION)))
 		{
-			m_connecte = ETAT_CONNECTION.CONNECTED;			
-			return PANEL.ACCUEIL.ordinal();
+			m_connecte = ETAT_CONNECTION.CONNECTED;	
+			returnValue = PANEL.ACCUEIL.ordinal();
+			m_menu.setEnabled(true);
 		}
-		else if (panelCourant.equals(getPanel(PANEL.ACCUEIL)))
+		else if (m_panelCourant.equals(getPanel(PANEL.ACCUEIL)))
 		{
 			if (m_retour)
 			{
-				redemarrer();
-				return -1;
+				m_menu.setEnabled(false);
+				returnValue = PANEL.ACCUEIL.ordinal();
 			}
-			return ((AccueilPanel) panelCourant).getProchainPanel().ordinal();
+			else
+				returnValue =  ((AccueilPanel) m_panelCourant).getProchainPanel().ordinal();
 		}
-		else if (panelCourant.equals(getPanel(PANEL.FACTURATION)))
+		else if (m_panelCourant.equals(getPanel(PANEL.FACTURATION)))
 		{
 			if (m_retour)
-				return PANEL.ACCUEIL.ordinal();
+				returnValue = PANEL.ACCUEIL.ordinal();
+			else
+				System.err.println("Error in transition : return value is FACTURATION");
+		}
+		else if (m_panelCourant.equals(getPanel(PANEL.RESERVATION)))
+		{
+			if (m_retour)
+				returnValue = PANEL.ACCUEIL.ordinal();
+			else
+				System.err.println("Error in transition : return value is RESERVATION");
 		}
 		m_retour = false;
-		System.err.println("Error in transition");
-		return 0;
+		if (returnValue == -1)
+			System.err.println("Error in transition");
+		return returnValue;
 	}
 
 	private void construirePanels ()
@@ -135,19 +140,9 @@ public class Vue extends JFrame {
 		setJMenuBar(barre);
 	}
 	
-	public void redemarrer()
-	{
-		for (int i = 0; i < m_panels.size(); i++)
-			m_panels.remove(i);
-		m_connecte = ETAT_CONNECTION.UNDEFINED;
-		m_retour = false;
-		construirePanels();
-		deroulement();
-	}
-	
 	public HotelPanel getPanelCourant()
 	{
-		return panelCourant;
+		return m_panelCourant;
 	}
 	
 	public HotelPanel getPanel(PANEL typePanel)
