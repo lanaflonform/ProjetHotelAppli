@@ -55,8 +55,8 @@ public class ControllerConnection extends AbstractController {
 		{
 			JOptionPane.showMessageDialog(m_panel, "Nom d'utilisateur ou mot de passe incorrect.", "Error", JOptionPane.WARNING_MESSAGE);
 			m_nomUtilisateur = "";
-			m_motDePasse = "";		
-		}
+			m_motDePasse = "";
+	}
 	}
 
 	public static void main(String[] args) {

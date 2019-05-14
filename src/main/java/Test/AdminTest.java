@@ -53,7 +53,7 @@ public class AdminTest {
         Admin adminTest = new Admin();
         adminTest.setIdentifiant(identifiant);
         adminTest.setMdp(mdp);
-        adminTest.setHotelsGeres(hotelsGeres);
+        //adminTest.setHotelsGeres(hotelsGeres);
         adminTest.setDroits(droits);
         Admin adminReturned = daoAdminJDBC.insert(adminTest);
         assertTrue(adminReturned == adminTest);
