@@ -4,24 +4,20 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
-import code.Admin;
-import code.Client;
-import code.Reservation;
-import code.SessionUnique;
+import code.*;
 import code.controller.ControllerVue.PANEL;
 import code.model.DAOInterfaces.DAOClient;
+import code.model.DAOInterfaces.DAOHotel;
 import code.model.DAOInterfaces.DAOReservation;
 import code.model.DAOJDBC.DAOClientJDBC;
+import code.model.DAOJDBC.DAOHotelJDBC;
 import code.model.DAOJDBC.DAOReservationJDBC;
 import code.view.Panels.ClientelePanel;
 import code.view.Panels.ClientelePanel.CHAMPS_CLIENTELE;
@@ -31,6 +27,7 @@ public class ControllerClientele extends AbstractController {
 
 	private DAOClient daoClient = new DAOClientJDBC();
 	private DAOReservation daoReservation = new DAOReservationJDBC();
+	private DAOHotel daoHotel = new DAOHotelJDBC();
 	private Admin admin;
 	
 	private ClientelePanel m_panel;
@@ -115,44 +112,65 @@ public class ControllerClientele extends AbstractController {
 	private void ajouterServiceClient()
 	{
 		String text = m_panel.getTextes().get(CHAMPS_CLIENTELE.SERVICE_CLIENT.ordinal()).getText();
-		// Verifier ici l'id client
-		if (true)
-			montrerReservations(); // afficher ici les reservations
+        int idClient = Integer.parseInt(text);
+        Client client = daoClient.getById(idClient);
+		if (client != null)
+			montrerReservations(client); // afficher ici les reservations
 		else
 			JOptionPane.showMessageDialog(m_panel, "Cet ID ne fait r?f?rence a aucun client. \n\n ID : " + text, "Error", JOptionPane.WARNING_MESSAGE);
 			
 	}
 
 	// recuperer les services d'un hotel ici
-	private void montrerReservations() 
+	private void montrerReservations(Client client)
 	{
-		Object [][] donnees = 
+		/*Object [][] donnees =
 		{
 				{ "Formule 2", "02/02/08", "08/02/08", "Payee" }, 
 		   		{ "Campanil", "15/12/06", "28/12/06", "Payee" }, 
 		   		{ "Hilton", "01/04/2019", "---", "Non payee"},
-		};
+		};*/
 
-		String [] enTete = {"Hotel", "Date Debut", "Date Fin", "Facture"};
+        List<Reservation> reservations = daoReservation.findHistoriqueClient(client.getNum());
+        Object [][] donnees ={};
+
+        for (int i = 0 ; i < reservations.size() ; ++i) {
+            donnees[i][0] = reservations.get(i).getHotel().getNumHotel();
+            donnees[i][1] = reservations.get(i).getHotel().getNom();
+            donnees[i][2] = reservations.get(i).getDateArrivee().toString();
+            donnees[i][3] = reservations.get(i).getDateDepart().toString();
+            //On se fait pas trop chier pour savoir s'il a payé ou pas lol
+            donnees[i][4] = reservations.get(i).getDateDepart().isAfter(LocalDate.now()) ? "Non payée" : "Payée";
+        }
+
+        //On peut rajouter plus d'informations (a peu pres tout ce qu'il y a dans l'objet Reservation
+		String [] enTete = {"Id Hotel", "Nom Hotel", "Date Debut", "Date Fin", "Facture"};
 		JTable table = m_panel.setTableauReservations(donnees, enTete);
 		table.addMouseListener(new MouseAdapter() {
-			  public void mousePressed(MouseEvent e) {
-				    if (e.getClickCount() == 2) 
-				    {
-				      JTable target = (JTable)e.getSource();
-				      int row = target.getSelectedRow();
-				      int column = target.getSelectedColumn();
-				
-				      // Recuperer l'id reservation, l'hotel et les services propos?s dans cet hotel..
-				      
-				      ArrayList <String> serviceProposes = new ArrayList <String> ();
-				      serviceProposes.add("Boissons");
-				      serviceProposes.add("Groom Service");
-				      serviceProposes.add("Menage");
-				      JButton boutonValider = m_panel.setChoixService(serviceProposes);
-				      boutonValider.addActionListener(e1 -> validerAjoutServices());
-				    }
-			  }
+            public void mousePressed(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    JTable target = (JTable)e.getSource();
+                    int row = target.getSelectedRow();
+                    int column = target.getSelectedColumn();
+
+                    // Recuperer l'id reservation, l'hotel et les services propos?s dans cet hotel.
+                    // Comment je récupère l'id de la réservation ou il a cliqué ??
+
+                    //TODO : VERIFIER SI CA MARCHE ! A LA COLONNE 0 DE LA TABLE IL Y A L'ID RESERVATION
+                    int idReservation = (Integer)target.getModel().getValueAt(row, 0);
+                    for (Reservation reservation : reservations) {
+                        if (reservation.getNumReservation() == idReservation) {
+                            Set<TypeService> servicesProposes = daoHotel.getServicesById(reservation.getHotel().getNumHotel());
+                            ArrayList<String> nomsServices = new ArrayList<>();
+                            for (TypeService service : servicesProposes) {
+                                nomsServices.add(service.getNom());
+                            }
+                            JButton boutonValider = m_panel.setChoixService(nomsServices);
+                            boutonValider.addActionListener(e1 -> validerAjoutServices());
+                        }
+                    }
+                }
+            }
 
 			private void validerAjoutServices() {
 				ArrayList <String> servicesAjoutes = new ArrayList <String> ();
