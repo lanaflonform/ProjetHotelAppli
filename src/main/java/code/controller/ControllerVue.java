@@ -1,10 +1,7 @@
 package code.controller;
 
-import javax.swing.JButton;
 import javax.swing.JMenuItem;
 
-import code.controller.ControllerVue.PANEL;
-import code.view.Panels.AccueilPanel;
 import code.view.Panels.HotelPanel;
 import code.view.Vues.Vue;
 public class ControllerVue extends AbstractController {

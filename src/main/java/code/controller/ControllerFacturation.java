@@ -1,13 +1,9 @@
 package code.controller;
 
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 import code.controller.ControllerVue.PANEL;
-import code.view.Panels.ClientelePanel;
 import code.view.Panels.FacturationPanel;
 import code.view.Vues.Vue;
 

@@ -4,8 +4,6 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 import code.controller.ControllerVue.PANEL;
-import code.view.Panels.ClientelePanel;
-import code.view.Panels.ClientelePanel.CHAMPS_CLIENTELE;
 import code.view.Panels.SupremePanel;
 import code.view.Panels.SupremePanel.BOUTONS_SUPREME;
 import code.view.Vues.Vue;
