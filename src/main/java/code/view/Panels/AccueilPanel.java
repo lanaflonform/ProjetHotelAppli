@@ -5,11 +5,8 @@ import java.awt.FlowLayout;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
-import code.view.Vues.Vue.PANEL;
 
 public class AccueilPanel extends HotelPanel {
-
-	private PANEL m_prochainPanel;
 	
 	public AccueilPanel() {
 		super();	
@@ -36,19 +33,6 @@ public class AccueilPanel extends HotelPanel {
 				return bouton;
 		}
 		return null;
-	}
-	
-	public PANEL getProchainPanel()
-	{
-		if (m_prochainPanel != null)
-			return m_prochainPanel;
-		System.err.println("Error while deciding panel");
-		return null;
-	}
-	
-	public void setProchainPanel (PANEL prochainPanel)
-	{
-		m_prochainPanel = prochainPanel;
 	}
 
 	@Override

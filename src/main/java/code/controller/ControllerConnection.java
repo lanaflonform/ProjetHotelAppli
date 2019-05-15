@@ -8,12 +8,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import code.Admin;
+import code.controller.ControllerVue.PANEL;
 import code.model.DAOInterfaces.DAOAdmin;
 import code.model.DAOJDBC.DAOAdminJDBC;
+import code.view.Panels.AccueilPanel;
 import code.view.Panels.ConnectionPanel;
 import code.view.Panels.ConnectionPanel.CHAMPS;
 import code.view.Vues.Vue;
-import code.view.Vues.Vue.PANEL;
 
 public class ControllerConnection extends AbstractController {
 
@@ -21,17 +22,17 @@ public class ControllerConnection extends AbstractController {
 	private String m_nomUtilisateur;
 	private String m_motDePasse;
 	private DAOAdmin daoAdmin;
+	private Admin m_admin;
 	
 	public ControllerConnection(Vue vue) {
 		super(vue);
-		m_panel = (ConnectionPanel) m_vue.getPanel(PANEL.CONNECTION);
 		daoAdmin = new DAOAdminJDBC();
 		initController();
-		m_vue.deroulement();
 	}
 
 	@Override
 	public void initController() {
+		m_panel = (ConnectionPanel) ControllerVue.getPanel(PANEL.CONNECTION);
 		JButton validerBouton = m_panel.getBoutons().get(0);
 		validerBouton.addActionListener(e -> verifierIdentifiants());
 	}
@@ -43,11 +44,10 @@ public class ControllerConnection extends AbstractController {
 		// Enlever
 		m_nomUtilisateur = "AdminTest";
 		m_motDePasse = "administrator";
-		Admin admin = daoAdmin.findByUsernameAndPassword(m_nomUtilisateur, m_motDePasse);
-		if (admin != null) // si les identifiants sont corrects
+		m_admin = daoAdmin.findByUsernameAndPassword(m_nomUtilisateur, m_motDePasse);
+		if (m_admin != null) // si les identifiants sont corrects
 		{
-			System.out.println(admin);
-			new ControllerAccueil(m_vue, admin);
+			System.out.println(m_admin);
 			m_panel.setTermine(true);
 		}
 		else
@@ -57,8 +57,9 @@ public class ControllerConnection extends AbstractController {
 			m_motDePasse = "";
 		}
 	}
-
-	public static void main(String[] args) {
-		new ControllerConnection(new Vue());
+	
+	public Admin getAdmin()
+	{
+		return m_admin;
 	}
 }
