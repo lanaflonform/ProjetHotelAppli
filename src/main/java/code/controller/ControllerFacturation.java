@@ -17,6 +17,7 @@ public class ControllerFacturation extends AbstractController {
 	public ControllerFacturation(Vue vue) {
 		super(vue);
 		m_panel = (FacturationPanel) ControllerVue.getPanel(PANEL.FACTURATION);
+		initController();
 	}
 
 	@Override
