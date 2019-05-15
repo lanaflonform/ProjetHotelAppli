@@ -48,8 +48,8 @@ public class ClientelePanel extends HotelPanel{
 	}
 
 	private void construireReservationsBouton() {
-		JButton boutonRecherche = new JButton("Rechercher");
-		boutonRecherche.setPreferredSize(new Dimension(75, 20));
+		JButton boutonRecherche = new JButton("Afficher");
+		boutonRecherche.setPreferredSize(new Dimension(85, 20));
 		m_boutons.add(boutonRecherche);
 		
 		JButton boutonService = new JButton("Ajouter");
@@ -57,7 +57,7 @@ public class ClientelePanel extends HotelPanel{
 		m_boutons.add(boutonService);	
 		
 		JButton boutonPresents = new JButton("Afficher");
-		boutonPresents.setPreferredSize(new Dimension(75, 20));
+		boutonPresents.setPreferredSize(new Dimension(85, 20));
 		m_boutons.add(boutonPresents);
 	}
 
@@ -126,6 +126,14 @@ public class ClientelePanel extends HotelPanel{
 		return table;
 	}
 	
+	public void setTableauClients(Object[][] donnees, Object[] enTete)
+	{
+		JFrame clientsPresents = new JFrame ("Clients Presents");
+		clientsPresents.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+		clientsPresents.add(new JScrollPane(new JTable(donnees, enTete)), BorderLayout.CENTER);
+		clientsPresents.setVisible(true);
+		clientsPresents.pack();	
+	}
 	public JButton setChoixService(ArrayList <String> services)
 	{
 		JFrame choixService = new JFrame ("Choix du service");
@@ -138,13 +146,14 @@ public class ClientelePanel extends HotelPanel{
 	    	panel.add(checkBox);
 	    	m_boxes.add(checkBox);
 	    }
-	    JButton boutonValider = new JButton("Valider");
+	    JButton validerBouton = new JButton("Valider");
+	    validerBouton.setPreferredSize(new Dimension(75, 20));
 	    choixService.add(panel, BorderLayout.CENTER);
-	    choixService.add(boutonValider, BorderLayout.SOUTH);
+	    choixService.add(validerBouton, BorderLayout.SOUTH);
 	    
 	    choixService.setVisible(true);
 	    choixService.pack();
-	    return boutonValider;
+	    return validerBouton;
 	}
 	
 	public ArrayList <JCheckBox> getBoxes()

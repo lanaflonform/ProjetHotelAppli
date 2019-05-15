@@ -11,10 +11,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
 import code.controller.ControllerVue.PANEL;
-import code.view.Panels.AccueilPanel;
 import code.view.Panels.ClientelePanel;
 import code.view.Panels.ClientelePanel.CHAMPS_CLIENTELE;
-import code.view.Panels.ConnectionPanel.CHAMPS_CONNECTION;
 import code.view.Vues.Vue;
 
 public class ControllerClientele extends AbstractController {
@@ -35,17 +33,26 @@ public class ControllerClientele extends AbstractController {
 		ajouterServiceBouton.addActionListener(e -> ajouterServiceClient());
 		JButton afficherPresentsBouton = m_panel.getBoutons().get(CHAMPS_CLIENTELE.HOTEL.ordinal());
 		afficherPresentsBouton.addActionListener(e -> afficherClientsPresents());
+
 	}	
 	// Recupere la liste des clients présents dans l'hotel/les hotels ?
 	private void afficherClientsPresents() {
-		// TODO Auto-generated method stub
+		Object [][] donnees = 
+		{
+				{ "Jean", "Bon", "18/05/2019", "Non Payee" }, 
+		   		{ "Marc", "Ise", "25/05/2019", "Non Payee" }, 
+		   		{ "Joyce", "Lyne", "22/05/2019", "Non payee"},
+		};
+
+		String [] enTete = {"Prenom", "Nom", "Date Depart", "Etat Facture"};
+		m_panel.setTableauClients(donnees, enTete); 
 		return;
 	}
 
 	private void trouverHistoriqueClient() { // verifier ID client ici
 		String text = m_panel.getTextes().get(CHAMPS_CLIENTELE.RECHERCHE.ordinal()).getText();
 		if (true)
-			montrerHistorique();
+			montrerHistorique(/* IDCLIENT */);
 		else
 			JOptionPane.showMessageDialog(m_panel, "Cet ID ne fait référence a aucun client. \n\n ID : " + text, "Error", JOptionPane.WARNING_MESSAGE);
 	}
