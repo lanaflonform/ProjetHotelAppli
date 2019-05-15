@@ -3,19 +3,25 @@ package code.controller;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
+import code.Client;
+import code.Reservation;
 import code.controller.ControllerVue.PANEL;
+import code.model.DAOInterfaces.DAOClient;
+import code.model.DAOJDBC.DAOClientJDBC;
 import code.view.Panels.ClientelePanel;
 import code.view.Panels.ClientelePanel.CHAMPS_CLIENTELE;
 import code.view.Vues.Vue;
 
 public class ControllerClientele extends AbstractController {
 
+	private DAOClient daoClient = new DAOClientJDBC();
 	
 	private ClientelePanel m_panel;
 	public ControllerClientele(Vue vue) {
@@ -34,7 +40,7 @@ public class ControllerClientele extends AbstractController {
 		afficherPresentsBouton.addActionListener(e -> afficherClientsPresents());
 
 	}	
-	// Recupere la liste des clients présents dans l'hotel/les hotels ?
+	// Recupere la liste des clients pr?sents dans l'hotel/les hotels ?
 	private void afficherClientsPresents() {
 		Object [][] donnees = 
 		{
@@ -43,20 +49,33 @@ public class ControllerClientele extends AbstractController {
 		   		{ "Joyce", "Lyne", "22/05/2019", "Non payee"},
 		};
 
+		//il me faut les hÃ´tels que gÃ¨rent l'admin !
+		Map<Client, Reservation> clientsPresents = daoClient.findByHotel(13);
+		int i = 0;
+		for (Map.Entry<Client, Reservation> entry : clientsPresents.entrySet()) {
+			donnees[i][0] = entry.getKey().getPrenom();
+			donnees[i][1] = entry.getKey().getNom();
+			donnees[i][2] = entry.getValue().getDateDepart().toString();
+			donnees[i][3] = "Non PayÃ©e";
+			++i;
+		}
+
 		String [] enTete = {"Prenom", "Nom", "Date Depart", "Etat Facture"};
 		m_panel.setTableauClients(donnees, enTete); 
 		return;
 	}
 
-	private void trouverHistoriqueClient() { // verifier ID client ici
+	private void trouverHistoriqueClient() { // verifier ID client ici (quel client ??)
 		String text = m_panel.getTextes().get(CHAMPS_CLIENTELE.RECHERCHE.ordinal()).getText();
-		if (true)
-			montrerHistorique(/* IDCLIENT */);
+		int idClient = Integer.parseInt(text);
+		Client client = daoClient.getById(idClient);
+		if (client != null)
+			montrerHistorique(client);
 		else
-			JOptionPane.showMessageDialog(m_panel, "Cet ID ne fait référence a aucun client. \n\n ID : " + text, "Error", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(m_panel, "Cet ID ne fait rÃ©fÃ©rence a aucun client. \n\n ID : " + text, "Error", JOptionPane.WARNING_MESSAGE);
 	}
 	// recuperer historique ici
-	private void montrerHistorique()
+	private void montrerHistorique(Client client)
 	{
 		Object [][] donnees = 
 		{
@@ -77,7 +96,7 @@ public class ControllerClientele extends AbstractController {
 		if (true)
 			montrerReservations(); // afficher ici les reservations
 		else
-			JOptionPane.showMessageDialog(m_panel, "Cet ID ne fait référence a aucun client. \n\n ID : " + text, "Error", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(m_panel, "Cet ID ne fait r?f?rence a aucun client. \n\n ID : " + text, "Error", JOptionPane.WARNING_MESSAGE);
 			
 	}
 
@@ -101,7 +120,7 @@ public class ControllerClientele extends AbstractController {
 				      int row = target.getSelectedRow();
 				      int column = target.getSelectedColumn();
 				
-				      // Recuperer l'id reservation, l'hotel et les services proposés dans cet hotel..
+				      // Recuperer l'id reservation, l'hotel et les services propos?s dans cet hotel..
 				      
 				      ArrayList <String> serviceProposes = new ArrayList <String> ();
 				      serviceProposes.add("Boissons");

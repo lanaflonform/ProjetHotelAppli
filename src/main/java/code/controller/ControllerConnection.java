@@ -3,6 +3,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 import code.Admin;
+import code.SessionUnique;
 import code.controller.ControllerVue.PANEL;
 import code.model.DAOInterfaces.DAOAdmin;
 import code.model.DAOJDBC.DAOAdminJDBC;
@@ -36,9 +37,11 @@ public class ControllerConnection extends AbstractController {
 		m_nomUtilisateur = m_panel.getTextes().get(CHAMPS_CONNECTION.NOM_UTILISATEUR.ordinal()).getText();
 		m_motDePasse = m_panel.getTextes().get(CHAMPS_CONNECTION.MOT_DE_PASSE.ordinal()).getText();
 		// Enlever
-		m_nomUtilisateur = "AdminTest";
-		m_motDePasse = "administrator";
-		m_admin = daoAdmin.findByUsernameAndPassword(m_nomUtilisateur, m_motDePasse);
+		//m_nomUtilisateur = "AdminTest";
+		//m_motDePasse = "administrator";
+		SessionUnique.username = m_nomUtilisateur;
+		SessionUnique.password = m_motDePasse;
+		m_admin = SessionUnique.getInstance().getSession();
 		if (m_admin != null) // si les identifiants sont corrects
 		{
 			System.out.println(m_admin);
@@ -55,5 +58,9 @@ public class ControllerConnection extends AbstractController {
 	public Admin getAdmin()
 	{
 		return m_admin;
+	}
+
+	public static void main(String[] args) {
+		new ControllerConnection(new Vue());
 	}
 }
