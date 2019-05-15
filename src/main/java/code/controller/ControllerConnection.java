@@ -37,11 +37,15 @@ public class ControllerConnection extends AbstractController {
 		m_nomUtilisateur = m_panel.getTextes().get(CHAMPS_CONNECTION.NOM_UTILISATEUR.ordinal()).getText();
 		m_motDePasse = m_panel.getTextes().get(CHAMPS_CONNECTION.MOT_DE_PASSE.ordinal()).getText();
 		// Enlever
-		//m_nomUtilisateur = "AdminTest";
-		//m_motDePasse = "administrator";
+		/*m_nomUtilisateur = "AdminTest";
+		m_motDePasse = "administrator";
+		m_admin = daoAdmin.findByUsernameAndPassword(m_nomUtilisateur, m_motDePasse);*/
 		SessionUnique.username = m_nomUtilisateur;
 		SessionUnique.password = m_motDePasse;
-		m_admin = SessionUnique.getInstance().getSession();
+		m_admin = null;
+		if (!m_nomUtilisateur.equals("Nom d'utilisateur") && !m_motDePasse.equals("Mot de passe") && !m_nomUtilisateur.isEmpty() && m_motDePasse.isEmpty()) {
+			m_admin = SessionUnique.getInstance().getSession();
+		}
 		if (m_admin != null) // si les identifiants sont corrects
 		{
 			System.out.println(m_admin);
@@ -53,6 +57,7 @@ public class ControllerConnection extends AbstractController {
 			m_nomUtilisateur = "";
 			m_motDePasse = "";
 		}
+
 	}
 	
 	public Admin getAdmin()
