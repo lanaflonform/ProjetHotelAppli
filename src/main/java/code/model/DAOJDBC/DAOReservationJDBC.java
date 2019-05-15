@@ -1,6 +1,7 @@
 package code.model.DAOJDBC;
 
 import code.Chambre;
+import code.Hotel;
 import code.model.ConnexionUnique;
 import code.model.DAOInterfaces.DAOReservation;
 import code.Reservation;
@@ -264,7 +265,10 @@ public class DAOReservationJDBC implements DAOReservation {
     @Override
     public List<Reservation> findHistoriqueClient(Integer numClient) {
         if(numClient != null) {
-            String query = "SELECT * FROM Reservation where num_cl = ?";
+            String query = "SELECT DISTINCT R.*, RC.num_h, H.nom_h FROM Reservation R";
+            query += " JOIN ReservationChambre RC ON R.num_r = RC.num_r";
+            query += " JOIN Chambre C ON RC.num_h = C.num_h";
+            query += " JOIN Hotel H ON C.num_h = H.num_h WHERE num_cl = ?";
 
             try {
                 PreparedStatement statement = connection.prepareStatement(query);
@@ -272,7 +276,7 @@ public class DAOReservationJDBC implements DAOReservation {
                 ResultSet resultSet = statement.executeQuery();
                 List<Reservation> historique = new ArrayList<>();
                 while(resultSet.next()) {
-                    historique.add(new  Reservation (
+                    Reservation reservation = new  Reservation (
                             resultSet.getInt("num_r"),
                             resultSet.getDate("dateAr_r").toLocalDate(),
                             resultSet.getDate("dateDep_r").toLocalDate(),
@@ -282,7 +286,12 @@ public class DAOReservationJDBC implements DAOReservation {
                             resultSet.getFloat("reduction_r"),
                             new DAOClientJDBC().getById(resultSet.getInt("num_cl")),
                             this.getChambres(resultSet.getInt("num_r"))
-                    ));
+                    );
+                    Hotel hotel = new Hotel();
+                    hotel.setNumHotel(resultSet.getInt("num_h"));
+                    hotel.setNom(resultSet.getString("nom_h"));
+                    reservation.setHotel(hotel);
+                    historique.add(reservation);
                 }
                 return historique;
             } catch (SQLException sqle) {
@@ -292,6 +301,7 @@ public class DAOReservationJDBC implements DAOReservation {
         return null;
     }
 
+    //TODO : PEUT ETRE MIEUX DE FAIRE UNE SEULE REQUETE QUE D'APPELER GETBYID
     @Override
     public List<Reservation> getByHotel(Integer numHotel) {
         try {
@@ -304,7 +314,8 @@ public class DAOReservationJDBC implements DAOReservation {
 
                 List<Reservation> reservationsByHotel = new ArrayList<>();
                 while (resultSet.next()) {
-                    reservationsByHotel.add(this.getById(resultSet.getInt("num_r")));
+                    Reservation reservation = this.getById(resultSet.getInt("num_r"));
+                    reservationsByHotel.add(reservation);
                 }
                 return reservationsByHotel;
             }

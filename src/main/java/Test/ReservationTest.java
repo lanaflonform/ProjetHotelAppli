@@ -94,7 +94,7 @@ public class ReservationTest {
     }
 
     public static void testFindHistorique() {
-        List<Reservation> historique = new DAOReservationJDBC().findHistoriqueClient(34);
+        List<Reservation> historique = new DAOReservationJDBC().findHistoriqueClient(37);
         System.out.println(historique);
     }
 

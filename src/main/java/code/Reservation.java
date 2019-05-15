@@ -27,7 +27,6 @@ public class Reservation {
         this.reduction = reduction;
         this.client = client;
         this.chambres = chambres;
-        this.hotel = hotel;
     }
 
     public Reservation () {
@@ -76,6 +75,14 @@ public class Reservation {
 
     public Client getClient() {
         return client;
+    }
+
+    public Hotel getHotel() {
+        return hotel;
+    }
+
+    public void setHotel(Hotel hotel) {
+        this.hotel = hotel;
     }
 
     @Override

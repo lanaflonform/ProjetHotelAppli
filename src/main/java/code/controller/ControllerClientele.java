@@ -2,7 +2,11 @@ package code.controller;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.JButton;
@@ -10,11 +14,15 @@ import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
+import code.Admin;
 import code.Client;
 import code.Reservation;
+import code.SessionUnique;
 import code.controller.ControllerVue.PANEL;
 import code.model.DAOInterfaces.DAOClient;
+import code.model.DAOInterfaces.DAOReservation;
 import code.model.DAOJDBC.DAOClientJDBC;
+import code.model.DAOJDBC.DAOReservationJDBC;
 import code.view.Panels.ClientelePanel;
 import code.view.Panels.ClientelePanel.CHAMPS_CLIENTELE;
 import code.view.Vues.Vue;
@@ -22,10 +30,13 @@ import code.view.Vues.Vue;
 public class ControllerClientele extends AbstractController {
 
 	private DAOClient daoClient = new DAOClientJDBC();
+	private DAOReservation daoReservation = new DAOReservationJDBC();
+	private Admin admin;
 	
 	private ClientelePanel m_panel;
 	public ControllerClientele(Vue vue) {
 		super(vue);
+		admin = SessionUnique.getInstance().getSession();
 		initController();
 	}
 
@@ -42,15 +53,16 @@ public class ControllerClientele extends AbstractController {
 	}	
 	// Recupere la liste des clients pr?sents dans l'hotel/les hotels ?
 	private void afficherClientsPresents() {
-		Object [][] donnees = 
+		/*Object [][] donnees =
 		{
 				{ "Jean", "Bon", "18/05/2019", "Non Payee" }, 
 		   		{ "Marc", "Ise", "25/05/2019", "Non Payee" }, 
 		   		{ "Joyce", "Lyne", "22/05/2019", "Non payee"},
-		};
+		};*/
+		Object[][] donnees = {};
 
-		//il me faut les hôtels que gèrent l'admin !
-		Map<Client, Reservation> clientsPresents = daoClient.findByHotel(13);
+		//quel hotel ?
+		Map<Client, Reservation> clientsPresents = daoClient.findByHotel(admin.getHotelsGeres().get(0));
 		int i = 0;
 		for (Map.Entry<Client, Reservation> entry : clientsPresents.entrySet()) {
 			donnees[i][0] = entry.getKey().getPrenom();
@@ -77,12 +89,23 @@ public class ControllerClientele extends AbstractController {
 	// recuperer historique ici
 	private void montrerHistorique(Client client)
 	{
-		Object [][] donnees = 
+		/*Object [][] donnees =
 		{
 				{ "Formule 2", "02/02/08", "08/02/08", "Payee" }, 
 		   		{ "Campanil", "15/12/06", "28/12/06", "Payee" }, 
 		   		{ "Hilton", "01/04/2019", "---", "Non payee"},
-		};
+		};*/
+
+		List<Reservation> reservations = daoReservation.findHistoriqueClient(client.getNum());
+		Object [][] donnees ={};
+
+		for (int i = 0 ; i < reservations.size() ; ++i) {
+			donnees[i][0] = reservations.get(i).getHotel().getNom();
+			donnees[i][1] = reservations.get(i).getDateArrivee().toString();
+			donnees[i][2] = reservations.get(i).getDateDepart().toString();
+			//On se fait pas trop chier pour savoir s'il a payé ou pas lol
+			donnees[i][3] = reservations.get(i).getDateDepart().isAfter(LocalDate.now()) ? "Non payée" : "Payée";
+		}
 
 		String [] enTete = {"Hotel", "Date Debut", "Date Fin", "Facture"};
 		m_panel.setTableauHistorique(donnees, enTete); 
