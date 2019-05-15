@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 
 public class ConnectionPanel extends HotelPanel {
 	
-	public enum CHAMPS { NOM_UTILISATEUR, MOT_DE_PASSE } ;
+	public enum CHAMPS_CONNECTION { NOM_UTILISATEUR, MOT_DE_PASSE } ;
 
 	public ConnectionPanel() {
 		super();

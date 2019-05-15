@@ -13,7 +13,7 @@ import code.model.DAOInterfaces.DAOAdmin;
 import code.model.DAOJDBC.DAOAdminJDBC;
 import code.view.Panels.AccueilPanel;
 import code.view.Panels.ConnectionPanel;
-import code.view.Panels.ConnectionPanel.CHAMPS;
+import code.view.Panels.ConnectionPanel.CHAMPS_CONNECTION;
 import code.view.Vues.Vue;
 
 public class ControllerConnection extends AbstractController {
@@ -39,8 +39,8 @@ public class ControllerConnection extends AbstractController {
 	
 	private void verifierIdentifiants()
 	{
-		m_nomUtilisateur = m_panel.getTextes().get(CHAMPS.NOM_UTILISATEUR.ordinal()).getText();
-		m_motDePasse = m_panel.getTextes().get(CHAMPS.MOT_DE_PASSE.ordinal()).getText();
+		m_nomUtilisateur = m_panel.getTextes().get(CHAMPS_CONNECTION.NOM_UTILISATEUR.ordinal()).getText();
+		m_motDePasse = m_panel.getTextes().get(CHAMPS_CONNECTION.MOT_DE_PASSE.ordinal()).getText();
 		// Enlever
 		m_nomUtilisateur = "AdminTest";
 		m_motDePasse = "administrator";
