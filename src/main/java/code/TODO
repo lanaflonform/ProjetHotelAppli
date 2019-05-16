@@ -1,5 +1,5 @@
 Interface réservations :
-- Récupérer toutes les réservations dans l'etat DEMANDEE et on les affiche
+- Récupérer toutes les réservations dans l'etat DEMANDEE et on les affiche (REQUETE FAITE Vincent)
 - 2 onglets :
 - 1 pour les réservations dans l'état DEMANDEE
 - 1 pour les réservations dans l'état CONFIRMATION

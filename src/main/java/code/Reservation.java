@@ -91,6 +91,22 @@ public class Reservation {
         this.hotel = hotel;
     }
 
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public void setDateArrivee(LocalDate dateArrivee) {
+        this.dateArrivee = dateArrivee;
+    }
+
+    public void setDateDepart(LocalDate dateDepart) {
+        this.dateDepart = dateDepart;
+    }
+
+    public void setNbPersonnes(int nbPersonnes) {
+        this.nbPersonnes = nbPersonnes;
+    }
+
     @Override
     public String toString() {
         return "Reservation{" +
