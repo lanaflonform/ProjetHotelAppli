@@ -43,7 +43,7 @@ public class ControllerConnection extends AbstractController {
 		SessionUnique.username = m_nomUtilisateur;
 		SessionUnique.password = m_motDePasse;
 		m_admin = null;
-		if (!m_nomUtilisateur.equals("Nom d'utilisateur") && !m_motDePasse.equals("Mot de passe") && !m_nomUtilisateur.isEmpty() && m_motDePasse.isEmpty()) {
+		if (!m_nomUtilisateur.equals("Nom d'utilisateur") && !m_motDePasse.equals("Mot de passe") && !m_nomUtilisateur.isEmpty() && !m_motDePasse.isEmpty()) {
 			m_admin = SessionUnique.getInstance().getSession();
 		}
 		if (m_admin != null) // si les identifiants sont corrects

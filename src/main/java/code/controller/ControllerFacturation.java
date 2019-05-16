@@ -32,7 +32,7 @@ public class ControllerFacturation extends AbstractController {
 			if (true)
 				faireFacture();
 			else
-				JOptionPane.showMessageDialog(m_panel, "Cet ID ne fait référence a aucun client. \n\n ID : " + texte, "Error", JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(m_panel, "Cet ID ne fait rï¿½fï¿½rence a aucun client. \n\n ID : " + texte, "Error", JOptionPane.WARNING_MESSAGE);
 	}
 	
 	// recuperer Details Factures
@@ -40,9 +40,9 @@ public class ControllerFacturation extends AbstractController {
 	{
 		Object [][] donnees = 
 		{
-				{ "Reservation chambre", "150€", "3 jours et 2 personnes" }, 
-		   		{ "Repas restaurant", "68€", "" }, 
-		   		{ "Menage chambre", "15€", "Une fois"},
+				{ "Reservation chambre", "150ï¿½", "3 jours et 2 personnes" }, 
+		   		{ "Repas restaurant", "68ï¿½", "" }, 
+		   		{ "Menage chambre", "15ï¿½", "Une fois"},
 		};
 		
 		String [] enTete = {"Type Depense", "Prix", "Details"};

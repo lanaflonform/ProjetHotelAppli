@@ -121,7 +121,7 @@ public class ControllerVue extends AbstractController {
 	private void deconnecter() {
 		m_connecte = ETAT_CONNECTION.DISCONNECTED;
 	}
-	
+
 	public static void main(String[] args) {
 		new ControllerVue();
 	}
