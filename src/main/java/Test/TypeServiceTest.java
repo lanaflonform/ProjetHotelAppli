@@ -15,7 +15,7 @@ public class TypeServiceTest {
         //testUpdate();
         //getById();
         //testFindAll();
-        testDelete();
+        //testDelete();
     }
 
     public static void testInsert() {
@@ -50,4 +50,5 @@ public class TypeServiceTest {
         boolean isDel = new DAOTypeServiceJDBC().delete(typeService);
         System.out.println(isDel ? "true": "false");
     }
+
 }

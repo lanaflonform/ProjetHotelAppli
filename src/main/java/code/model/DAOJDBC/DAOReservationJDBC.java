@@ -2,6 +2,7 @@ package code.model.DAOJDBC;
 
 import code.Chambre;
 import code.Hotel;
+import code.TypeService;
 import code.model.ConnexionUnique;
 import code.model.DAOInterfaces.DAOReservation;
 import code.Reservation;
@@ -17,24 +18,33 @@ public class DAOReservationJDBC implements DAOReservation {
 
     @Override
     public boolean delete(Reservation obj) {
-        if(!(obj == null)) {
+        if(obj != null) {
+            System.out.println('1');
             String query = "DELETE FROM Reservation where num_r = ?";
             try {
-
-                synchronized (obj.getChambres()) {
-                    List<Chambre> chambres = obj.getChambres();
-                    if (chambres != null) {
-                        for (Chambre chambre : obj.getChambres()) {
-                            this.deleteLiens(obj, chambre);
-                        }
+                System.out.println("2");
+                List<Chambre> chambres = obj.getChambres();
+                if (obj.getChambres() != null) {
+                    for (Chambre chambre : obj.getChambres()) {
+                        this.deleteLiensChambre(obj, chambre);
                     }
                 }
 
+                List<TypeService> services = obj.getServices();
+                if (services != null) {
+                    for (TypeService service : obj.getServices()) {
+                        this.deleteLiensTypeService(obj, service);
+                    }
+                }
+
+                System.out.println("3");
                 PreparedStatement statement = connection.prepareStatement(query);
                 statement.setInt(1, obj.getNumReservation());
 
+                System.out.println("4");
                 return (statement.executeUpdate() == 1);
             } catch (SQLException sqle) {
+                System.out.println(sqle.getMessage());
                 sqle.printStackTrace();
             }
         }
@@ -59,7 +69,8 @@ public class DAOReservationJDBC implements DAOReservation {
                     resultSet.getFloat("prixTotal_r"),
                     resultSet.getFloat("reduction_r"),
                     new DAOClientJDBC().getById(resultSet.getInt("num_cl")),
-                    this.getChambres(resultSet.getInt("num_r"))
+                    this.getChambres(resultSet.getInt("num_r")),
+                    this.getTypeServices(resultSet.getInt("num_r"))
                 ));
             }
             return reservations;
@@ -92,7 +103,8 @@ public class DAOReservationJDBC implements DAOReservation {
                         resultSet.getFloat("prixTotal_r"),
                         resultSet.getFloat("reduction_r"),
                         new DAOClientJDBC().getById(resultSet.getInt("num_cl")),
-                        this.getChambres(resultSet.getInt("num_r"))
+                        this.getChambres(resultSet.getInt("num_r")),
+                        this.getTypeServices(resultSet.getInt("num_r"))
                     );
                 }
                 return reservation;
@@ -108,7 +120,7 @@ public class DAOReservationJDBC implements DAOReservation {
         if(!(obj== null)){
             try{
                 String query = "INSERT INTO Reservation (num_r, dateAr_r, dateDep_r, nbPersonnes_r, etat_r, reduction_r, num_cl)"
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?)";
                 PreparedStatement statement = connection.prepareStatement(query);
                 statement.setInt(1, obj.getNumReservation());
                 statement.setString(2, obj.getDateArrivee().toString());
@@ -122,12 +134,19 @@ public class DAOReservationJDBC implements DAOReservation {
 
                 if(obj.getChambres() != null) {
                     for(Chambre chambre: obj.getChambres()) {
-                        if(!this.insertLiens(obj, chambre)){
+                        if(!this.insertLiensChambre(obj, chambre)){
                             throw new SQLException("inserting links reservation_chambre failed");
                         }
                     }
                 }
 
+                if(obj.getServices() != null) {
+                    for(TypeService typeService: obj.getServices()) {
+                        if(!this.insertLiensTypeService(obj, typeService)){
+                            throw new SQLException("inserting links reservation_chambre failed");
+                        }
+                    }
+                }
                 return (nb == 1) ? obj: null;
 
             } catch (SQLException sqle) {
@@ -188,7 +207,7 @@ public class DAOReservationJDBC implements DAOReservation {
     }
 
     @Override
-    public boolean deleteLiens(Reservation reservation, Chambre chambre) {
+    public boolean deleteLiensChambre(Reservation reservation, Chambre chambre) {
         if(reservation != null) {
             try {
                 PreparedStatement statement;
@@ -218,11 +237,10 @@ public class DAOReservationJDBC implements DAOReservation {
     }
 
     @Override
-    public boolean insertLiens(Reservation reservation, Chambre chambre) {
+    public boolean insertLiensChambre(Reservation reservation, Chambre chambre) {
         if(chambre != null && reservation != null){
             String query = "INSERT INTO ReservationChambre (num_c, num_h, num_r) VALUES (?, ?, ?)";
             try{
-
                 PreparedStatement statement = connection.prepareStatement(query);
                 statement.setInt(1, chambre.getNumChambre());
                 statement.setInt(2, chambre.getNumHotel());
@@ -239,16 +257,16 @@ public class DAOReservationJDBC implements DAOReservation {
     }
 
     @Override
-    public boolean updateLiens(Reservation reservation) {
+    public boolean updateLiensChambre(Reservation reservation) {
         if (reservation != null) {
             try {
-                if (!deleteLiens(reservation, null)) {
+                if (!deleteLiensChambre(reservation, null)) {
                     throw new SQLException("deleteing links reservation_chambre failed");
                 }
 
                 if (reservation.getChambres() != null) {
                     for (Chambre chambre : reservation.getChambres()) {
-                        if (!this.insertLiens(reservation, chambre)) {
+                        if (!this.insertLiensChambre(reservation, chambre)) {
                             throw new SQLException("inserting links reservation_chambre failed");
                         }
                     }
@@ -285,7 +303,8 @@ public class DAOReservationJDBC implements DAOReservation {
                             resultSet.getFloat("prixTotal_r"),
                             resultSet.getFloat("reduction_r"),
                             new DAOClientJDBC().getById(resultSet.getInt("num_cl")),
-                            this.getChambres(resultSet.getInt("num_r"))
+                            this.getChambres(resultSet.getInt("num_r")),
+                            this.getTypeServices(resultSet.getInt("num_r"))
                     );
                     Hotel hotel = new Hotel();
                     hotel.setNumHotel(resultSet.getInt("num_h"));
@@ -306,7 +325,8 @@ public class DAOReservationJDBC implements DAOReservation {
     public List<Reservation> getByHotel(Integer numHotel) {
         try {
             if(numHotel != null) {
-                String query = "SELECT num_r FROM ReservationChambre WHERE num_h = ?";
+                String query = "SELECT * FROM Reservation R JOIN ReservationChambre RC " +
+                               "ON R.num_r = RC.num_r WHERE RC.num_h = ?";
 
                 PreparedStatement statement = connection.prepareStatement(query);
                 statement.setInt(1, numHotel);
@@ -314,15 +334,106 @@ public class DAOReservationJDBC implements DAOReservation {
 
                 List<Reservation> reservationsByHotel = new ArrayList<>();
                 while (resultSet.next()) {
-                    Reservation reservation = this.getById(resultSet.getInt("num_r"));
-                    reservationsByHotel.add(reservation);
+                    reservationsByHotel.add(new Reservation (
+                            resultSet.getInt("num_r"),
+                            resultSet.getDate("dateAr_r").toLocalDate(),
+                            resultSet.getDate("dateDep_r").toLocalDate(),
+                            resultSet.getInt("nbPersonnes_r"),
+                            resultSet.getString("etat_r"),
+                            resultSet.getFloat("prixTotal_r"),
+                            resultSet.getFloat("reduction_r"),
+                            new DAOClientJDBC().getById(resultSet.getInt("num_cl")),
+                            this.getChambres(resultSet.getInt("num_r")),
+                            this.getTypeServices(resultSet.getInt("num_r"))));
                 }
                 return reservationsByHotel;
             }
             return null;
         } catch (SQLException sqle) {
             System.out.println("DAOReservationJDBC.getByHotel()");
+            System.out.println(sqle.getMessage());
+            sqle.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public List<TypeService> getTypeServices(Integer integer) {
+        try {
+            if(integer != null) {
+                String query = "SELECT nom_s FROM Demander WHERE num_r = ?";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setInt(1, integer);
+                ResultSet rset = preparedStatement.executeQuery();
+                List<TypeService> services = new ArrayList<>();
+
+                while (rset.next()) {
+                    services.add(new DAOTypeServiceJDBC().getById(rset.getString("nom_s")));
+                }
+                System.out.println(services.size());
+                return services;
+            }
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public boolean deleteLiensTypeService(Reservation reservation, TypeService typeService) {
+        if(reservation != null) {
+            try {
+                PreparedStatement statement;
+                if(typeService != null) {
+                    String query = "DELETE FROM Demander WHERE nom_s = ? AND num_r = ?";
+                    statement = connection.prepareStatement(query);
+                    statement.setString(1, typeService.getNom());
+                    statement.setInt(2, reservation.getNumReservation());
+
+                } else {
+                    String query = "DELETE FROM Demander WHERE num_r = ?";
+                    statement = connection.prepareStatement(query);
+                    statement.setInt(1, reservation.getNumReservation());
+                }
+
+                int nb = statement.executeUpdate();
+                if(nb < 1) {
+                    throw new SQLException("Erreur suppressions");
+                }
+                return (nb >= 1);
+            } catch (SQLException sqle) {
+                System.out.println(sqle.getMessage());
+                sqle.printStackTrace();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean insertLiensTypeService(Reservation reservation, TypeService typeService) {
+        if(typeService != null && reservation != null){
+            String query = "INSERT INTO Demander (nom_s, num_r) VALUES (?, ?)";
+            try{
+
+                PreparedStatement statement = connection.prepareStatement(query);
+                statement.setString(1, typeService.getNom());
+                statement.setInt(2, reservation.getNumReservation());
+
+                return (statement.executeUpdate() == 1);
+
+            } catch (SQLException sqle) {
+                sqle.getMessage();
+                sqle.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean updateLiensTypeService(Reservation reservation) {
+        return false;
     }
 }

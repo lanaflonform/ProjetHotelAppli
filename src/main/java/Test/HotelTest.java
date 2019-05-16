@@ -80,7 +80,7 @@ public class HotelTest {
     }
 
     public static void main(String args[]) {
-        Hotel h = daoHotelJDBC.getById(12);
+        Hotel h = daoHotelJDBC.getById(1);
 
         List<Reservation> reservations = h.getReservations();
 

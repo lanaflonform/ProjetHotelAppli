@@ -1,6 +1,7 @@
 package code;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Reservation {
@@ -13,11 +14,11 @@ public class Reservation {
     private float reduction;
 
     private Client client;
-    private List<Chambre> chambres;
+    private List<Chambre> chambres = new ArrayList<>();
+    private List<TypeService> services = new ArrayList<>();
     private Hotel hotel;
 
-
-    public Reservation(int numReservation, LocalDate dateArrivee, LocalDate dateDepart, int nbPersonnes, String etat, float prixTotal, float reduction, Client client, List<Chambre> chambres) {
+    public Reservation(int numReservation, LocalDate dateArrivee, LocalDate dateDepart, int nbPersonnes, String etat, float prixTotal, float reduction, Client client, List<Chambre> chambres, List<TypeService> services) {
         this.numReservation = numReservation;
         this.dateArrivee = dateArrivee;
         this.dateDepart = dateDepart;
@@ -26,11 +27,16 @@ public class Reservation {
         this.prixTotal = prixTotal;
         this.reduction = reduction;
         this.client = client;
-        this.chambres = chambres;
+        this.chambres = chambres == null ? this.chambres: chambres;
+        this.services = services == null ? this.services: services;
     }
 
     public Reservation () {
 
+    }
+
+    public List<TypeService> getServices() {
+        return services;
     }
 
     public float getPrixTotal() {

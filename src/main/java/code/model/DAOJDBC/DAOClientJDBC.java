@@ -170,6 +170,7 @@ public class DAOClientJDBC implements DAOClient {
                             resultSet.getFloat("prixTotal_r"),
                             resultSet.getFloat("reduction_r"),
                             newClient,
+                            null,
                             null
                     );
                     result.put(newClient, reservation);
