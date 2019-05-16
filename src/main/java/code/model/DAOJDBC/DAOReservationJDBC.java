@@ -1,11 +1,8 @@
 package code.model.DAOJDBC;
 
-import code.Chambre;
-import code.Hotel;
-import code.TypeService;
+import code.*;
 import code.model.ConnexionUnique;
 import code.model.DAOInterfaces.DAOReservation;
-import code.Reservation;
 import javafx.util.Pair;
 
 import java.sql.*;
@@ -374,6 +371,44 @@ public class DAOReservationJDBC implements DAOReservation {
                 return services;
             }
         } catch (SQLException sqle) {
+            sqle.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public List<Reservation> findByEtat(Integer numHotel, String etat) {
+        try {
+            String queryFindByEtat = "SELECT DISTINCT RC.num_h, R.*, nom_cl, prenom_cl, nomEntreprise";
+            queryFindByEtat += " FROM Reservation R JOIN Client C ON R.num_cl = C.num_cl";
+            queryFindByEtat += " JOIN ReservationChambre RC ON R.num_r = RC.num_r";
+            queryFindByEtat += " WHERE num_h = ? AND etat_r = ?";
+
+            PreparedStatement ps = connection.prepareStatement(queryFindByEtat);
+            ps.setInt(1, numHotel);
+            ps.setString(2, etat);
+            ResultSet resultSet = ps.executeQuery();
+
+            List<Reservation> reservations = new ArrayList<>();
+            while(resultSet.next()) {
+                Hotel hotel = new Hotel();
+                hotel.setNumHotel(resultSet.getInt("num_h"));
+                Client client = new Client();
+                client.setPrenom(resultSet.getString("prenom_cl"));
+                client.setNom(resultSet.getString("nom_cl"));
+                client.setNomEnteprise(resultSet.getString("nomEntreprise"));
+                Reservation reservation = new Reservation();
+                reservation.setHotel(hotel);
+                reservation.setClient(client);
+                reservation.setNumReservation(resultSet.getInt("num_r"));
+                reservation.setDateArrivee(resultSet.getDate("dateAr_r").toLocalDate());
+                reservation.setDateDepart(resultSet.getDate("dateDep_r").toLocalDate());
+                reservation.setNbPersonnes(resultSet.getInt("nbPersonnes_r"));
+                reservations.add(reservation);
+            }
+            return reservations;
+        } catch (SQLException sqle) {
+            System.err.println("DAOReservationJDBC.findByEtat");
             sqle.printStackTrace();
         }
         return null;

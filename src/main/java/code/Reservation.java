@@ -91,6 +91,38 @@ public class Reservation {
         this.hotel = hotel;
     }
 
+    public void setDateArrivee(LocalDate dateArrivee) {
+        this.dateArrivee = dateArrivee;
+    }
+
+    public void setDateDepart(LocalDate dateDepart) {
+        this.dateDepart = dateDepart;
+    }
+
+    public void setNbPersonnes(int nbPersonnes) {
+        this.nbPersonnes = nbPersonnes;
+    }
+
+    public void setEtat(String etat) {
+        this.etat = etat;
+    }
+
+    public void setPrixTotal(float prixTotal) {
+        this.prixTotal = prixTotal;
+    }
+
+    public void setReduction(float reduction) {
+        this.reduction = reduction;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public void setServices(List<TypeService> services) {
+        this.services = services;
+    }
+
     @Override
     public String toString() {
         return "Reservation{" +
