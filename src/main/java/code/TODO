@@ -1,0 +1,49 @@
+Interface réservations :
+- Récupérer toutes les réservations dans l'etat DEMANDEE et on les affiche
+- 2 onglets :
+- 1 pour les réservations dans l'état DEMANDEE
+- 1 pour les réservations dans l'état CONFIRMATION
+
+- Quand on clique sur une ligne dans l'onglet DEMANDEE, ca affiche une pop-up qui demande si on veut passer la réservation dans l'état ATTENTE_CONFIRMATION
+- Quand on clique sur une ligne dans l'onglet CONFIRMATION, ça affiche une pop-up qui demande si on veut la mettre dans l'historique
+
+
+Interface Clientele :
+Quand on clique sur clientèle, ça affiche la liste des clients présents dans l'hôtel.
+Quand on clique sur un client, ça propose soit de consulter son historique, soit d'ajouter un service.
+- consulter historique : on affiche toutes les réservations du client, et il y a un bouton "envoyer publicité". Pour l'envoi de pub, on fait un bouton et ça affiche une vieille pop-up
+- ajouter un service : ça affiche une liste de check-box pour tous les services que proposent l'hôtel et que n'a pas déjà choisi le client
+
+
+Interface Facturation :
+Quand on clique sur Facturation, ça affiche la liste des clients présents dans l'hôtel.
+- a côté de chaque réservation, bouton facturation qui affiche une pop-up qui donne le détail des dépenses. Sur cette pop-up, un autre bouton pour envoyer facture (update reservation set prixtotal)
+- voir si on a le temps pour les réductions
+
+
+Interface Supreme :
+Quand on clique sur Supreme :
+- bouton ajouter hotel
+- bouton consulter / modifier état des hôtels
+- bouton supprimer hotel
+- bouton compte-rendu
+
+- bouton ajouter admin(si on a le temps)
+
+Ajouter hotel :
+- Champ nom, adresse, latitude, longitude
+- Checkbox pour les services
+- Pour les chambres, on choisit un numéro d'étage, une qualité (liste déroulante qui liste tous les types de chambre possible), un nombre de lits
+- Dès qu'on ajoute un hôtel, on créé automatiquement 3 admins : 1 pour chaque rôle.
+
+Consulter hotel :
+- Liste de tous les hotels avec nom, adresse, etc et bouton à droite pour supprimer
+- Quand on double clic sur une ligne, ça affiche une interface avec une checkbox pour les services pour ajouter / supprimer des services, une checkbox pour les travaux et quand on
+la coche, ça affiche 2 champs pour la date de début et de fin des travaux
+- Ajout de chambres
+
+
+
+
+
+
